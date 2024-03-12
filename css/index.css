@@ -1,0 +1,25 @@
+header{
+    width: 100vw;
+    height: 60px;
+    margin-bottom: 5px;
+    background-color: aqua;
+}
+
+.nav-left{
+    width: 300px;
+    height: calc(100vh - 65px);
+    margin-right: 5px;
+    background-color: aqua;
+}
+
+.main-content{
+    width: calc(100vw - 305px);
+    height: calc(100vh - 65px);
+    background-color: aqua;
+}
+
+.item-nav-left{
+    box-sizing: border-box;
+    background-color: blanchedalmond;
+    border-bottom: 1px solid #6d6b6b;
+}
