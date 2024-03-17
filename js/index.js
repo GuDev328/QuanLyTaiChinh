@@ -32,3 +32,7 @@ $(document).ready(function () {
         $(".main-content").load("./pages/menu2.html");
     });
 });
+
+
+
+
