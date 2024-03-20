@@ -17,6 +17,60 @@
 </head>
 
 <body>
+    <!-- Header  -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./img/logo.jpg" height="50" alt="Logo" loading="lazy" />
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex mx-auto my-2 my-lg-0">
+                    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Search '
+                        style="min-width: 300px;" />
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa-regular fa-magnifying-glass"></i>
+                    </button>
+                </form>
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown me-2">
+                        <a class="nav-link me-3 me-lg-0 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-bell fa-lg"></i>
+                            <span class="badge rounded-pill badge-notification bg-danger">2</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Some news</a></li>
+                            <li><a class="dropdown-item" href="#">Another news</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user fa-lg me-2"></i>
+                            Lê Độ
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- End Header  -->
+
     <div class="wrapper">
         <!-- Sidebar -->
         <aside id="sidebar">
@@ -25,98 +79,106 @@
                     <i class="fa-solid fa-grid-2"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="#">financial management</a>
+                    <p>Manage money</p>
                 </div>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="./pages/dashboard.html" class="sidebar-link">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a href="./pages/menu1.html" class="sidebar-link">
-                        <i class="fa-solid fa-user"></i>
-                        <span>Profile</span>
+                        <i class="fa-regular fa-house"></i>
+                        <span>Tổng quan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="./pages/menu2.html" class="sidebar-link">
-                        <i class="fa-regular fa-bars-progress"></i>
-                        <span>Task</span>
+                        <i class="fa-regular fa-magnifying-glass-chart"></i>
+                        <span>Phân tích</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="./pages/menu1.html" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="fa-solid fa-shield-check"></i>
-                        <span>Function 1</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="./pages/menu1.html" class="sidebar-link">Function child 1</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="./pages/menu1.html" class="sidebar-link">Function child 2</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="./pages/menu1.html" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="fa-solid fa-table-layout"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="./pages/menu1.html" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="./pages/menu1.html" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="./pages/menu1.html" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+
                 <li class="sidebar-item">
                     <a href="./pages/menu1.html" class="sidebar-link">
-                        <i class="fa-solid fa-message-lines"></i>
-                        <span>Function 2</span>
+                        <i class="fa-regular fa-money-from-bracket"></i>
+                        <span>Giao dịch</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="./pages/menu1.html" class="sidebar-link">
-                        <i class="fa-regular fa-arrow-right-from-bracket"></i>
-                        <span>Function 3</span>
+                        <i class="fa-regular fa-list"></i>
+                        <span>Danh mục chi tiêu</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="./pages/dashboard.html" class="sidebar-link">
+                        <i class="fa-regular fa-notebook"></i>
+                        <span>Sổ nợ</span>
                     </a>
                 </li>
             </ul>
+
+            <!-- Sub link -->
+            <!-- <li class="sidebar-item">
+                <a href="./pages/menu1.html" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <i class="fa-solid fa-shield-check"></i>
+                    <span>Function 1</span>
+                </a>
+                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="./pages/menu1.html" class="sidebar-link">Function child 1</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="./pages/menu1.html" class="sidebar-link">Function child 2</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a href="./pages/menu1.html" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                    <i class="fa-solid fa-table-layout"></i>
+                    <span>Multi Level</span>
+                </a>
+                <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="./pages/menu1.html" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                            data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
+                            Two Links
+                        </a>
+                        <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                            <li class="sidebar-item">
+                                <a href="./pages/menu1.html" class="sidebar-link">Link 1</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="./pages/menu1.html" class="sidebar-link">Link 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li> -->
+
             <div class="sidebar-footer">
                 <a href="./pages/menu1.html" class="sidebar-link">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
             </div>
         </aside>
         <!-- End Sidebar -->
 
+
+
         <!-- Page Content -->
         <div id="page-content-wrapper">
-
+            abcdxy
         </div>
         <!-- End Page Content -->
 
+        <!-- Page Theme -->
         <a href="#" class="theme-toggle">
             <i class="fa-regular fa-moon"></i>
             <i class="fa-regular fa-sun"></i>
         </a>
+        <!-- End Page Theme -->
     </div>
 
 

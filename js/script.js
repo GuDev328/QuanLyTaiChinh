@@ -50,3 +50,11 @@ $(document).ready(function () {
     }
 });
 
+// Lấy phần tử navbar
+const navbar = document.getElementById('main-navbar');
+
+// Lấy chiều cao của navbar
+const navbarHeight = navbar.offsetHeight;
+
+// In ra chiều cao của navbar để kiểm tra
+console.log("Chiều cao của navbar là: " + navbarHeight + "px");
