@@ -77,7 +77,10 @@
                                     <button type="button" class="btn btn-primary mt-3" id="btn_sign_up">Đăng kí</button>
                                     
                                 </div>
-                                
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <p class="fs-6 mb-0">You have account?</p>
+                                    <a class="text-primary fs-6 text-decoration-none" href="./Login.html">Login now!</a>
+                                </div>
                             </form>
                         </div>
                         <div id="response"></div>
@@ -111,12 +114,20 @@
                 $.ajax({
                         url: "http://localhost:3001/api/user/register",
                         type: "POST",
-                        data: formData,
+                        data: JSON.stringify(formData),
+                        dataType: "json",
                         contentType: 'application/json',
                         withCredentials: true,
-                        success: function (data) {
+                        success: function (response) {
                             window.location.href = "/";
+                            console.log(response);
                             alert("OK");
+                            if (response.ErrCode == 1) {
+                                alert("ok");
+                            }
+                            else {
+                                alert(response.ErrDesc);
+                        }
                         },
                         error: function (request, status, error) {
                             alert("Lỗi");
