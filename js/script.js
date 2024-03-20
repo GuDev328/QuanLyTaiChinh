@@ -4,7 +4,6 @@ $(document).ready(function () {
     $(".toggle-btn").click(function () {
         $("#sidebar").toggleClass("expand");
     });
-
     // Toggle wrapper toggled class
     $("#menu-toggle").click(function () {
         $("#wrapper").toggleClass("toggled");
@@ -50,11 +49,14 @@ $(document).ready(function () {
     }
 });
 
-// Lấy phần tử navbar
-const navbar = document.getElementById('main-navbar');
+// Active sidebar
+const sidebarLinks = document.querySelectorAll('.sidebar-link')
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', function () {
+        sidebarLinks.forEach(item => {
+            item.parentElement.classList.remove('active')
+        })
+        this.parentElement.classList.add('active')
+    })
+})
 
-// Lấy chiều cao của navbar
-const navbarHeight = navbar.offsetHeight;
-
-// In ra chiều cao của navbar để kiểm tra
-console.log("Chiều cao của navbar là: " + navbarHeight + "px");
