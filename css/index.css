@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 header{
     width: 100vw;
     height: 60px;
@@ -22,4 +26,24 @@ header{
     box-sizing: border-box;
     background-color: blanchedalmond;
     border-bottom: 1px solid #6d6b6b;
+}
+.field span {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+.form-group button {
+    width: 75%;
+    margin-left: 12%;
+    border-radius: 20px;
+}
+.form-container {
+    background-color: #f8f8f8;
+    border: #bcbcbc solid 1px;
+    border-radius: 10px;
+    padding: 20px;
+}
+.flash {
+    display: none;
 }

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <title>Quản lý tài chính</title>
+    <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <!-- Form Login -->
+    <section id="login-form">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-xl-6">
+                    <img src="../img/logo.png" alt="" width="500px" height="400px" class="text-center ">
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-container">
+                        <div class="form-header text-center">
+                            <img src="" alt="" >
+                            <h2 class="title mt-2">SIGN UP</h2>
+                        </div>
+                        <div class="form-body">
+                            <form action="/" method="post">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email</label>
+                                    <div class="field d-flex">
+                                        
+                                        <input type="email" class="form-control " id="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="field d-flex">
+                                        
+                                        <input type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username" class="form-label">Username</label>
+                                    <div class="field d-flex">
+                                        
+                                        <input type="text" class="form-control" id="username" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone number</label>
+                                    <div class="field d-flex">
+                                        
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DOB" class="form-label">Birthday</label>
+                                    <div class="field d-flex">
+                                        
+                                        <input type="date" class="form-control" id="DOB" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <div class="field d-flex">
+                                        <select id="gender" name="gender" required class="form-control"> 
+                                            <option value="1">Nam</option>
+                                            <option value="0">Nữ</option>
+                                        </select><br>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary mt-3" id="btn_sign_up">Đăng kí</button>
+                                    
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <div id="response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <script>
+        $(document).ready(function() {
+            $("#btn_sign_up").click(function() {
+                var formData = {
+                    'email': $('#email').val(),
+                    'password': $('#password').val(),
+                    'username': $('#username').val(),
+                    'phone': $('#phone').val(),
+                    'gender': $('#gender').val(),
+                    'DOB': formatDate($('#DOB').val())
+                };
+                function formatDate(dateString) {
+                    var date = new Date(dateString);
+                    var year = date.getFullYear();
+                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    var day = date.getDate().toString().padStart(2, '0');
+                    return day + '/' + month + '/' + year; // Đổi sang định dạng dd/mm/yyyy
+                }
+                
+                // Gửi AJAX request tới API (chưa xử lý logic API ở đây)
+                $.ajax({
+                        url: "http://localhost:3001/api/user/register",
+                        type: "POST",
+                        data: formData,
+                        contentType: 'application/json',
+                        withCredentials: true,
+                        success: function (data) {
+                            window.location.href = "/";
+                            alert("OK");
+                        },
+                        error: function (request, status, error) {
+                            alert("Lỗi");
+                        }
+                });
+            })
+        })
+    </script>
+</body>
+</html>

@@ -23,12 +23,12 @@ const callApi = (url, method, data) =>
 //         .catch(alert);
 // });
 
-$(document).ready(function () {
-    $(".item1").click(function () {
-        $(".main-content").load("./pages/menu1.html");
-    });
+    $(document).ready(function () {
+        $(".item1").click(function () {
+            $(".main-content").load("./pages/menu1.html");
+        });
 
-    $(".item2").click(function () {
-        $(".main-content").load("./pages/menu2.html");
+        $(".item2").click(function () {
+            $(".main-content").load("./pages/menu2.html");
+        });
     });
-});

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <title>Quản lý tài chính</title>
+    <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="https://example.com/fontawesome/v6.5.1/js/all.js" data-auto-replace-svg="nest"></script>
+</head>
+<body>
+    <!-- Form Login -->
+    <section id="login-form">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-xl-6">
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-container">
+                        <div class="form-header text-center">
+                            <img src="" alt="" width="300px" height="100px">
+                            <h2 class="title mt-2">Login</h2>
+                        </div>
+                        <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
+                        <div class="form-body">
+                            <form action="/">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email</label>
+                                    <div class="field d-flex">
+                                        <span><i class="far fa-envelope"></i></span>
+                                        <input id="txt_email" type="email" class="form-control " id="email" placeholder="Nhập email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="field d-flex">
+                                        <span><i class="fas fa-lock"></i></span>
+                                        <input id="txt_password" type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock" placeholder="Nhập mật khẩu">
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex justify-content-between pt-2">
+                                    <span>
+                                        
+                                    </span>
+                                    <a href="#" class="forgot-password text-decoration-none">Forget password</a>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary mt-3" id="btn_login">Login</button>
+                                    <p class="fs-6 text-center pt-2">OR</p>
+                                    <button type="button" class="btn btn-danger" id="btn_login_google"> 
+                                        <a  class="text-decoration-none text-white" href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1082080252600-bquoljjvs3faldiaoa33iosr3im8kp5s.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A44339%2FLogin%2FGoogle_Login_Result&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&prompt=consent&access_type=offline&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow" >
+                                            <i class="fa-brands fa-google"></i>
+                                            Continue with Google
+                                        </a>
+
+                                    </button>
+                                </div>
+                                <p class="text-center pt-4 ">Don't an account? <span><a href="../pages/SignUp.html" class="text-decoration-none">Sign up</a></span></p>
+                                <div id="message"></div>
+                            </form>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            $("#btn_login_google").click(function () {
+                window.location("https://www.google.com/search?q=d%E1%BB%8Bch&sca_esv=3cbe9f3cb5d0638a&sxsrf=ACQVn08YAffMsLzWKNXWHW9QpyEXDAqVxw%3A1706887712174&source=hp&ei=IAq9ZaqYCPfi1e8PruO92A0&iflsig=ANes7DEAAAAAZb0YMH26NTLgTvvmMCaS7aJa9biOhgzo&udm=&oq=&gs_lp=Egdnd3Mtd2l6IgAqAggBMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnSJsNUABYAHABeACQAQCYAQCgAQCqAQC4AQHIAQCoAgo&sclient=gws-wiz");
+            });
+
+            $("#btn_login").click(function () {
+                if ($("#txt_username").val() == "" || $("#txt_password").val() == "") {
+                    alert("Vui lòng nhập đầy đủ thông tin");
+                }
+                else {
+                    $("#flashMsg").empty("")
+                    var email = $("#txt_email").val();
+                    var password = $("#txt_password").val();
+                    $.ajax({
+                        url: "http://localhost:3001/api/user/login",
+                        type: "POST",
+                        data: JSON.stringify({email: email, password: password}),
+                        contentType: 'application/json',
+                        withCredentials: true,
+                        success: function (data) {
+                            $("#flashMsg").addClass('flash');
+                            window.location.href = "/";
+                        },
+                        error: function (request, status, error) {
+                            $("#txt_password").val("");
+                            $("#flashMsg").removeClass('flash');
+                            $("#flashMsg").append(JSON.parse(request.responseText).message)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    
+</body>
+</html>
