@@ -21,7 +21,8 @@
     <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="./img/logo.jpg" height="50" alt="Logo" loading="lazy" />
+                <img src="./img/logo.jpg" height="50" alt="Logo" loading="lazy" data-toggle="tooltip"
+                    data-placement="right" title="Title for logo" />
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -40,7 +41,8 @@
                 </form>
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown me-2">
+                    <li class="nav-item dropdown me-2" data-toggle="tooltip" data-placement="right"
+                        title="Notification">
                         <a class="nav-link me-3 me-lg-0 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-regular fa-bell fa-lg"></i>
@@ -52,7 +54,8 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" data-toggle="tooltip" data-placement="right"
+                        title="USer information ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user fa-lg me-2"></i>
@@ -75,7 +78,8 @@
         <!-- Sidebar -->
         <aside id="sidebar">
             <div class="d-flex">
-                <button class="toggle-btn" type="button">
+                <button class="toggle-btn" type="button" data-toggle="tooltip" data-placement="right"
+                    title="Navigation bar">
                     <i class="fa-solid fa-grid-2"></i>
                 </button>
                 <div class="sidebar-logo">
@@ -83,32 +87,32 @@
                 </div>
             </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-item active">
+                <li class="sidebar-item active" data-toggle="tooltip" data-placement="right" title="Tổng quan">
                     <a href="./pages/OverView.html" class="sidebar-link">
                         <i class="fa-regular fa-house"></i>
                         <span>Tổng quan</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-toggle="tooltip" data-placement="right" title="Phân tích">
                     <a href="./pages/Analysis.html" class="sidebar-link">
                         <i class="fa-regular fa-magnifying-glass-chart"></i>
                         <span>Phân tích</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-toggle="tooltip" data-placement="right" title="Giao dịch">
                     <a href="./pages/Transaction.html" class="sidebar-link">
                         <i class="fa-regular fa-money-from-bracket"></i>
                         <span>Giao dịch</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-toggle="tooltip" data-placement="right" title="Danh mục chi tiêu">
                     <a href="./pages/PayCategories.html" class="sidebar-link">
                         <i class="fa-regular fa-list"></i>
                         <span>Danh mục chi tiêu</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-toggle="tooltip" data-placement="right" title="Sổ nợ">
                     <a href="./pages/DebtBook.html" class="sidebar-link">
                         <i class="fa-regular fa-notebook"></i>
                         <span>Sổ nợ</span>
@@ -156,7 +160,7 @@
                 </ul>
             </li> -->
 
-            <div class="sidebar-footer">
+            <div class="sidebar-footer" data-toggle="tooltip" data-placement="right" title="Đăng xuất">
                 <a href="./pages/menu1.html" class="sidebar-link">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
