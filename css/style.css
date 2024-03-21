@@ -7,8 +7,57 @@
     padding: 0;
 }
 
+/* 
+Màu cho chế độ sáng
+:root {
+    --background-light: #F3F2F7;
+    --text-light: #000000;
+    --backgound-div-light: #fff;
+    --hover-light: #EEF3FF;
+
+    --background-dark: #0A0F12;
+    --background-div-dark: #181822;
+    --text-dark: #ffffff;
+    --hover-dark: #2c2b2b;
+} */
+
+:root {
+    /* Light theme colors */
+    --background-color-light: #F3F2F7;
+    --text-color-light: #000000;
+    --sidebar-item-light: #5D87FF;
+    --backgound-div-light: #fff;
+    --hover-sidebar-light: #EEF3FF;
+    /* Dark theme colors */
+    --background-color-dark: #0A0F12;
+    --text-color-dark: #ffffff;
+    --primary-color-dark: #6c757d;
+    --background-div-dark: #181822;
+    --hover-sidebar-dark: #1a2641;
+    --sidebar-item-dark: #5D87FF;
+}
+
+[data-bs-theme="light"] {
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --primary-color: var(--primary-color-light);
+    --background-div: var(--backgound-div-light);
+    --sidebar-item: var(--sidebar-item-light);
+    --hover-sidebar-item: var(--hover-sidebar-light)
+}
+
+[data-bs-theme="dark"] {
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --primary-color: var(--primary-color-dark);
+    --background-div: var(--background-div-dark);
+    --sidebar-item: var(--sidebar-item-dark);
+    --hover-sidebar-item: var(--hover-sidebar-dark)
+}
+
+
 #main-navbar {
-    background-color: #fff;
+    background-color: var(--background-div);
 }
 
 a {
@@ -27,7 +76,7 @@ h1 {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #F3F2F7;
+    background-color: var(--background-color);
 }
 
 .wrapper {
@@ -44,12 +93,12 @@ body {
 }
 
 #page-content-wrapper {
-
     border-left: 1px solid rgb(229, 234, 239);
     margin: 20px 0px 0px 0px;
     padding: 20px;
     flex: 1;
     /* Page content mở rộng để lấp đầy phần còn lại của wrapper */
+    background-color: var(--background-div);
 }
 
 #sidebar {
@@ -61,7 +110,17 @@ body {
     flex-direction: column;
     border-right: 1px solid rgb(229, 234, 239);
     margin: 20px 30px 0px 0px;
-    background-color: #fff;
+    background-color: var(--background-div);
+}
+
+.sidebar-item.active {
+    background-color: var(--sidebar-item);
+    border-radius: 15px;
+    margin: 0 5px;
+}
+
+.sidebar-item:hover {
+    background-color: var(--hover-sidebar-item)
 }
 
 #sidebar.expand {
@@ -112,7 +171,6 @@ a.sidebar-link {
 }
 
 a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
     border-left: 3px solid #3b7ddd;
 }
 
@@ -197,16 +255,4 @@ html[data-bs-theme="light"] #sidebar span {
     color: black;
     transition: color 0.3s;
     border-radius: 5px;
-}
-
-
-#sidebar a:focus,
-#sidebar-link:focus {
-    background-color: #5D87FF;
-    color: white;
-}
-
-#sidebar a:hover,
-#sidebar-link:hover {
-    background-color: #EEF3FF;
 }
