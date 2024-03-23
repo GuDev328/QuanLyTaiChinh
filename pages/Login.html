@@ -15,15 +15,16 @@
 <body>
     <!-- Form Login -->
     <section id="login-form">
-        <div class="container mt-5">
+        <div class="container">
             <div class="row">
-                <div class="col-xl-6">
+                <div class="col-xl-6 ">
+                    <img src="../img/logo.jpg" alt=""  class="text-center logo" width="600px" height="400px">
                 </div>
-                <div class="col-xl-6">
+                <div class="col-xl-6 mt-5">
                     <div class="form-container">
                         <div class="form-header text-center">
-                            <img src="" alt="" width="300px" height="100px">
-                            <h2 class="title mt-2">Login</h2>
+                            <img src="../img/logo1.png" alt="" width="100px" height="100px">
+                            <h2 class="title mt-2">ĐĂNG NHẬP</h2>
                         </div>
                         <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
                         <div class="form-body">
@@ -36,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">Mật khẩu</label>
                                     <div class="field d-flex">
                                         <span><i class="fas fa-lock"></i></span>
                                         <input id="txt_password" type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock" placeholder="Nhập mật khẩu">
@@ -46,21 +47,21 @@
                                     <span>
                                         
                                     </span>
-                                    <a href="#" class="forgot-password text-decoration-none">Forget password</a>
+                                    <a href="#" class="forgot-password text-decoration-none">Quên mật khẩu</a>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-primary mt-3" id="btn_login">Login</button>
+                                    <button type="button" class="btn btn-primary mt-3" id="btn_login">Đăng nhập</button>
                                     <p class="fs-6 text-center pt-2">OR</p>
                                     <button type="button" class="btn btn-danger" id="btn_login_google"> 
                                         <a  class="text-decoration-none text-white" href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1082080252600-bquoljjvs3faldiaoa33iosr3im8kp5s.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A44339%2FLogin%2FGoogle_Login_Result&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&prompt=consent&access_type=offline&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow" >
                                             <i class="fa-brands fa-google"></i>
-                                            Continue with Google
+                                            Đăng nhập với Google
                                         </a>
 
                                     </button>
                                 </div>
-                                <p class="text-center pt-4 ">Don't an account? <span><a href="../pages/SignUp.html" class="text-decoration-none">Sign up</a></span></p>
-                                <div id="message"></div>
+                                <p class="text-center pt-4 ">Bạn chưa có tài khoản? <span><a href="../pages/SignUp.html" class="text-decoration-none">Đăng kí</a></span></p>
+                                
                             </form>
                             
                         </div>
@@ -80,6 +81,7 @@
             $("#btn_login").click(function () {
                 if ($("#txt_username").val() == "" || $("#txt_password").val() == "") {
                     alert("Vui lòng nhập đầy đủ thông tin");
+                    
                 }
                 else {
                     $("#flashMsg").empty("")

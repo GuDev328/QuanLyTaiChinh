@@ -8,7 +8,10 @@ header{
     margin-bottom: 5px;
     background-color: aqua;
 }
-
+.logo {
+    margin-top: 8.5rem;
+    padding-right: 7rem;
+}
 .nav-left{
     width: 300px;
     height: calc(100vh - 65px);
