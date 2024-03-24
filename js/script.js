@@ -1,4 +1,4 @@
-
+//Toggle sidebar
 $(document).ready(function () {
     // Toggle sidebar expand class
     $(".toggle-btn").click(function () {
@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 });
 
-
+//Theme
 $(document).ready(function () {
     $(".theme-toggle").click(function () {
         toggleLocalStorage();
