@@ -7,34 +7,24 @@
     padding: 0;
 }
 
-/* 
-Màu cho chế độ sáng
-:root {
-    --background-light: #F3F2F7;
-    --text-light: #000000;
-    --backgound-div-light: #fff;
-    --hover-light: #EEF3FF;
-
-    --background-dark: #0A0F12;
-    --background-div-dark: #181822;
-    --text-dark: #ffffff;
-    --hover-dark: #2c2b2b;
-} */
-
 :root {
     /* Light theme colors */
-    --background-color-light: #F3F2F7;
+    --background-color-light: #C7E7FA;
     --text-color-light: #000000;
-    --sidebar-item-light: #5D87FF;
-    --backgound-div-light: #fff;
+    --sidebar-item-light: #E6ECFE;
+    --backgound-div-light: #EFF9FF;
     --hover-sidebar-light: #EEF3FF;
+    --icon-sidebar-light: #4460F1;
+    --span-sidebar-active-light: #4460F1;
     /* Dark theme colors */
     --background-color-dark: #0A0F12;
     --text-color-dark: #ffffff;
     --primary-color-dark: #6c757d;
     --background-div-dark: #181822;
     --hover-sidebar-dark: #1a2641;
-    --sidebar-item-dark: #5D87FF;
+    --sidebar-item-dark: #4460F1;
+    --icon-sidebar-dark: #EFF9FF;
+    --span-sidebar-active-dark: #ffffff;
 }
 
 [data-bs-theme="light"] {
@@ -43,7 +33,9 @@ Màu cho chế độ sáng
     --primary-color: var(--primary-color-light);
     --background-div: var(--backgound-div-light);
     --sidebar-item: var(--sidebar-item-light);
-    --hover-sidebar-item: var(--hover-sidebar-light)
+    --hover-sidebar-item: var(--hover-sidebar-light);
+    --icons-color: var(--icon-sidebar-light);
+    --span-sidebar-active: var(--span-sidebar-active-light);
 }
 
 [data-bs-theme="dark"] {
@@ -52,13 +44,11 @@ Màu cho chế độ sáng
     --primary-color: var(--primary-color-dark);
     --background-div: var(--background-div-dark);
     --sidebar-item: var(--sidebar-item-dark);
-    --hover-sidebar-item: var(--hover-sidebar-dark)
+    --hover-sidebar-item: var(--hover-sidebar-dark);
+    --icons-color: var(--icon-sidebar-dark);
+    --span-sidebar-active: var(--span-sidebar-active-dark);
 }
 
-
-#main-navbar {
-    background-color: var(--background-div);
-}
 
 a {
     text-decoration: none;
@@ -92,6 +82,12 @@ body {
     transition: all 0.35s ease-in-out;
 }
 
+#main-navbar {
+    background-color: var(--background-div);
+    border-bottom: 1px solid rgb(229, 234, 239);
+    border-radius: 10px;
+}
+
 #page-content-wrapper {
     border-left: 1px solid rgb(229, 234, 239);
     margin: 20px 0px 0px 0px;
@@ -99,6 +95,7 @@ body {
     flex: 1;
     /* Page content mở rộng để lấp đầy phần còn lại của wrapper */
     background-color: var(--background-div);
+    border-radius: 15px;
 }
 
 #sidebar {
@@ -111,12 +108,19 @@ body {
     border-right: 1px solid rgb(229, 234, 239);
     margin: 20px 30px 0px 0px;
     background-color: var(--background-div);
+    border-radius: 15px;
 }
 
 .sidebar-item.active {
     background-color: var(--sidebar-item);
-    border-radius: 15px;
+    border-radius: 20px;
     margin: 0 5px;
+}
+
+.sidebar-item.active a span {
+    font-weight: bolder;
+    font-size: 19px;
+    color: var(--span-sidebar-active) !important;
 }
 
 .sidebar-item:hover {
@@ -135,8 +139,9 @@ body {
     padding: 1rem 1.3rem;
 }
 
-.toggle-btn i {
-    font-size: 1.8rem;
+i {
+    font-size: 1.9rem;
+    color: var(--icons-color) !important
 }
 
 .sidebar-logo p {
