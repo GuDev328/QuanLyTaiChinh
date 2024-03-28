@@ -45,8 +45,13 @@ header{
     background-color: #f8f8f8;
     border: #bcbcbc solid 1px;
     border-radius: 10px;
-    padding: 20px;
+    padding: 0 20px;
 }
 .flash {
     display: none;
+}
+@media only screen and (max-width: 1024px){
+    .logo {
+        display: none;
+    }
 }
