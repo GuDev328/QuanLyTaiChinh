@@ -17,117 +17,255 @@
     </a>
 </div>
 
-<ul class="box-info">
-    <li>
-        <i class='bx bxs-calendar-check'></i>
-        <span class="text">
-            <h3>1020</h3>
-            <p>New Order</p>
-        </span>
-    </li>
-    <li>
-        <i class='bx bxs-group'></i>
-        <span class="text">
-            <h3>2834</h3>
-            <p>Visitors</p>
-        </span>
-    </li>
-    <li>
-        <i class='bx bxs-dollar-circle'></i>
-        <span class="text">
-            <h3>$2543</h3>
-            <p>Total Sales</p>
-        </span>
-    </li>
-</ul>
-
-
-<div class="table-data">
-    <div class="order">
-        <div class="head">
-            <h3>Recent Orders</h3>
-            <i class='bx bx-search'></i>
-            <i class='bx bx-filter'></i>
+<div class="container">
+    <div class="row box-info">
+        <div class="col-md-4">
+            <div class="box-item light-blue p-3 rounded-4 d-flex">
+                <i class="fas fa-newspaper fa-3x me-3 mt-2"></i>
+                <div class="text ">
+                    <h3>$ 1020</h3>
+                    <p>Total Invoices</p>
+                </div>
+            </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Date Order</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src="./img/User.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status completed">Completed</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="./img/User.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="./img/User.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status process">Process</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="./img/User.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="./img/User.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status completed">Completed</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="todo">
-        <div class="head">
-            <h3>Todos</h3>
-            <i class='bx bx-plus'></i>
-            <i class='bx bx-filter'></i>
+        <div class="col-md-4">
+            <div class="box-item light-yellow p-3 rounded-4 d-flex">
+                <i class="fas fa-circle-check fa-3x me-3 mt-2"></i>
+                <div class="text">
+                    <h3>$ 2834</h3>
+                    <p>Paid Invoices</p>
+                </div>
+            </div>
         </div>
-        <ul class="todo-list">
-            <li class="completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded'></i>
-            </li>
-            <li class="completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded'></i>
-            </li>
-            <li class="not-completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded'></i>
-            </li>
-            <li class="completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded'></i>
-            </li>
-            <li class="not-completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded'></i>
-            </li>
-        </ul>
+        <div class="col-md-4">
+            <div class="box-item light-orange p-3 rounded-4 d-flex">
+                <i class="fas fa-circle-xmark fa-3x me-3 mt-2"></i>
+                <div class="text">
+                    <h3>$ 2543</h3>
+                    <p>Unpaid Invoices</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<div class="container mt-4">
+    <div class="row ">
+        <div class="col-md-8 bg-white rounded-4 p-4">
+            <div class=" order">
+                <div class="head">
+                    <h3>Latest Transactions</h3>
+                    <i class="fa-light fa-magnifying-glass me-3"></i>
+                    <i class="fa-light fa-filter"></i>
+                </div>
+                <div class="trans">
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <img src="./img/User.png" class="rounded-circle me-2" width="36" height="36">
+                            <div>
+                                <span class="text-primary">#KLA-237-393-950</span> <br>
+                                <span class="fw-bold">CodeAstrology.com</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-wrap ">
+                            <i class="fa-regular fa-newspaper fa-xl me-2 mt-4" style="color: #FFD43B;"></i>
+                            <div>
+                                <span class="text-secondary">Amount</span> <br>
+                                <span class="fw-bold">$ 4,67,859</span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                            <span>31/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <img src="./img/User.png" class="rounded-circle me-2" width="36" height="36">
+                            <div>
+                                <span class="text-primary">#KLA-237-393-950</span> <br>
+                                <span class="fw-bold">CodeAstrology.com</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-wrap ">
+                            <i class="fa-regular fa-newspaper fa-xl me-2 mt-4" style="color: #FFD43B;"></i>
+                            <div>
+                                <span class="text-secondary">Amount</span> <br>
+                                <span class="fw-bold">$ 4,67,859</span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                            <span>31/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <img src="./img/User.png" class="rounded-circle me-2" width="36" height="36">
+                            <div>
+                                <span class="text-primary">#KLA-237-393-950</span> <br>
+                                <span class="fw-bold">CodeAstrology.com</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-wrap ">
+                            <i class="fa-regular fa-newspaper fa-xl me-2 mt-4" style="color: #FFD43B;"></i>
+                            <div>
+                                <span class="text-secondary">Amount</span> <br>
+                                <span class="fw-bold">$ 4,67,859</span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                            <span>31/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <img src="./img/User.png" class="rounded-circle me-2" width="36" height="36">
+                            <div>
+                                <span class="text-primary">#KLA-237-393-950</span> <br>
+                                <span class="fw-bold">CodeAstrology.com</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-wrap ">
+                            <i class="fa-regular fa-newspaper fa-xl me-2 mt-4" style="color: #FFD43B;"></i>
+                            <div>
+                                <span class="text-secondary">Amount</span> <br>
+                                <span class="fw-bold">$ 4,67,859</span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                            <span>31/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex flex-wrap ">
+                            <img src="./img/User.png" class="rounded-circle me-2" width="36" height="36">
+                            <div>
+                                <span class="text-primary">#KLA-237-393-950</span> <br>
+                                <span class="fw-bold">CodeAstrology.com</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex flex-wrap ">
+                            <i class="fa-regular fa-newspaper fa-xl me-2 mt-4" style="color: #FFD43B;"></i>
+                            <div>
+                                <span class="text-secondary">Amount</span> <br>
+                                <span class="fw-bold">$ 4,67,859</span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                            <span>31/03/2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="fs-6 mt-3">Showing <span class="fw-bold">1-4</span> from <span
+                            class="fw-bold">1-4</span>
+                        Data</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-3 rounded-4">
+            <span class="fw-bold">Statistics</span>
+            <div>
+                <canvas id="myChart" width="100" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="col-md-12 tk-6 rounded-3 bg-primary text-light">
+                <div class="top-tk d-flex justify-content-between pt-3 px-3">
+                    <p class="mt-1 me-1">Tổng tiền ví Tự Do Tài Chính</p>
+                    <p>10%</p>
+                </div>
+                <div class="number-tk d-flex justify-content-between px-3">
+                    <p>$ 4,929</p>
+                    <p>.... .... .... 3456</p>
+                </div>
+                <br>
+                <div class="bot-tk d-flex justify-content-between pt-2 px-3 mt-2">
+                    <p>Valid Thru <br> 03/23</p>
+                    <p>Name <br> Jhon Doe</p>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 bg-light rounded-3 mt-4 p-3 d-flex align-items-center">
+                <i class="fa-solid fa-chart-mixed fa-xl mt-2 ms-2"></i>
+                <div>
+                    <span class="p-3">Transactions</span><br>
+                    <span class="p-3 fw-bold">5,793</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 bg-white rounded-4 p-3">
+            <div class="todo">
+                <div class="head">
+                    <h3>Todos</h3>
+                    <i class="fa fa-regular fa-plus me-2"></i>
+                    <i class="fa fa-regular fa-filter"></i>
+                </div>
+                <ul class="list-group todo-list">
+                    <li class="list-group-item completed d-flex justify-content-between align-items-center">
+                        <p>Todo List</p>
+                        <i class="fa fa-regular fa-grip-dots-vertical"></i>
+                    </li>
+                    <li class="list-group-item not-completed d-flex justify-content-between align-items-center">
+                        <p>Todo List</p>
+                        <i class="fa fa-regular fa-grip-dots-vertical"></i>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var ctx1 = document.getElementById('myChart').getContext('2d');
+    var data = {
+        labels: [
+            'Eating',
+            'Drinking',
+            'Sleeping',
+            'Designing',
+            'Coding',
+            'Cycling',
+            'Running'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [65, 59, 90, 81, 56, 55, 40],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }, {
+            label: 'My Second Dataset',
+            data: [28, 48, 40, 19, 96, 27, 100],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+    };
+
+    var myChart = new Chart(ctx1, {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        }
+    });
+</script>

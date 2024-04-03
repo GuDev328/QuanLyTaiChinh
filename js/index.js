@@ -37,7 +37,7 @@ menuBar.addEventListener('click', function () {
 
 
 const searchButton = document.querySelector('#content nav form .form-input button');
-const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
+const searchButtonIcon = document.querySelector('#content nav form .form-input button .fa');
 const searchForm = document.querySelector('#content nav form');
 
 searchButton.addEventListener('click', function (e) {
@@ -45,9 +45,9 @@ searchButton.addEventListener('click', function (e) {
         e.preventDefault();
         searchForm.classList.toggle('show');
         if (searchForm.classList.contains('show')) {
-            searchButtonIcon.classList.replace('bx-search', 'bx-x');
+            searchButtonIcon.classList.replace('fa-magnifying-glass', 'fa-x');
         } else {
-            searchButtonIcon.classList.replace('bx-x', 'bx-search');
+            searchButtonIcon.classList.replace('fa-x', 'fa-magnifying-glass');
         }
     }
 })
@@ -59,14 +59,14 @@ searchButton.addEventListener('click', function (e) {
 if (window.innerWidth < 768) {
     sidebar.classList.add('hide');
 } else if (window.innerWidth > 576) {
-    searchButtonIcon.classList.replace('bx-x', 'bx-search');
+    searchButtonIcon.classList.replace('fa-x', 'fa-magnifying-glass');
     searchForm.classList.remove('show');
 }
 
 
 window.addEventListener('resize', function () {
     if (this.innerWidth > 576) {
-        searchButtonIcon.classList.replace('bx-x', 'bx-search');
+        searchButtonIcon.classList.replace('fa-x', 'fa-magnifying-glass');
         searchForm.classList.remove('show');
     }
 })
