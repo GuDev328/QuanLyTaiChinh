@@ -50,10 +50,10 @@
                                     <a href="#" class="forgot-password text-decoration-none">Quên mật khẩu</a>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-primary mt-3" id="btn_login">Đăng nhập</button>
+                                    <button type="button" class="btn text-white mt-3" id="btn_login" style="background-color: #4460F1;">Đăng nhập</button>
                                     <p class="fs-6 text-center pt-2">OR</p>
                                     <button type="button" class="btn btn-danger" id="btn_login_google"> 
-                                        <a  class="text-decoration-none text-white" href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1082080252600-bquoljjvs3faldiaoa33iosr3im8kp5s.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A44339%2FLogin%2FGoogle_Login_Result&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&prompt=consent&access_type=offline&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow" >
+                                        <a  class="text-decoration-none text-white" href="" id="login_google">
                                             <i class="fa-brands fa-google"></i>
                                             Đăng nhập với Google
                                         </a>
@@ -106,6 +106,30 @@
                 }
             });
         });
+
+
+        const getGoogleUrl = () => {
+            const url = "https://accounts.google.com/o/oauth2/v2/auth";
+            const query = {
+                client_id:
+                    "1079737502847-ettbdto8bntesbgoqts1ie73sp4b6l68.apps.googleusercontent.com",
+                redirect_uri: "http://localhost:3001/api/user/login-google",
+                response_type: "code",
+                scope: [
+                    "https://www.googleapis.com/auth/userinfo.profile",
+                    "https://www.googleapis.com/auth/userinfo.email",
+                ].join(" "),
+                prompt: "consent",
+                access_type: "offline",
+            };
+            const queryString = new URLSearchParams(query).toString();
+            return `${url}?${queryString}`;
+        };
+
+        const urlGoogle = getGoogleUrl();
+        console.log(urlGoogle);
+        var test = document.getElementById("login_google");
+        test.href = urlGoogle;
     </script>
 
     

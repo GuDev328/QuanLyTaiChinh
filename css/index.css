@@ -41,12 +41,7 @@ header{
     margin-left: 12%;
     border-radius: 20px;
 }
-.form-container {
-    background-color: #f8f8f8;
-    border: #bcbcbc solid 1px;
-    border-radius: 10px;
-    padding: 0 20px;
-}
+
 .flash {
     display: none;
 }
@@ -55,3 +50,4 @@ header{
         display: none;
     }
 }
+
