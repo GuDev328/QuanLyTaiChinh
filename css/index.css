@@ -12,12 +12,7 @@ header{
     margin-top: 8.5rem;
     padding-right: 7rem;
 }
-.nav-left{
-    width: 300px;
-    height: calc(100vh - 65px);
-    margin-right: 5px;
-    background-color: aqua;
-}
+
 
 .main-content{
     width: calc(100vw - 305px);
@@ -36,18 +31,5 @@ header{
     text-align: center;
     line-height: 40px;
 }
-.form-group button {
-    width: 75%;
-    margin-left: 12%;
-    border-radius: 20px;
-}
 
-.flash {
-    display: none;
-}
-@media only screen and (max-width: 1024px){
-    .logo {
-        display: none;
-    }
-}
 
