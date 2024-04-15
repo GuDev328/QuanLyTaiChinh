@@ -101,9 +101,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#btn_login_google").click(function () {
-                window.location("https://www.google.com/search?q=d%E1%BB%8Bch&sca_esv=3cbe9f3cb5d0638a&sxsrf=ACQVn08YAffMsLzWKNXWHW9QpyEXDAqVxw%3A1706887712174&source=hp&ei=IAq9ZaqYCPfi1e8PruO92A0&iflsig=ANes7DEAAAAAZb0YMH26NTLgTvvmMCaS7aJa9biOhgzo&udm=&oq=&gs_lp=Egdnd3Mtd2l6IgAqAggBMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnSJsNUABYAHABeACQAQCYAQCgAQCqAQC4AQHIAQCoAgo&sclient=gws-wiz");
-            });
+            
 
             $("#btn_login").click(function () {
                 if ($("#txt_username").val() == "" || $("#txt_password").val() == "") {
@@ -114,49 +112,15 @@
                     $("#flashMsg").empty("")
                     var email = $("#txt_email").val();
                     var password = $("#txt_password").val();
-                    $.ajax({
-                        url: "http://localhost:3001/api/user/login",
-                        type: "POST",
-                        data: JSON.stringify({email: email, password: password}),
-                        contentType: 'application/json',
-                        withCredentials: true,
-                        success: function (data) {
-                            $("#flashMsg").addClass('flash');
-                            window.location.href = "/";
-                        },
-                        error: function (request, status, error) {
-                            $("#txt_password").val("");
-                            $("#flashMsg").removeClass('flash');
-                            $("#flashMsg").append(JSON.parse(request.responseText).message)
-                        }
-                    });
+                    if(email === 'admin@gmail.com' && password==='admin'){
+                        window.location.href = "/index.html";
+                    }else{
+                        alert("Tài khoản hoặc mật khẩu không chính xác")
+                    }
+                    
                 }
             });
         });
-
-
-        const getGoogleUrl = () => {
-            const url = "https://accounts.google.com/o/oauth2/v2/auth";
-            const query = {
-                client_id:
-                    "1079737502847-ettbdto8bntesbgoqts1ie73sp4b6l68.apps.googleusercontent.com",
-                redirect_uri: "http://localhost:3001/api/user/login-google",
-                response_type: "code",
-                scope: [
-                    "https://www.googleapis.com/auth/userinfo.profile",
-                    "https://www.googleapis.com/auth/userinfo.email",
-                ].join(" "),
-                prompt: "consent",
-                access_type: "offline",
-            };
-            const queryString = new URLSearchParams(query).toString();
-            return `${url}?${queryString}`;
-        };
-
-        const urlGoogle = getGoogleUrl();
-        console.log(urlGoogle);
-        var test = document.getElementById("login_google");
-        test.href = urlGoogle;
     </script>
 
     
