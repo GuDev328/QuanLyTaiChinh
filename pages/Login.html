@@ -41,20 +41,26 @@
             background-color: #fff;
             border-radius: 10%;
         }
+        .btn-link {
+            background-color: #e6e6e6;
+        }
+        .btn-link:hover {
+            background-color: #b9b8b8;
+        }
     </style>
 </head>
 <body>
     <!-- Form Login -->
     <section id="login-form">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
-                <div class="col-xl-7 ">
+                <div class="col-xl-7">
                     <img src="../img/logo.png" alt=""  class="text-center logo" width="600px" height="400px">
                 </div>
                 <div class="col-xl-5 mt-3 form-login">
                     <div class="form-container">
-                        <div class="form-header  text-center">
-                            <img src="../img/logo-no-background.png" style="margin-top: 70px" height="70px" alt="" >
+                        <div class="form-header text-center">
+                            <img src="../img/logo-no-background.png" style="margin-top: 60px" height="70px" alt="" >
                         </div>
                         <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
                         <div class="form-body">
@@ -62,32 +68,48 @@
                                 <div class="form-group mt-5">
                                     <div class="field d-flex">
                                         <span><i class="far fa-envelope"></i></span>
-                                        <input id="txt_email" type="email" class="" id="email" placeholder="Nhập email">
+                                        <input id="txt_email" type="email" class="" id="email" placeholder="Email">
                                     </div>
                                 </div>
-                                <div class="form-group mt-3">
+                                <div class="form-group mt-4">
                                     <div class="field d-flex">
                                         <span><i class="fas fa-lock"></i></span>
-                                        <input id="txt_password" type="password" class="" id="password" aria-describedby="passwordHelpBlock" placeholder="Nhập mật khẩu">
+                                        <input id="txt_password" type="password" class="" id="password" aria-describedby="passwordHelpBlock" placeholder="Mật khẩu">
                                     </div>
                                 </div>
-                                <div class="form-group d-flex justify-content-between pt-2">
+                                <div class="form-group d-flex justify-content-between pt-3">
                                     <span>
-                                        
+                                        <div class="form-check" style="padding-left: 35px;">
+                                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                            <label class="form-check-label" for="form2Example31"> Nhớ mật khẩu </label>
+                                        </div>
                                     </span>
                                     <a href="#" class="forgot-password text-decoration-none">Quên mật khẩu</a>
                                 </div>
                                 <div class="form-group d-flex mr-auto justify-content-center flex-column align-items-center">
-                                    <button type="button" class="btn text-white mt-3" id="btn_login" style="background-color: #3c91e7;">Đăng nhập</button>
-                                    <button type="button" class="btn btn-danger mt-2" id="btn_login_google"> 
+                                    <button type="button" class="btn text-white mt-4" id="btn_login" style="background-color: #3c91e7;margin-bottom: 10px;">Đăng nhập</button>
+                                    <!-- <button type="button" class="btn btn-danger mt-2" id="btn_login_google"> 
                                         <a  class="text-decoration-none text-white" href="" id="login_google">
                                             <i class="fa-brands fa-google"></i>
                                             Đăng nhập với Google
                                         </a>
-
-                                    </button>
+                                    </button> -->
+                                    <div class="login_other d-flex mt-2">
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </button>
+                                      
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+                                            <i class="fab fa-google"></i>
+                                        </button>
+                                      
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+                                            <i class="fab fa-twitter"></i>
+                                        </button>
+                                    </div>
+                                    
                                 </div>
-                                <p class="text-center pt-2 ">Bạn chưa có tài khoản? <span><a href="../pages/SignUp.html" class="text-decoration-none">Đăng kí</a></span></p>
+                                <p class="text-center pt-4">Bạn chưa có tài khoản? <span><a href="../pages/SignUp.html" class="text-decoration-none">Đăng kí</a></span></p>
                                 
                             </form>
                             

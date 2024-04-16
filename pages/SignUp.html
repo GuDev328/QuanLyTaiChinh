@@ -9,198 +9,125 @@
     <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/index.css">
     <script src="../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="../js/index.js"></script>
     <script src="https://example.com/fontawesome/v6.5.1/js/all.js" data-auto-replace-svg="nest"></script>
+    <style>
+        .form-group button {
+            width: 70%;
+            
+            border-radius: 20px;
+        }
 
+        .flash {
+            display: none;
+        }
+        @media only screen and (max-width: 1024px){
+            .logo {
+                display: none;
+            }
+        }
+        input {
+            border-radius: 20px;
+            width: 100%;
+            padding-left: 15px;
+            border: none;
+            background-color: rgb(222, 228, 244);
+        }
+        section{
+            background-color: #e6e6e6;
+            height: 100vh;
+        }
+        .form-login{
+            background-color: #fff;
+            border-radius: 10%;
+        }
+    </style>
 </head>
 <body>
     <!-- Form Login -->
     <section id="login-form">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
-                <div class="col-xl-6">
+                <div class="col-xl-7">
                     <img src="../img/logo.png" alt=""  class="text-center logo" width="600px" height="400px">
                 </div>
-                <div class="col-xl-6 mt-4">
+                <div class="col-xl-5 mt-2 form-login">
                     <div class="form-container">
                         <div class="form-header text-center">
-                           
-                            <h2 class="title mt-1">ĐĂNG KÍ</h2>
+                            <img src="../img/logo-no-background.png" style="margin-top: 50px" height="70px" alt="" >
                         </div>
+                        <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
                         <div class="form-body">
-                            <form action="/" method="post">
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email</label>
+                            <form action="/" class="d-flex flex-column justify-content-center">
+                                <div class="form-group mt-4">
                                     <div class="field d-flex">
-                                        <span><i class="fas fa-envelope"></i></span>
-                                        <input type="email" class="form-control " id="email" required>
+                                        <span><i class="fa fa-envelope"></i></span>
+                                        <input id="txt_email" type="email" class="" id="email" placeholder="Email">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Mật khẩu</label>
+                                <div class="form-group mt-3">
+                                    <div class="field d-flex">
+                                        <span><i class="fas fa-user"></i></span>
+                                        <input id="txt_email" type="email" class="" id="email" placeholder="Tên người dùng">
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
                                     <div class="field d-flex">
                                         <span><i class="fas fa-lock"></i></span>
-                                        <input type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock" required>
+                                        <input id="txt_password" type="password" class="" id="password" aria-describedby="passwordHelpBlock" placeholder="Mật khẩu">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="username" class="form-label">Tên người dùng</label>
+                                <div class="form-group mt-3">
                                     <div class="field d-flex">
-                                        <span><i class="fa-solid fa-user"></i></span>
-                                        <input type="text" class="form-control" id="username" required>
+                                        <span><i class="fas fa-lock"></i></span>
+                                        <input id="txt_password" type="password" class="" id="password" aria-describedby="passwordHelpBlock" placeholder="Nhập lại mật khẩu">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="phone" class="form-label">Số điện thoại</label>
-                                    <div class="field d-flex">
-                                        <span><i class="fa-solid fa-phone"></i></span>
-                                        <input type="tel" class="form-control" id="phone" required>
-                                    </div>
+                                <div class="form-group d-flex justify-content-between pt-2">
+                                    <span>
+                                        <div class="form-check mt-1" style="margin-left: 12px;">
+                                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                              aria-describedby="registerCheckHelpText" />
+                                            <label class="form-check-label" for="registerCheck">
+                                                Tôi đã đọc và đồng ý với các điều khoản
+                                            </label>
+                                        </div>
+                                    </span>
+                                    <a href="#" class="forgot-password text-decoration-none"></a>
                                 </div>
-                                <div class="form-group">
-                                    <label for="DOB" class="form-label">Năm sinh</label>
-                                    <div class="field d-flex">
-                                        <span><i class="fa-regular fa-calendar-days"></i></span>
-                                        <input type="date" class="form-control" id="DOB" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="gender" class="form-label">Giới tính</label>
-                                    <div class="field d-flex">
-                                        <span><i class="fa-solid fa-venus-mars"></i></span>
-                                        <select id="gender" name="gender" required class="form-control"> 
-                                            <option value="1">Nam</option>
-                                            <option value="0">Nữ</option>
-                                        </select><br>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="address" class="form-label">Địa chỉ</label>
-                                    <div class="field d-flex">
-                                        <span><i class="fa-solid fa-location-dot"></i></span>
-                                        <select id="address" name="address" required class="form-control"> 
-                                            <option value="01">Thành phố Hà Nội</option>
-                                            <option value="79">Thành phố Hồ Chí Minh</option>
-                                            <option value="31">Thành phố Hải Phòng</option>
-                                            <option value="48">Thành phố Đà Nẵng</option>
-                                            <option value="92">Thành phố Cần Thơ</option>
-                                            <option value="02">Tỉnh Hà Giang</option>
-                                            <option value="04">Tỉnh Cao Bằng</option>
-                                            <option value="06">Tỉnh Bắc Kạn</option>
-                                            <option value= "08">Tỉnh Tuyên Quang</option> 
-                                            <option value= "10">Tỉnh Lào Cai</option> 
-                                            <option value= "11">Tỉnh Điện Biên</option> 
-                                            <option value= "12">Tỉnh Lai Châu</option> 
-                                            <option value= "14">Tỉnh Sơn La</option> 
-                                            <option value= "15">Tỉnh Yên Bái</option> 
-                                            <option value= "17">Tỉnh Hoà Bình</option> 
-                                            <option value= "19">Tỉnh Thái Nguyên</option> 
-                                            <option value= "20"> Tỉnh Lạng Sơn</option>
-                                            <option value= "22">Tỉnh Quảng Ninh</option> 
-                                            <option value= "24">Tỉnh Bắc Giang</option> 
-                                            <option value= "25">Tỉnh Phú Thọ</option> 
-                                            <option value= "26">Tỉnh Vĩnh Phúc</option> 
-                                            <option value= "27">Tỉnh Bắc Ninh</option> 
-                                            <option value= "30">Tỉnh Hải Dương</option> 
-                                            <option value= "33">Tỉnh Hưng Yên</option> 
-                                            <option value= "34">Tỉnh Thái Bình</option> 
-                                            <option value= "35">Tỉnh Hà Nam</option> 
-                                            <option value= "36">Tỉnh Nam Định</option> 
-                                            <option value= "37">Tỉnh Ninh Bình</option> 
-                                            <option value= "38"> Tỉnh Thanh Hóa</option>
-                                            <option value= "40">Tỉnh Nghệ An</option> 
-                                            <option value= "42"> Tỉnh Hà Tĩnh</option>
-                                            <option value= "44">Tỉnh Quảng Bình</option> 
-                                            <option value= "45">Tỉnh Quảng Trị</option> 
-                                            <option value= "46">Tỉnh Thừa Thiên Huế</option> 
-                                            <option value= "49"> Tỉnh Quảng Nam</option>
-                                            <option value= "51">Tỉnh Quảng Ngãi</option> 
-                                            <option value= "52"> Tỉnh Bình Định</option>
-                                            <option value= "54">Tỉnh Phú Yên</option>
-                                            <option value= "56">Tỉnh Khánh Hòa</option>
-                                            <option value= "58">Tỉnh Ninh Thuận</option>
-                                            <option value= "60">Tỉnh Bình Thuận</option>
-                                            <option value= "62">Tỉnh Kon Tum</option>
-                                            <option value= "64">Tỉnh Gia Lai</option>
-                                            <option value= "66">Tỉnh Đắk Lắk</option>
-                                            <option value= "67">Tỉnh Đắk Nông</option>
-                                            <option value= "68">Tỉnh Lâm Đồng</option>
-                                            <option value= "70">Tỉnh Bình Phước</option>
-                                            <option value= "72">Tỉnh Tây Ninh</option>
-                                            <option value= "74">Tỉnh Bình Dương</option>
-                                            <option value= "75">Tỉnh Đồng Nai</option>
-                                            <option value= "77">Tỉnh Bà Rịa - Vũng Tàu</option>
-                                            <option value= "80">Tỉnh Long An</option>
-                                            <option value= "82">Tỉnh Tiền Giang</option>
-                                            <option value= "83">Tỉnh Bến Tre</option>
-                                            <option value= "84">Tỉnh Trà Vinh</option>
-                                            <option value= "86">Tỉnh Vĩnh Long</option>
-                                            <option value= "87">Tỉnh Đồng Tháp</option>
-                                            <option value= "89">Tỉnh An Giang</option>
-                                            <option value= "91">Tỉnh Kiên Giang</option>
-                                            <option value= "93">Tỉnh Hậu Giang</option>
-                                            <option value= "94">Tỉnh Sóc Trăng</option>
-                                            <option value= "95">Tỉnh Bạc Liêu</option>
-                                            <option value= "96">Tỉnh Cà Mau</option>
-                                        </select><br>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn text-white" id="btn_sign_up" style="background-color: #4460F1;">Đăng kí</button>
+                                <div class="form-group d-flex mr-auto justify-content-center flex-column align-items-center">
+                                    <button type="button" class="btn text-white mt-4" id="btn_login" style="background-color: #3c91e7;margin-bottom: 10px;">Đăng ký</button>
                                     
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center mt-2 mb-1">
-                                    <p class="fs-6 mb-0">Bạn đã có tài khoản? <span><a class="text-primary fs-6 text-decoration-none" href="./Login.html">Đăng nhập ngay!</a></span></p>
-                                    
-                                </div>
+                                <p class="text-center pt-3">Bạn đẫ có tài khoản? <span><a href="../pages/Login.html" class="text-decoration-none">Đăng nhập ngay</a></span></p>
+                                
                             </form>
+                            
                         </div>
-                        <div id="response"></div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
 
     <script>
-        $(document).ready(function() {
-            $("#btn_sign_up").click(function() {
-                var formData = {
-                    'email': $('#email').val(),
-                    'password': $('#password').val(),
-                    'name': $('#username').val(),
-                    'phone_number': $('#phone').val(),
-                    'gender': $('#gender').val(),
-                    'birthday': formatDate($('#DOB').val()),
-                    'address':$('#address').val()
-                };
-                function formatDate(dateString) {
-                    var date = new Date(dateString);
-                    var year = date.getFullYear();
-                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
-                    var day = date.getDate().toString().padStart(2, '0');
-                    return day + '/' + month + '/' + year; // Đổi sang định dạng dd/mm/yyyy
+        $(document).ready(function () {
+            
+            $("#btn_login").click(function () {
+                if ($("#txt_username").val() == "" || $("#txt_password").val() == "") {
+                    alert("Vui lòng nhập đầy đủ thông tin");
                 }
-                
-                // Gửi AJAX request tới API (chưa xử lý logic API ở đây)
-                $.ajax({
-                        url: "http://localhost:3001/api/user/register",
-                        type: "POST",
-                        data: JSON.stringify(formData),
-                        dataType: "json",
-                        contentType: 'application/json',
-                        withCredentials: true,
-                        success: function (response) {
-                            window.location.href = "./Login.html";
-                            console.log(response);
-                            alert("Đăng kí thành công");
-                        },
-                        error: function (request, status, error) {
-                            alert(JSON.parse(request.responseText).message);
-                        }
-                });
-            })
-        })
+                if(!/^[^\d]+$/.test($("#txt_username").val())) {
+                    alert("Họ tên không dùng số")
+                }
+                if(!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test($("#txt_email").val())) {
+                    alert("Nhập lại email đúng định dạng")
+                }
+            });
+        });
     </script>
+
+    
 </body>
 </html>
