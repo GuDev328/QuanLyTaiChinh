@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <script src="../js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/QLTC_Front/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="/QLTC_Front/js/jquery-3.7.1.min.js"></script>
     <title>Quản lý tài chính</title>
-    <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/index.css">
-    <script src="../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
-    <script src="../js/index.js"></script>
+    <link
+        hrf="https://ecdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/QLTC_Front/css/index.css">
+    <script src="/QLTC_Front/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="/QLTC_Front/js/index.js"></script>
     <script src="https://example.com/fontawesome/v6.5.1/js/all.js" data-auto-replace-svg="nest"></script>
     <style>
         .form-group button {
             width: 70%;
-            
+
             border-radius: 20px;
         }
 
         .flash {
             display: none;
         }
-        @media only screen and (max-width: 1024px){
+
+        @media only screen and (max-width: 1024px) {
             .logo {
                 display: none;
             }
         }
+
         input {
             border-radius: 20px;
             width: 100%;
@@ -33,34 +38,40 @@
             border: none;
             background-color: rgb(222, 228, 244);
         }
-        section{
+
+        section {
             background-color: #e6e6e6;
             height: 100vh;
         }
-        .form-login{
+
+        .form-login {
             background-color: #fff;
             border-radius: 10%;
         }
+
         .btn-link {
             background-color: #e6e6e6;
         }
+
         .btn-link:hover {
             background-color: #b9b8b8;
         }
     </style>
 </head>
+
 <body>
     <!-- Form Login -->
     <section id="login-form">
         <div class="container pt-5">
             <div class="row">
                 <div class="col-xl-7">
-                    <img src="../img/logo.png" alt=""  class="text-center logo" width="600px" height="400px">
+                    <img src="/QLTC_Front/img/logo.png" alt="" class="text-center logo" width="600px" height="400px">
                 </div>
                 <div class="col-xl-5 mt-3 form-login">
                     <div class="form-container">
                         <div class="form-header text-center">
-                            <img src="../img/logo-no-background.png" style="margin-top: 60px" height="70px" alt="" >
+                            <img src="/QLTC_Front/img/logo-no-background.png" style="margin-top: 60px" height="70px"
+                                alt="">
                         </div>
                         <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
                         <div class="form-body">
@@ -74,20 +85,24 @@
                                 <div class="form-group mt-4">
                                     <div class="field d-flex">
                                         <span><i class="fas fa-lock"></i></span>
-                                        <input id="txt_password" type="password" class="" id="password" aria-describedby="passwordHelpBlock" placeholder="Mật khẩu">
+                                        <input id="txt_password" type="password" class="" id="password"
+                                            aria-describedby="passwordHelpBlock" placeholder="Mật khẩu">
                                     </div>
                                 </div>
                                 <div class="form-group d-flex justify-content-between pt-3">
                                     <span>
                                         <div class="form-check" style="padding-left: 35px;">
-                                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                            <input class="form-check-input" type="checkbox" value="" id="form2Example31"
+                                                checked />
                                             <label class="form-check-label" for="form2Example31"> Nhớ mật khẩu </label>
                                         </div>
                                     </span>
                                     <a href="#" class="forgot-password text-decoration-none">Quên mật khẩu</a>
                                 </div>
-                                <div class="form-group d-flex mr-auto justify-content-center flex-column align-items-center">
-                                    <button type="button" class="btn text-white mt-4" id="btn_login" style="background-color: #3c91e7;margin-bottom: 10px;">Đăng nhập</button>
+                                <div
+                                    class="form-group d-flex mr-auto justify-content-center flex-column align-items-center">
+                                    <button type="button" class="btn text-white mt-4" id="btn_login"
+                                        style="background-color: #3c91e7;margin-bottom: 10px;">Đăng nhập</button>
                                     <!-- <button type="button" class="btn btn-danger mt-2" id="btn_login_google"> 
                                         <a  class="text-decoration-none text-white" href="" id="login_google">
                                             <i class="fa-brands fa-google"></i>
@@ -95,26 +110,31 @@
                                         </a>
                                     </button> -->
                                     <div class="login_other d-flex mt-2">
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                            class="btn btn-link btn-floating mx-3">
                                             <i class="fab fa-facebook-f"></i>
                                         </button>
-                                      
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                            class="btn btn-link btn-floating mx-3">
                                             <i class="fab fa-google"></i>
                                         </button>
-                                      
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-3">
+
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                            class="btn btn-link btn-floating mx-3">
                                             <i class="fab fa-twitter"></i>
                                         </button>
                                     </div>
-                                    
+
                                 </div>
-                                <p class="text-center pt-4">Bạn chưa có tài khoản? <span><a href="../pages/SignUp.html" class="text-decoration-none">Đăng kí</a></span></p>
-                                
+                                <p class="text-center pt-4">Bạn chưa có tài khoản? <span><a
+                                            href="/QLTC_Front/pages/Auth/SignUp.html" class="text-decoration-none">Đăng
+                                            kí</a></span></p>
+
                             </form>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -123,28 +143,29 @@
 
     <script>
         $(document).ready(function () {
-            
+
 
             $("#btn_login").click(function () {
                 if ($("#txt_username").val() == "" || $("#txt_password").val() == "") {
                     alert("Vui lòng nhập đầy đủ thông tin");
-                    
+
                 }
                 else {
                     $("#flashMsg").empty("")
                     var email = $("#txt_email").val();
                     var password = $("#txt_password").val();
-                    if(email === 'admin@gmail.com' && password==='admin'){
+                    if (email === 'admin@gmail.com' && password === 'admin') {
                         window.location.href = "/index.html";
-                    }else{
+                    } else {
                         alert("Tài khoản hoặc mật khẩu không chính xác")
                     }
-                    
+
                 }
             });
         });
     </script>
 
-    
+
 </body>
+
 </html>
