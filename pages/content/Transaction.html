@@ -1,15 +1,267 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
-    <span>Số dư</span>
-    <span class="fw-bold">0 đ</span>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Loại tiền
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Tổng cộng</a></li>
-            <li><a class="dropdown-item" href="#">Tiền mặt</a></li>
-        </ul>
+<style>
+    .header_transaction {
+        background-color: #0098EE;
+        color: white;
+    }
+    .header_middle {
+        background-color: white;
+        color: black;
+        height: 35px;
+        width: 150px;
+    }
+    .header_icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: red;
+    }
+    .middle_time {
+        border-bottom: 3px #EFEBEB solid;
+        overflow: hidden;
+    }
+    hr {
+        width: 180px;
+        margin-left: 620px;
+    }
+    .middle_btn {
+        background-color: #AFCEDF;
+        color: #0093E6;
+        border: none;
+        border-radius: 40px;
+        height: 35px;
+        padding: 0 8px;
+    }
+    .time_main {
+
+        font-size: 40px;
+    }
+    .day {
+        font-weight: 600;
+    }
+    .month {
+        font-size: small;
+    }
+    .money_item {
+        font-weight: 500;
+    }
+    .header_list {
+        background-color: #0093E6;
+        height: 60px;
+        border-radius: 10px;
+    }
+    .active {
+        color: #0093E6;
+        border-bottom: 3px solid #0093E6;
+    }
+    .middle_time span {
+        cursor: pointer;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('.middle_time span').click(function() {
+            $('.middle_time span').removeClass('active');
+            $(this).addClass('active');
+        })
+    })
+</script>
+<div class="container bg-white rounded-3 p-0">
+    <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center">
+        <div class="header_left ms-3">
+            <div class="header_label mt-1">
+                SỐ DƯ
+            </div>
+            <div class="header_money fs-5 fw-bold">
+                100,000,000đ
+            </div>
+        </div>
+        <div class="header_middle d-flex align-items-center rounded-2 justify-content-between me-5">
+            <div class="header_icon ms-1">
+
+            </div>
+            <div class="header_name">
+                Ví giao dịch
+            </div>
+            <div class="header_down me-1">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </div>
+        <div class="header_right d-flex align-items-center gap-4 me-3">
+            <div class="header_search fs-3">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="header_expand fs-3">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+    </div>
+    <div class="middle_transaction">
+        <div class="middle_time mt-2 mb-4 fw-bold d-flex">
+            <span class="col-lg-4 text-center">11/2023</span>
+            <span class="col-lg-4 text-center">12/2023</span>
+            <span class="col-lg-4 text-center">01/2024</span>
+            <span class="col-lg-4 text-center">02/2024</span>
+
+        </div>
+        <div class="middle_calculate text-center">
+            <div class="middle_in row">
+                <span class="col-lg-6">Tiền vào: </span>
+                <span class="col-lg-6 text-primary fw-bold">3,000,000</span>
+            </div>
+            <div class="middle_out row">
+                <span class="col-lg-6">Tiền ra: </span>
+                <span class="col-lg-6 text-danger fw-bold">1,000,000</span>
+            </div>
+            <hr>
+            <div class="middle_result row">
+                <span class="col-lg-6"></span>
+                <span class="col-lg-6 fw-bold">2,000,000</span>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="middle_btn">Xem báo cáo cho giai đoạn này</button>
+        </div>
+    </div>
+    <div class="list_transaction mt-3">
+        <div class="row">
+            <div class="col-lg-6 ">
+                <div class="header_list bg-danger">
+                    
+                </div>
+                <div class="item px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">31</div>
+                            <div class="time_day">
+                                <div class="day">Chủ Nhật</div>
+                                <div class="month">tháng 12 2023</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                </div>
+                <div class="item px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">31</div>
+                            <div class="time_day">
+                                <div class="day">Chủ Nhật</div>
+                                <div class="month">tháng 12 2023</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 ">
+                <div class="header_list">
+                    
+                </div>
+                <div class="item px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">31</div>
+                            <div class="time_day">
+                                <div class="day">Chủ Nhật</div>
+                                <div class="month">tháng 12 2023</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                </div>
+                <div class="item px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">31</div>
+                            <div class="time_day">
+                                <div class="day">Chủ Nhật</div>
+                                <div class="month">tháng 12 2023</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4"></div>
+                            <div class="time_day">
+                                <div class="day">Vui chơi</div>
+                                <div class="month">Băn bi-a</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -200,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
