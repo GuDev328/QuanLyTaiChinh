@@ -6,14 +6,13 @@
     .header_middle {
         background-color: white;
         color: black;
-        height: 35px;
-        width: 150px;
+        height: 40px;
+        width: 170px;
     }
-    .header_icon {
-        width: 30px;
-        height: 30px;
+    .header_icon img {
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        background-color: red;
     }
     .middle_time {
         border-bottom: 3px #EFEBEB solid;
@@ -56,6 +55,9 @@
     .middle_time span {
         cursor: pointer;
     }
+    .money_in, .money_out {
+        border: 2px solid #ccc;
+    }
 </style>
 <script>
     $(document).ready(function() {
@@ -65,7 +67,7 @@
         })
     })
 </script>
-<div class="container bg-white rounded-3 p-0">
+<div class="container rounded-3 p-0">
     <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center">
         <div class="header_left ms-3">
             <div class="header_label mt-1">
@@ -77,7 +79,7 @@
         </div>
         <div class="header_middle d-flex align-items-center rounded-2 justify-content-between me-5">
             <div class="header_icon ms-1">
-
+                <img src="../../img/Icon/icon_2.png" alt="">
             </div>
             <div class="header_name">
                 Ví giao dịch
@@ -98,7 +100,7 @@
     <div class="middle_transaction">
         <div class="middle_time mt-2 mb-4 fw-bold d-flex">
             <span class="col-lg-4 text-center">11/2023</span>
-            <span class="col-lg-4 text-center">12/2023</span>
+            <span class="col-lg-4 text-center active">12/2023</span>
             <span class="col-lg-4 text-center">01/2024</span>
             <span class="col-lg-4 text-center">02/2024</span>
 
@@ -123,8 +125,8 @@
         </div>
     </div>
     <div class="list_transaction mt-3">
-        <div class="row">
-            <div class="col-lg-6 ">
+        <div class="row col-gap-4">
+            <div class="col-lg-6 money_out bg-white">
                 <div class="header_list bg-danger">
                     
                 </div>
@@ -143,7 +145,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_2.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
@@ -169,7 +173,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_3.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
@@ -181,7 +187,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_4.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
@@ -193,7 +201,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 ">
+            <div class="col-lg-6 money_in bg-white">
                 <div class="header_list">
                     
                 </div>
@@ -212,7 +220,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_5.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
@@ -238,7 +248,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_6.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
@@ -250,7 +262,9 @@
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4"></div>
+                            <div class="header_icon me-4">
+                                <img src="../../img/Icon/icon_7.png" alt="">
+                            </div>
                             <div class="time_day">
                                 <div class="day">Vui chơi</div>
                                 <div class="month">Băn bi-a</div>
