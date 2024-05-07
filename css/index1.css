@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Condensed';
 }
 
 a {
@@ -403,64 +404,6 @@ body {
     overflow-y: auto;
 }
 
-#content main .head-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    grid-gap: 16px;
-    flex-wrap: wrap;
-}
-
-#content main .head-title .left h1 {
-    font-size: 36px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: var(--dark);
-}
-
-#content main .head-title .left .breadcrumb {
-    display: flex;
-    align-items: center;
-    grid-gap: 16px;
-}
-
-#content main .head-title .left .breadcrumb li {
-    color: var(--dark);
-}
-
-#content main .head-title .left .breadcrumb li a {
-    color: var(--dark-grey);
-    pointer-events: none;
-}
-
-#content main .head-title .left .breadcrumb li a.active {
-    color: var(--blue);
-    pointer-events: unset;
-}
-
-#content main .head-title .btn-download {
-    height: 36px;
-    padding: 0 16px;
-    border-radius: 36px;
-    background: var(--blue);
-    color: var(--light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-gap: 10px;
-    font-weight: 500;
-}
-
-
-
-
-.box-item {
-    padding: 24px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-}
-
 .text h3 {
     font-size: 24px;
     font-weight: 600;
@@ -490,21 +433,6 @@ body {
     overflow-x: auto;
 }
 
-.head {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.head h3 {
-    margin-right: auto;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.head .fa-light {
-    cursor: pointer;
-}
 
 .order {
     flex-grow: 1;

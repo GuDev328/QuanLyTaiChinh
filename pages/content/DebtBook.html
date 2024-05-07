@@ -1,1 +1,255 @@
-Sổ sợ
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+    .container-fluid {
+        font-family: 'Roboto Condensed'
+    }
+    .needCollect{
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: solid 5px #eeeeee;
+        min-width: 380px;
+    }
+    .needToPay{
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: solid 5px #eeeeee;
+        min-width: 380px;
+    }
+    .title{
+        margin-left: 10px ;
+    }
+    .icon-active{
+        color: #0098EE;
+    }
+    .titleBox{
+        display: inline-block;
+        border-bottom: #0098EE 3px solid;
+    }
+    .moneyNeedCollect{
+        color: red;
+    }
+    .person{
+        width:95%;
+        background-color: #EAF7FF;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin: 10px 0px 0px 0px;
+    }
+    .avatarNeedCollect{
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #37BBB3;
+        color: #ffffff;
+        margin-right: 10px;
+    }
+    .avatarNeedPay{
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #c7b364;
+        color: #ffffff;
+        margin-right: 10px;
+    }
+    .name{
+        padding-top: 12px;
+    }
+    .text-muted{
+        font-size: 12px;
+    }
+    .showMoreNeedPayPerson{
+        width: 88%;
+        background-color: #EAF7FF;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .showMoreNeedCollectPerson{
+        width: 88%;
+        background-color: #EAF7FF;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .oneTrasaction{
+        border-bottom: 1px solid #a4a2a2;
+    }
+</style>
+
+<script>
+    $(".showMoreNeedCollectPerson").hide()
+    $(".showMoreNeedPayPerson").hide()
+
+    $(document).ready(function(){
+        $(".showMoreNeedPayPersonBtn").click(function(){
+            const classOfBtn = $(this).attr('class')
+            const key = classOfBtn.charAt(classOfBtn.length-1)
+            $(`.showMoreNeedPayPerson${key}`).slideToggle(150)
+        })
+        $(".showMoreNeedCollectPersonBtn").click(function(){
+            const classOfBtn = $(this).attr('class')
+            const key = classOfBtn.charAt(classOfBtn.length-1)
+            $(`.showMoreNeedCollectPerson${key}`).slideToggle(150)
+        })
+    })
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6  needCollect ">
+            <div class="titleBox">
+                <i class="icon-active fa-light fa-money-bills h3 fw-bold"></i>
+                <span class="title h5 fw-bold">Cần Thu</span>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">Chưa nhận được <span class="moneyNeedCollect">3,700,000đ</span></div>
+            </div>
+            <div class="row justify-content-center ">
+                <div class=" person d-flex align-items-center justify-content-between ">
+                    <div class="info">
+                        <div class="avatarNeedCollect float-start">Đ</div>
+                        <div class="name float-start">
+                            <div>Phạm Tiến Đạt</div>
+                            <div class="text-muted">3 giao dịch</div>
+                        </div>               
+                    </div>
+                    <div class="money">
+                        <span>Nợ bạn <span class="moneyNeedCollect">2,000,000đ</span>
+                        <i class="fa-solid fa-chevron-down showMoreNeedCollectPersonBtn 1"></i>
+                    </div>                 
+                </div>
+                <div class="showMoreNeedCollectPerson1 showMoreNeedCollectPerson">
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">14/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">700,000đ</span>
+                    </div>
+                    <div class="   p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">17/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">400,000đ</span>
+                    </div>
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">28/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">900,000đ</span>
+                    </div>
+                </div>
+
+                <div class=" person d-flex align-items-center justify-content-between ">
+                    <div class="info">
+                        <div class="avatarNeedCollect float-start">C</div>
+                        <div class="name float-start">
+                            <div>Phùng Quang Chiến</div>
+                            <div class="text-muted">2 giao dịch</div>
+                        </div>               
+                    </div>
+                    <div class="money">
+                        <span>Nợ bạn <span class="moneyNeedCollect">1,000,000đ</span>
+                        <i class="fa-solid fa-chevron-down showMoreNeedCollectPersonBtn 2"></i>
+                    </div>                 
+                </div>
+                <div class="showMoreNeedCollectPerson2 showMoreNeedCollectPerson">
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">17/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">700,000đ</span>
+                    </div>
+                    <div class="   p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">12/03/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">300,000đ</span>
+                    </div>
+                    
+                </div>
+
+                <div class=" person d-flex align-items-center justify-content-between ">
+                    <div class="info">
+                        <div class="avatarNeedCollect float-start">Đ</div>
+                        <div class="name float-start">
+                            <div>Lê Quý Độ</div>
+                            <div class="text-muted">1 giao dịch</div>
+                        </div>               
+                    </div>
+                    <div class="money">
+                        <span>Nợ bạn <span class="moneyNeedCollect">700,000đ</span>
+                        <i class="fa-solid fa-chevron-down showMoreNeedCollectPersonBtn 3"></i>
+                    </div>                 
+                </div>
+                <div class="showMoreNeedCollectPerson3 showMoreNeedCollectPerson">
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">25/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">700,000đ</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <div class="col-12 col-md-6  needToPay ">
+            <div class="titleBox">
+                <i class="icon-active h3 fw-bold fa-light fa-money-from-bracket"></i>
+                <span class="title h5 fw-bold">Cần Trả</span>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">Chưa trả được <span class="moneyNeedCollect">1,200,000đ</span></div>
+            </div>
+            <div class="row justify-content-center ">
+                <div class=" person d-flex align-items-center justify-content-between ">
+                    <div class="info">
+                        <div class="avatarNeedPay float-start">Đ</div>
+                        <div class="name float-start">
+                            <div>Lã Văn Đức</div>
+                            <div class="text-muted">2 giao dịch</div>
+                        </div>               
+                    </div>
+                    <div class="money">
+                        <span>Bạn nợ <span class="moneyNeedCollect">700,000đ</span>
+                        <i class="fa-solid fa-chevron-down showMoreNeedPayPersonBtn 1"></i>
+                    </div>                 
+                </div>
+                <div class="showMoreNeedPayPerson1 showMoreNeedPayPerson">
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">14/02/2024</div>
+                        <span>Bạn vay <span class="moneyNeedCollect">400,000đ</span>
+                    </div>
+                    <div class="   p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">17/02/2024</div>
+                        <span>Bạn vay <span class="moneyNeedCollect">300,000đ</span>
+                    </div>
+   
+                </div>
+
+                <div class=" person d-flex align-items-center justify-content-between ">
+                    <div class="info">
+                        <div class="avatarNeedPay float-start">Đ</div>
+                        <div class="name float-start">
+                            <div>Nguyễn Minh Đức</div>
+                            <div class="text-muted">1 giao dịch</div>
+                        </div>               
+                    </div>
+                    <div class="money">
+                        <span>Nợ bạn <span class="moneyNeedCollect">500,000đ</span>
+                        <i class="fa-solid fa-chevron-down showMoreNeedPayPersonBtn 2"></i>
+                    </div>                 
+                </div>
+                <div class="showMoreNeedPayPerson2 showMoreNeedPayPerson">
+                    <div class="  p-2 oneTrasaction d-flex justify-content-between align-items-center">
+                        <div class="day h6 text-center fw-bold m-0">27/02/2024</div>
+                        <span>Vay bạn <span class="moneyNeedCollect">500,000đ</span>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+        </div>
+
+        
+    </div>
+</div>
