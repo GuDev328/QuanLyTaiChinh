@@ -1,4 +1,8 @@
 <style>
+    * {
+        box-sizing: border-box;
+
+    }
     .header_transaction {
         background-color: #0098EE;
         color: white;
@@ -48,7 +52,7 @@
         height: 60px;
         border-radius: 10px;
     }
-    .active {
+    .select {
         color: #0093E6;
         border-bottom: 3px solid #0093E6;
     }
@@ -56,16 +60,51 @@
         cursor: pointer;
     }
     .money_in, .money_out {
-        border: 2px solid #ccc;
+        border: 8px #eee solid;
+        border-radius: 25px;
+        padding: 0;
     }
+    .header_item {
+        border-bottom: 2px #ccc solid;
+    }
+    .item_1 {
+        border-bottom: 10px #ccc solid;
+        padding-bottom: 5px;
+    }   
+    .item_2 {
+        border-top: 5px #ccc solid;
+    }   
 </style>
 <script>
+    //Thêm boder_bottom khi select ngày tháng
     $(document).ready(function() {
         $('.middle_time span').click(function() {
             $('.middle_time span').removeClass('active');
-            $(this).addClass('active');
+            $(this).addClass('select');
         })
+       
     })
+    $(document).ready(function () {
+        $(".middle_link").click(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+            var url = $(this).attr("href");
+            $("#page-content").load(url);
+        });
+    });
+
+    const allSideMenu = $("#sidebar .side-menu.top li a");
+
+    allSideMenu.each(function () {
+        const li = $(this).parent();
+
+        $(this).on("click", function () {
+            allSideMenu.each(function () {
+                $(this).parent().removeClass("active");
+            });
+            li.addClass("active");
+        });
+    });
+
 </script>
 <div class="container rounded-3 p-0">
     <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center">
@@ -100,7 +139,7 @@
     <div class="middle_transaction">
         <div class="middle_time mt-2 mb-4 fw-bold d-flex">
             <span class="col-lg-4 text-center">11/2023</span>
-            <span class="col-lg-4 text-center active">12/2023</span>
+            <span class="col-lg-4 text-center select">12/2023</span>
             <span class="col-lg-4 text-center">01/2024</span>
             <span class="col-lg-4 text-center">02/2024</span>
 
@@ -114,32 +153,31 @@
                 <span class="col-lg-6">Tiền ra: </span>
                 <span class="col-lg-6 text-danger fw-bold">1,000,000</span>
             </div>
-            <hr>
             <div class="middle_result row">
-                <span class="col-lg-6"></span>
+                <span class="col-lg-6">Còn lại:</span>
                 <span class="col-lg-6 fw-bold">2,000,000</span>
             </div>
         </div>
         <div class="text-center">
-            <button class="middle_btn">Xem báo cáo cho giai đoạn này</button>
+            <button class="middle_btn"><a href="./pages/content/Analysis.html" class="text-decoration-none middle_link">Xem báo cáo cho giai đoạn này</a></button>
         </div>
     </div>
-    <div class="list_transaction mt-3">
-        <div class="row col-gap-4">
+    <div class="list_transaction mt-3 container">
+        <div class="row">
             <div class="col-lg-6 money_out bg-white">
                 <div class="header_list bg-danger">
                     
                 </div>
-                <div class="item px-2">
+                <div class="item_1 px-2">
                     <div class="header_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">31</div>
+                            <div class="time_main fw-bold">28</div>
                             <div class="time_day">
                                 <div class="day">Chủ Nhật</div>
                                 <div class="month">tháng 12 2023</div>
                             </div>
                         </div>
-                        <div class="money_item">
+                        <div class="money_item text-danger">
                             -200,000
                         </div>
                     </div>
@@ -149,8 +187,8 @@
                                 <img src="../../img/Icon/icon_2.png" alt="">
                             </div>
                             <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                                <div class="day">Ăn uống</div>
+                                <div class="month">Đi ăn lẩu cùng bạn</div>
                             </div>
                         </div>
                         <div class="money_item">
@@ -158,17 +196,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="item px-2">
+                <div class="item_2 px-2">
                     <div class="header_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">31</div>
+                            <div class="time_main fw-bold">30</div>
                             <div class="time_day">
-                                <div class="day">Chủ Nhật</div>
+                                <div class="day">Thứ Bảy</div>
                                 <div class="month">tháng 12 2023</div>
                             </div>
                         </div>
-                        <div class="money_item">
-                            -200,000
+                        <div class="money_item text-danger">
+                            -500,000
                         </div>
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
@@ -177,8 +215,8 @@
                                 <img src="../../img/Icon/icon_3.png" alt="">
                             </div>
                             <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                                <div class="day">Mua sắm</div>
+                                <div class="month">Mua giày sneaker</div>
                             </div>
                         </div>
                         <div class="money_item">
@@ -188,15 +226,15 @@
                     <div class="main_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex align-items-center">
                             <div class="header_icon me-4">
-                                <img src="../../img/Icon/icon_4.png" alt="">
+                                <img src="../../img/Icon/icon_12.png" alt="">
                             </div>
                             <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                                <div class="day">Xe cộ</div>
+                                <div class="month">Đổ xăng xe</div>
                             </div>
                         </div>
                         <div class="money_item">
-                            -200,000
+                            -300,000
                         </div>
                     </div>
                 </div>
@@ -205,17 +243,17 @@
                 <div class="header_list">
                     
                 </div>
-                <div class="item px-2">
+                <div class="item_1 px-2">
                     <div class="header_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">31</div>
+                            <div class="time_main fw-bold">29</div>
                             <div class="time_day">
-                                <div class="day">Chủ Nhật</div>
+                                <div class="day">Thứ Sáu</div>
                                 <div class="month">tháng 12 2023</div>
                             </div>
                         </div>
-                        <div class="money_item">
-                            -200,000
+                        <div class="money_item text-primary">
+                            +600,000
                         </div>
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
@@ -229,21 +267,21 @@
                             </div>
                         </div>
                         <div class="money_item">
-                            -200,000
+                            +600,000
                         </div>
                     </div>
                 </div>
-                <div class="item px-2">
+                <div class="item_2 px-2">
                     <div class="header_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">31</div>
+                            <div class="time_main fw-bold">01</div>
                             <div class="time_day">
-                                <div class="day">Chủ Nhật</div>
+                                <div class="day">Thứ Hai</div>
                                 <div class="month">tháng 12 2023</div>
                             </div>
                         </div>
-                        <div class="money_item">
-                            -200,000
+                        <div class="money_item text-primary">
+                            +1,000,000
                         </div>
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
@@ -257,7 +295,7 @@
                             </div>
                         </div>
                         <div class="money_item">
-                            -200,000
+                            +700,000
                         </div>
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
@@ -271,7 +309,7 @@
                             </div>
                         </div>
                         <div class="money_item">
-                            -200,000
+                            +300,000
                         </div>
                     </div>
                 </div>
