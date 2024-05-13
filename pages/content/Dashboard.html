@@ -116,7 +116,6 @@
 </div>
 
 
-
 <!-- Giao dịch chi tiêu & biểu đồ chi tiêu -->
 <div class="container mt-3">
     <div class="row">
@@ -125,7 +124,6 @@
             <div class="order">
                 <div class="head d-flex align-items-center mb-3 mt-2">
                     <div class="fw-bold me-auto fs-3">Giao dịch gần đây</div>
-
                     <a class="load-transaction fw-bold p-1" href="./pages/content/Transaction.html"
                         style="text-decoration: none; ">
                         Sổ giao dịch
@@ -407,9 +405,6 @@
                         <div class="fs-6 d-flex justify-content-center">+50.000 đ</div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
         <div class="modal-footer">
@@ -427,8 +422,8 @@
         <div class="col-lg-5 col-sm-12 bg-white rounded-4 p-3 mb-2">
             <div class="row d-flex mb-2">
                 <div class="col-6 fw-bold fs-4 ">Kế hoạch chi tiêu</div>
-                <div class="col-3 fw-bold fs-6 text-center">Hiện tại</div>
-                <div class="col-3 fw-bold fs-6 text-center">Mục tiêu</div>
+                <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Hiện tại</div>
+                <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Mục tiêu</div>
             </div>
             <div class="row d-flex mt-2">
                 <div class="col-6 d-flex align-items-center justify-content-start">
@@ -482,10 +477,17 @@
                 <div class="col-3 text-center">$100.00</div>
             </div>
 
-            <a class="d-flex justify-content-end fw-bold" href="./pages/content/Transaction.html"
-                style="text-decoration: none;">
-                Xem tất cả
-            </a>
+            <div class="d-flex justify-content-end">
+                <a class="load-other d-flex align-items-center fw-bold" href="./pages/content/SpendingPlan.html"
+                    style="text-decoration: none;">
+                    Kế hoạch
+                </a>
+
+                <div class="fw-bold p-1 ms-3" type="button" data-bs-toggle="modal" data-bs-target="#all-spending-plan">
+                    Xem tất cả
+                </div>
+            </div>
+
         </div>
 
         <!-- Tiền ra | vào tháng -->
@@ -560,13 +562,107 @@
     </div>
 </div>
 
+<!-- Modal kế hoạch chi tiêu  -->
+<div class="modal fade modal-md" id="all-spending-plan" tabindex="-1" aria-labelledby="allSpendingPlan"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title fw-bold" id="allSpendingPlan">Các kế hoạch chi tiêu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                <div class="trans">
+                    <div class="row" style="border-bottom: 2px solid black;">
+                        <div class="col-1">
+                        </div>
+                        <div class="col-7 px-0 py-2">
+                            <div class="fw-bold fs-5 ms-3">Kế hoạch</div>
+                        </div>
+                        <div class="col-2 px-0 py-2">
+                            <div class="fw-bold fs-5">Hiện tại</div>
+                        </div>
+                        <div class="col-2 px-0 py-2">
+                            <div class="fw-bold fs-5">Mục tiêu</div>
+                        </div>
+
+                    </div>
+                    <div class="row bm-3 px-0 py-2" style="border-bottom: 2px solid black;">
+                        <div class="col-1 ps-1 pt-1">
+                            <img class="" src="/img/coffee-circle.png" style="width: 35px; height: 35px;">
+                        </div>
+                        <div class="col-7 ">
+                            <div class="fw-bold fs-6 ">Mua nhà</div>
+                            <div style="color: #CFABAB;">Đến tháng 5 năm 2025</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-info fw-bold">300.000đ</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-danger fw-bold">1.000.000đ</div>
+                        </div>
+                    </div>
+                    <div class="row bm-3 px-0 py-2" style="border-bottom: 2px solid black;">
+                        <div class="col-1 ps-1 pt-1">
+                            <img class="" src="/img/coffee-circle.png" style="width: 35px; height: 35px;">
+                        </div>
+                        <div class="col-7 ">
+                            <div class="fw-bold fs-6 ">Mua nhà</div>
+                            <div style="color: #CFABAB;">Đến tháng 5 năm 2025</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-info fw-bold">300.000đ</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-danger fw-bold">1.000.000đ</div>
+                        </div>
+                    </div>
+                    <div class="row bm-3 px-0 py-2" style="border-bottom: 2px solid black;">
+                        <div class="col-1 ps-1 pt-1">
+                            <img class="" src="/img/coffee-circle.png" style="width: 35px; height: 35px;">
+                        </div>
+                        <div class="col-7 ">
+                            <div class="fw-bold fs-6 ">Mua nhà</div>
+                            <div style="color: #CFABAB;">Đến tháng 5 năm 2025</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-info fw-bold">300.000đ</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-danger fw-bold">1.000.000đ</div>
+                        </div>
+                    </div>
+                    <div class="row bm-3 px-0 py-2">
+                        <div class="col-1 ps-1 pt-1">
+                            <img class="" src="/img/coffee-circle.png" style="width: 35px; height: 35px;">
+                        </div>
+                        <div class="col-7 ">
+                            <div class="fw-bold fs-6 ">Mua nhà</div>
+                            <div style="color: #CFABAB;">Đến tháng 5 năm 2025</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-info fw-bold">300.000đ</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center px-0">
+                            <div class="fs-6 text-danger fw-bold">1.000.000đ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
-        $(".load-transaction").click(function (e) {
+        $(".load-other").click(function (e) {
             e.preventDefault();
             var childUrl = $(this).attr("href");
             $("#page-content", window.parent.document).load(childUrl);
-
 
             const allParentSide = $("#sidebar .side-menu.top li a");
             allParentSide.each(function () {
