@@ -12,6 +12,7 @@
     <script src="../../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <script src="../../js/index.js"></script>
     <script src="https://example.com/fontawesome/v6.5.1/js/all.js" data-auto-replace-svg="nest"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .form-group button {
             width: 70%;
@@ -138,6 +139,10 @@
                 if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test($("#txt_email").val())) {
                     alert("Nhập lại email đúng định dạng")
                 }
+                swal({
+                    title: "Đăng kí thành công!",
+                    icon: "success",
+                });
             });
         });
     </script>

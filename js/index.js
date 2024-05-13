@@ -6,8 +6,9 @@ $(document).ready(function () {
         var url = $(this).attr("href");
         $("#page-content").load(url);
     });
-
-
+    $(".logoutBtn").click(function () {
+        window.location.href = "/pages/Auth/Login.html";
+    });
     $(window).resize(function () {
         const sidebar = $("#sidebar");
         if ($(window).width() < 768) {

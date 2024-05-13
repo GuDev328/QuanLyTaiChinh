@@ -12,15 +12,12 @@
     <script src="../../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <script src="../../js/index.js"></script>
     <script src="https://example.com/fontawesome/v6.5.1/js/all.js" data-auto-replace-svg="nest"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .form-group button {
             width: 70%;
 
             border-radius: 20px;
-        }
-
-        .flash {
-            display: none;
         }
 
         @media only screen and (max-width: 1024px) {
@@ -72,7 +69,6 @@
                             <img src="../../img/logo-no-background.png" style="margin-top: 60px" height="70px"
                                 alt="">
                         </div>
-                        <div class="alert alert-danger my-1 flash" role="alert" id="flashMsg"></div>
                         <div class="form-body">
                             <form action="/" class="d-flex flex-column justify-content-center">
                                 <div class="form-group mt-5">
@@ -102,12 +98,6 @@
                                     class="form-group d-flex mr-auto justify-content-center flex-column align-items-center">
                                     <button type="button" class="btn text-white mt-4" id="btn_login"
                                         style="background-color: #3c91e7;margin-bottom: 10px;">Đăng nhập</button>
-                                    <!-- <button type="button" class="btn btn-danger mt-2" id="btn_login_google"> 
-                                        <a  class="text-decoration-none text-white" href="" id="login_google">
-                                            <i class="fa-brands fa-google"></i>
-                                            Đăng nhập với Google
-                                        </a>
-                                    </button> -->
                                     <div class="login_other d-flex mt-2">
                                         <button type="button" data-mdb-button-init data-mdb-ripple-init
                                             class="btn btn-link btn-floating mx-3">
@@ -153,12 +143,18 @@
                     $("#flashMsg").empty("")
                     var email = $("#txt_email").val();
                     var password = $("#txt_password").val();
-                    if (email === 'admin@gmail.com' && password === 'admin') {
+                    if (email === 'user@gmail.com' && password === 'user') {
                         window.location.href = "/index.html";
-                    } else {
-                        alert("Tài khoản hoặc mật khẩu không chính xác")
+                    }else if(email === 'admin@gmail.com' && password === 'admin'){
+                        window.location.href = "/admin.html";
                     }
-
+                     else {
+                        swal({
+                            title: "Đăng nhập thất bại",
+                            text: "Vui lòng đăng nhập lại",
+                            icon: "error",
+                        });
+                    }
                 }
             });
         });
