@@ -125,6 +125,8 @@
         //Render dữ liệu nhập ra UI
         $(".save").click(function() {
             var money_number = $(".money_number").val();
+            var money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
+            console.log(money)
             var take_note = $(".take_note").val();
             var time_transaction = $(".time_transaction").val();
             var kind_transaction = $(".kind_transaction:checked").val();
@@ -143,7 +145,7 @@
                                 </div>
                             </div>
                             <div class="money_item text-danger">
-                                -${money_number}
+                                -${money}
                             </div>
                         </div>
                         <div class="main_item d-flex justify-content-between align-items-center">
@@ -157,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="money_item">
-                               - ${money_number}
+                               - ${money}
                             </div>
                         </div>
                     </div>`
@@ -171,13 +173,13 @@
                                 </div>
                             </div>
                             <div class="money_item text-primary">
-                                +${money_number}
+                                +${money}
                             </div>
                         </div>
                         <div class="main_item d-flex justify-content-between align-items-center">
                             <div class="time_item d-flex align-items-center">
                                 <div class="header_icon me-4">
-                                    <img src="../../img/Icon/icon_2.png" alt="">
+                                    <img src="../../img/Icon/icon_22.png" alt="">
                                 </div>
                                 <div class="time_day">
                                     <div class="day">${group_transaction}</div>
@@ -185,7 +187,7 @@
                                 </div>
                             </div>
                             <div class="money_item">
-                               +${money_number}
+                               +${money}
                             </div>
                         </div>
                     </div>`
@@ -195,29 +197,33 @@
             if(kind_transaction == "Khoản thu") {
                 $(".money_in").append(html1);
             }
+            //Tính toán tiền ra
+            var moneyItemsOut = $(".money_out .header_item .money_item");
+            var total = 0;
+            moneyItemsOut.each(function() {
+                total += parseInt($(this).text().trim().replace(',', ''));
+            });
+            var money1 = total.toLocaleString('en').replace("-","")
+            console.log(money1)
+            $(".middle_money-out").text(money1);
+            //Tính toán tiền vào
+            var moneyItemsIn = $(".money_in .header_item .money_item");
+            var sum = 0;
+            moneyItemsIn.each(function() {
+                sum += parseInt($(this).text().trim().replace(',', ''));
+            });
+            var money2 = sum.toLocaleString('en').replace("+","")
+            console.log(money2)
+            //Tính toán số dư
+            $(".middle_money-in").text(money2);
+            var moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
+            console.log(moneyItemsResult);
+            $(".middle_money-result").text(moneyItemsResult);
+            $(".header_money").text(moneyItemsResult);
         })
 
-
-        //Tính toán tiền ra
-        var moneyItemsOut = $(".money_out .header_item .money_item");
-        var total = 0;
-        moneyItemsOut.each(function() {
-            total += parseInt($(this).text().trim().replace(',', ''));
-        });
-        var money1 = total.toLocaleString('en').replace("-","")
-        $(".middle_money-in").text(money1);
-        //Tính toán tiền vào
-        var moneyItemsIn = $(".money_in .header_item .money_item");
-        var sum = 0;
-        moneyItemsIn.each(function() {
-            sum += parseInt($(this).text().trim().replace(',', ''));
-        });
-        var money2 = sum.toLocaleString('en').replace("+","")
-        //Tính toán số dư
-        $(".middle_money-out").text(money2);
-        var moneyItemsResult = (parseInt(money2) + parseInt(money1)).toLocaleString('en').replace("+","");
-        console.log(moneyItemsResult);
-        $(".middle_money-result").text(moneyItemsResul);
+        
+        
     })
 
 </script>
@@ -228,7 +234,7 @@
                 SỐ DƯ
             </div>
             <div class="header_money fs-5 fw-bold">
-                2,000,000đ
+                800,000đ
             </div>
         </div>
         <div class="header_middle d-flex align-items-center rounded-2 me-5">
@@ -269,15 +275,15 @@
         <div class="middle_calculate text-center">
             <div class="middle_in row">
                 <span class="col-lg-6">Tiền vào: </span>
-                <span class="col-lg-6 text-primary fw-bold middle_money-in">3,000,000</span>
+                <span class="col-lg-6 text-primary fw-bold middle_money-in">1,500,000</span>
             </div>
             <div class="middle_out row">
                 <span class="col-lg-6">Tiền ra: </span>
-                <span class="col-lg-6 text-danger fw-bold middle_money-out">1,000,000</span>
+                <span class="col-lg-6 text-danger fw-bold middle_money-out">700,000</span>
             </div>
             <div class="middle_result row">
                 <span class="col-lg-6">Số dư:</span>
-                <span class="col-lg-6 fw-bold middle_money-result">2,000,000</span>
+                <span class="col-lg-6 fw-bold middle_money-result">800,000</span>
             </div>
         </div>
         <div class="text-center">
@@ -303,7 +309,7 @@
                     <div class="form-group row mb-2">
                         <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                          <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
                         </div>
                     </div>
                     <div class="form-group row mb-2">
