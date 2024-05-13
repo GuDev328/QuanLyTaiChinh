@@ -7,6 +7,7 @@ $(document).ready(function () {
         $("#page-content").load(url);
     });
 
+
     $(window).resize(function () {
         const sidebar = $("#sidebar");
         if ($(window).width() < 768) {
