@@ -143,15 +143,12 @@
                     $("#flashMsg").empty("")
                     var email = $("#txt_email").val();
                     var password = $("#txt_password").val();
-                    if (email === 'admin@gmail.com' && password === 'admin') {
-                        // swal({
-                        //     title: "Good job!",
-                        //     text: "You clicked the button!",
-                        //     icon: "success",
-                        //     button: "OK",
-                        // });
+                    if (email === 'user@gmail.com' && password === 'user') {
                         window.location.href = "/index.html";
-                    } else {
+                    }else if(email === 'admin@gmail.com' && password === 'admin'){
+                        window.location.href = "/admin.html";
+                    }
+                     else {
                         swal({
                             title: "Đăng nhập thất bại",
                             text: "Vui lòng đăng nhập lại",
