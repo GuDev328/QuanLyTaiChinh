@@ -522,41 +522,94 @@
         <div class="col-lg-4 col-sm-12 bg-white rounded-4 p-3">
             <div class="container d-flex justify-content-between">
                 <div class="fw-bold fs-4">Ví</div>
-                <i class="fa-solid fa-circle-plus fa-2xl mt-3" style="color: #0093E6; cursor: pointer;"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl mt-3" style="color: #0093E6; cursor: pointer;"
+                    data-bs-toggle="modal" data-bs-target="#add-wallet"></i>
             </div>
 
-            <div class="row bg-info rounded-4 mt-2 px-1 py-3 mx-1">
-                <div class="col-5 fw-bold fs-6">
-                    Ví chính
-                </div>
-                <div class="col-5 fw-bold fs-6">
-                    7,560,000đ
-                </div>
-                <div class="col-2">
-                    <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;"></i>
-                </div>
-            </div>
-            <div class="row bg-info rounded-4 mt-2 px-1 py-3 mx-1">
-                <div class="col-5 fw-bold fs-6">
-                    Ví phụ
-                </div>
-                <div class="col-5 fw-bold fs-6">
-                    7,560,000đ
-                </div>
-                <div class="col-2">
-                    <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;"></i>
+            <div id="wallets-container">
+                <div class="wallet-item bg-info row rounded-4 mt-2 px-1 py-3 mx-1" data-index="0">
+                    <div class="wallet-name col-5 fw-bold fs-6">
+                        Ví chính
+                    </div>
+                    <div class="wallet-money col-5 fw-bold fs-6">
+                        7,560,000đ
+                    </div>
+                    <div class="col-2">
+                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
+                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
+                                    id="modify-wallet-btn">Sửa</a></li>
+                            <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDelete">Xóa</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row bg-info rounded-4 mt-2 px-1 py-3 mx-1">
-                <div class="col-5 fw-bold fs-6">
-                    Quỹ đen
+        </div>
+    </div>
+</div>
+
+<!-- Modal tạo ví  -->
+<div class="modal fade modal-md" id="add-wallet" tabindex="-1" aria-labelledby="addWallet" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title fw-bold" id="addWallet">Tạo ví</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                <form id="addWalletForm">
+                    <div>
+                        <label for="addWalletName">Tên ví:</label>
+                        <input type="text" class="form-control" id="addWalletName" name="walletName">
+                        <label for="addWalletMoney">Số tiền:</label>
+                        <input type="text" class="form-control" id="addWalletMoney" name="walletMoney">
+
+                        <label for="addWalletColor" class="form-label">Màu sắc:</label>
+                        <div class="d-flex mb-1">
+                            <input type="color" class="form-control form-control-color" id="addWalletColor"
+                                value="#000000">
+                            <input type="text" class="form-control ms-1" id="colorCode" placeholder="#000000"
+                                name="colorCode" value="#000000">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="errorMessages" class="mt-3 text-danger"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button id="create-wallet-btn" type="button" class="btn btn-primary">Tạo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal sửa ví  -->
+<div class="modal fade modal-md" id="modify-wallet" tabindex="-1" aria-labelledby="modifyWallet" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title fw-bold" id="modifyWallet">Sửa ví</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                <div>
+                    <label for="walletName">Tên ví:</label>
+                    <input type="text" class="form-control" id="walletName" disabled>
+                    <label for="walletMoney">Số tiền:</label>
+                    <input type="text" class="form-control" id="walletMoney">
+                    <label for="walletColor" class="form-label">Màu sắc:</label>
+                    <div class="d-flex mb-1">
+                        <input type="color" class="form-control form-control-color" id="walletColor">
+                        <input type="text" class="form-control ms-1" id="colorCode" placeholder="#000000">
+                    </div>
                 </div>
-                <div class="col-5 fw-bold fs-6">
-                    7,560,000đ
-                </div>
-                <div class="col-2">
-                    <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;"></i>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sửa</button>
             </div>
         </div>
     </div>
@@ -656,9 +709,28 @@
     </div>
 </div>
 
+<!-- Modal confirm delete-->
+<div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModal">Bạn có chắc chắn muốn xóa ví không?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn"
+                    data-bs-dismiss="modal">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     $(document).ready(function () {
+        //Navigate page
         $(".load-other").click(function (e) {
             e.preventDefault();
             var childUrl = $(this).attr("href");
@@ -667,29 +739,148 @@
             const allParentSide = $("#sidebar .side-menu.top li a");
             allParentSide.each(function () {
                 if ($(this).attr("href") === childUrl) {
-                    //Lấy đối tượng trùng url
+                    //Check if satisfy the condition
                     var li = $(this).parent();
-                    //Bỏ toàn bộ active parent
+                    //Remove all parent has active class
                     allParentSide.each(function () {
                         $(this).parent().removeClass("active");
                     })
                     li.addClass("active")
                 }
             })
+        })
 
+        // //Đồng bộ giá trị màu
+        // $("#addWalletColor").on('input', function () {
+        //     $("#colorCode").val($(this).val());
+        // });
+        // $("#colorCode").on('input', function () {
+        //     if (/^#[0-9A-Fa-f]{6}$/i.test($(this).val())) {
+        //         $("#addWalletColor").val($(this).val());
+        //     }
+        // });
+
+
+        var index = 1;
+        //Add wallet
+        $("#create-wallet-btn").on('click', function () {
+            var walletName = $("#addWalletName").val().trim();
+            var walletMoney = $("#addWalletMoney").val().trim();
+            var walletColor = $("#addWalletColor").val();
+            var colorCode = $("#colorCode").val().trim();
+
+            var isValid = true;
+            var errorMessages = '';
+
+            // Validate wallet name
+            if (walletName === '') {
+                isValid = false;
+                errorMessages += '<p>Tên ví không được để trống.</p>';
+            }
+
+            // Validate wallet money
+            if (!$.isNumeric(walletMoney) || parseFloat(walletMoney) <= 0) {
+                isValid = false;
+                errorMessages += '<p>Số tiền phải là một số và lớn hơn 0.</p>';
+            }
+
+            // Validate color code
+            var colorCodePattern = /^#[0-9A-Fa-f]{6}$/i;
+            if (!colorCodePattern.test(colorCode)) {
+                isValid = false;
+                errorMessages += '<p>Mã màu không hợp lệ. Mã màu phải bắt đầu bằng # và gồm 6 ký tự.</p>';
+            }
+
+            if (isValid) {
+                var newWallet = `
+                <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="${index}" style="background-color: ${walletColor}; color: white;">
+                    <div class="wallet-name col-5 fw-bold fs-6">${walletName}</div>
+                    <div class="wallet-money col-5 fw-bold fs-6">${walletMoney}đ</div>
+                    <div class="col-2">
+                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
+                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
+                                    id="modify-wallet-btn">Sửa</a></li>
+                            <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal" data-bs-target="#confirmDelete">Xóa</a></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+                $('#wallets-container').append(newWallet);
+                index++;
+
+                $("#addWalletName").val('');
+                $("#addWalletMoney").val('');
+                $("#addWalletColor").val('#000000');
+                $("#colorCode").val('#000000');
+                $("#errorMessages").val('')
+
+                // Lấy thể hiện modal sử dung hide
+                var modal = bootstrap.Modal.getInstance(document.getElementById('add-wallet'));
+                modal.hide();
+            } else {
+                $('#errorMessages').html(errorMessages);
+            }
+        });
+
+        // Sync color input and text input
+        $("#addWalletColor").on('input', function () {
+            $("#colorCode").val($(this).val());
+        });
+        $("#colorCode").on('input', function () {
+            if (/^#[0-9A-Fa-f]{6}$/i.test($(this).val())) {
+                $("#addWalletColor").val($(this).val());
+            }
+        });
+    })
+
+    // Edit wallet button click event
+    $(document).on('click', '#wallet-option', function () {
+        var walletItem = $(this).closest('.wallet-item');
+        var walletName = walletItem.find('.wallet-name:eq(0)').text().trim();
+        var walletMoney = walletItem.find('.wallet-money:eq(1)').text().trim();
+        var walletColor = walletItem.css('background-color');
+        var colorCode = rgbToHex(walletColor);
+
+        // Set values to modal inputs
+        $("#walletName").val(walletName);
+        $("#walletMoney").val(walletMoney);
+        $("#walletColor").val(colorCode);
+        $("#colorCode").val(colorCode);
+    });
+
+    // Function to convert RGB color to hex
+    function rgbToHex(rgb) {
+        var hex = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+        return "#" + hex[1] + hex[2] + hex[3];
+    }
+
+
+    // // Delete wallet button click event
+    // $(document).on('click', '#delete-wallet-btn', function () {
+    //     var deleteReference = $(this)
+    //     $('#confirm-delete-btn').on('click', function () {
+    //         deleteReference.closest('.wallet-item').remove();
+    //     })
+    // })
+
+    // Delete wallet with index
+    $(document).on('click', '#delete-wallet-btn', function () {
+        var indexToDelete = $(this).closest('.wallet-item').data('index')
+        $('#confirm-delete-btn').on('click', function () {
+            if (indexToDelete !== null) {
+                $('.wallet-item').filter(function () {
+                    return $(this).data('index') === indexToDelete;
+                }).remove()
+            }
+            indexToDelete = null;
         })
     })
 
-
-    // Function to save data
-    function saveData() {
-        // Get the value from the input field
-        var inputData = document.getElementById('dataInput').value;
-        // Perform any action with the input data here
-        console.log("Input data:", inputData);
-        // Close the modal
-        $('#myModal').modal('hide');
-    }
 
 
     // Sample data for the donut chart
