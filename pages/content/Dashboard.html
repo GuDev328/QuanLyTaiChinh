@@ -527,24 +527,6 @@
             </div>
 
             <div id="wallets-container">
-                <div class="wallet-item bg-info row rounded-4 mt-2 px-1 py-3 mx-1" data-index="0">
-                    <div class="wallet-name col-5 fw-bold fs-6">
-                        Ví chính
-                    </div>
-                    <div class="wallet-money col-5 fw-bold fs-6">
-                        7,560,000đ
-                    </div>
-                    <div class="col-2">
-                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
-                            data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
-                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
-                                    id="modify-wallet-btn">Sửa</a></li>
-                            <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal"
-                                    data-bs-target="#confirmDelete">Xóa</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -570,7 +552,7 @@
                         <div class="d-flex mb-1">
                             <input type="color" class="form-control form-control-color" id="addWalletColor"
                                 value="#000000">
-                            <input type="text" class="form-control ms-1" id="colorCode" placeholder="#000000"
+                            <input type="text" class="form-control ms-1" id="addColorCode" placeholder="#000000"
                                 name="colorCode" value="#000000">
                         </div>
                     </div>
@@ -596,20 +578,20 @@
             </div>
             <div class="modal-body py-0">
                 <div>
-                    <label for="walletName">Tên ví:</label>
-                    <input type="text" class="form-control" id="walletName" disabled>
-                    <label for="walletMoney">Số tiền:</label>
-                    <input type="text" class="form-control" id="walletMoney">
-                    <label for="walletColor" class="form-label">Màu sắc:</label>
+                    <label for="modifyWalletName">Tên ví:</label>
+                    <input type="text" class="form-control" id="modifyWalletName" disabled>
+                    <label for="modifyWalletMoney">Số tiền:</label>
+                    <input type="text" class="form-control" id="modifyWalletMoney">
+                    <label for="modifyWalletColor" class="form-label">Màu sắc:</label>
                     <div class="d-flex mb-1">
-                        <input type="color" class="form-control form-control-color" id="walletColor">
-                        <input type="text" class="form-control ms-1" id="colorCode" placeholder="#000000">
+                        <input type="color" class="form-control form-control-color" id="modifyWalletColor">
+                        <input type="text" class="form-control ms-1" id="modifyColorCode" placeholder="#000000">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sửa</button>
+                <button id="save-modify-btn" type="button" class="btn btn-primary" data-bs-dismiss="modal">Sửa</button>
             </div>
         </div>
     </div>
@@ -750,30 +732,26 @@
             })
         })
 
-        // //Đồng bộ giá trị màu
-        // $("#addWalletColor").on('input', function () {
-        //     $("#colorCode").val($(this).val());
-        // });
-        // $("#colorCode").on('input', function () {
-        //     if (/^#[0-9A-Fa-f]{6}$/i.test($(this).val())) {
-        //         $("#addWalletColor").val($(this).val());
-        //     }
-        // });
+        // Color synchronization
+        function synchronizationColor(walletColor, codeColor) {
+            walletColor.on('input', function () {
+                codeColor.val($(this).val());
+            });
 
+            codeColor.on('input', function () {
+                if (/^#[0-9A-Fa-f]{6}$/i.test($(this).val())) {
+                    walletColor.val($(this).val());
+                }
+            });
+        }
 
-        var index = 1;
-        //Add wallet
-        $("#create-wallet-btn").on('click', function () {
-            var walletName = $("#addWalletName").val().trim();
-            var walletMoney = $("#addWalletMoney").val().trim();
-            var walletColor = $("#addWalletColor").val();
-            var colorCode = $("#colorCode").val().trim();
-
+        // Validate input field
+        function validateWalletInputs(walletName, walletMoney, colorCode) {
             var isValid = true;
             var errorMessages = '';
 
             // Validate wallet name
-            if (walletName === '') {
+            if (walletName.trim() === '') {
                 isValid = false;
                 errorMessages += '<p>Tên ví không được để trống.</p>';
             }
@@ -786,12 +764,27 @@
 
             // Validate color code
             var colorCodePattern = /^#[0-9A-Fa-f]{6}$/i;
-            if (!colorCodePattern.test(colorCode)) {
+            if (!colorCodePattern.test(colorCode.trim())) {
                 isValid = false;
                 errorMessages += '<p>Mã màu không hợp lệ. Mã màu phải bắt đầu bằng # và gồm 6 ký tự.</p>';
             }
 
-            if (isValid) {
+            return { isValid: isValid, errorMessages: errorMessages };
+        }
+
+        var index = 1;
+        //Add wallet
+        synchronizationColor($("#addWalletColor"), $("#addColorCode"));
+        $("#create-wallet-btn").on('click', function () {
+            var walletName = $("#addWalletName").val().trim();
+            var walletMoney = $("#addWalletMoney").val().trim();
+            var walletColor = $("#addWalletColor").val();
+            var colorCode = $("#addColorCode").val().trim();
+
+
+            var validationResult = validateWalletInputs(walletName, walletMoney, colorCode);
+
+            if (validationResult.isValid) {
                 var newWallet = `
                 <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="${index}" style="background-color: ${walletColor}; color: white;">
                     <div class="wallet-name col-5 fw-bold fs-6">${walletName}</div>
@@ -800,8 +793,8 @@
                         <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
                             data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="wallet-option">
-                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
-                                    id="modify-wallet-btn">Sửa</a></li>
+                            <li><a id="modify-wallet-btn" href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
+                                    >Sửa</a></li>
                             <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal" data-bs-target="#confirmDelete">Xóa</a></li>
                         </ul>
                     </div>
@@ -813,73 +806,94 @@
                 $("#addWalletName").val('');
                 $("#addWalletMoney").val('');
                 $("#addWalletColor").val('#000000');
-                $("#colorCode").val('#000000');
-                $("#errorMessages").val('')
+                $("#addColorCode").val('#000000');
+                $('#errorMessages').html('')
 
                 // Lấy thể hiện modal sử dung hide
                 var modal = bootstrap.Modal.getInstance(document.getElementById('add-wallet'));
                 modal.hide();
             } else {
-                $('#errorMessages').html(errorMessages);
+                $('#errorMessages').html(validationResult.errorMessages);
             }
         });
 
-        // Sync color input and text input
-        $("#addWalletColor").on('input', function () {
-            $("#colorCode").val($(this).val());
+        // Edit wallet
+        synchronizationColor($("#modifyWalletColor"), $("#modifyColorCode"));
+        $(document).on('click', '#modify-wallet-btn', function () {
+            //Lấy thông tin của ví cần sửa
+            var walletItem = $(this).closest('.wallet-item');
+            var walletName = walletItem.find('.wallet-name').text().trim()
+            var walletMoney = walletItem.find('.wallet-money').text().trim().replace('đ', '')
+            var walletColor = walletItem.css('background-color')
+
+            //Set data cho field
+            $('#modifyWalletName').val(walletName)
+            $('#modifyWalletMoney').val(walletMoney)
+            var codeColor = rgbToHex(walletColor)
+            $('#modifyWalletColor').val(codeColor)
+            $('#modifyColorCode').val(codeColor)
+
+
+            $('#save-modify-btn').off('click').on('click', function () {
+                var newWalletName = $("#modifyWalletName").val();
+                var newWalletMoney = $("#modifyWalletMoney").val();
+                var newColorCode = $("#modifyColorCode").val();
+                var newWalletColor = $("#modifyWalletColor").val();
+
+                var validationResult = validateWalletInputs(newWalletName, newWalletMoney, newColorCode);
+                synchronizationColor($("#modifyWalletColor"), $("#colorCode"));
+
+                if (validationResult.isValid) {
+                    walletItem.find('.wallet-name').text(newWalletName);
+                    walletItem.find('.wallet-money').text(newWalletMoney + 'đ');
+                    walletItem.css('background-color', newWalletColor);
+                    $('#errorMessages').html('');
+
+                    var modal = bootstrap.Modal.getInstance(document.getElementById('modify-wallet'));
+                    modal.hide();
+                } else {
+                    $('#errorMessages').html(validationResult.errorMessages);
+                }
+            });
         });
-        $("#colorCode").on('input', function () {
-            if (/^#[0-9A-Fa-f]{6}$/i.test($(this).val())) {
-                $("#addWalletColor").val($(this).val());
-            }
-        });
-    })
 
-    // Edit wallet button click event
-    $(document).on('click', '#wallet-option', function () {
-        var walletItem = $(this).closest('.wallet-item');
-        var walletName = walletItem.find('.wallet-name:eq(0)').text().trim();
-        var walletMoney = walletItem.find('.wallet-money:eq(1)').text().trim();
-        var walletColor = walletItem.css('background-color');
-        var colorCode = rgbToHex(walletColor);
 
-        // Set values to modal inputs
-        $("#walletName").val(walletName);
-        $("#walletMoney").val(walletMoney);
-        $("#walletColor").val(colorCode);
-        $("#colorCode").val(colorCode);
-    });
 
-    // Function to convert RGB color to hex
-    function rgbToHex(rgb) {
-        var hex = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-        function hex(x) {
-            return ("0" + parseInt(x).toString(16)).slice(-2);
+        function rgbToHex(rgb) {
+            // Extract the numeric values from the rgb string
+            var rgbValues = rgb.match(/\d+/g);
+            // Convert the extracted values to hexadecimal format
+            var r = parseInt(rgbValues[0]).toString(16).padStart(2, '0');
+            var g = parseInt(rgbValues[1]).toString(16).padStart(2, '0');
+            var b = parseInt(rgbValues[2]).toString(16).padStart(2, '0');
+            // Combine the hex values into a single string
+            return `#${r}${g}${b}`;
         }
-        return "#" + hex[1] + hex[2] + hex[3];
-    }
 
 
-    // // Delete wallet button click event
-    // $(document).on('click', '#delete-wallet-btn', function () {
-    //     var deleteReference = $(this)
-    //     $('#confirm-delete-btn').on('click', function () {
-    //         deleteReference.closest('.wallet-item').remove();
-    //     })
-    // })
+        // // Delete wallet button click event
+        // $(document).on('click', '#delete-wallet-btn', function () {
+        //     var deleteReference = $(this)
+        //     $('#confirm-delete-btn').on('click', function () {
+        //         deleteReference.closest('.wallet-item').remove();
+        //     })
+        // })
 
-    // Delete wallet with index
-    $(document).on('click', '#delete-wallet-btn', function () {
-        var indexToDelete = $(this).closest('.wallet-item').data('index')
-        $('#confirm-delete-btn').on('click', function () {
-            if (indexToDelete !== null) {
-                $('.wallet-item').filter(function () {
-                    return $(this).data('index') === indexToDelete;
-                }).remove()
-            }
-            indexToDelete = null;
+        // Delete wallet with index
+        $(document).on('click', '#delete-wallet-btn', function () {
+            var indexToDelete = $(this).closest('.wallet-item').data('index')
+            $('#confirm-delete-btn').on('click', function () {
+                if (indexToDelete !== null) {
+                    $('.wallet-item').filter(function () {
+                        return $(this).data('index') === indexToDelete;
+                    }).remove()
+                }
+                indexToDelete = null;
+            })
         })
     })
+
+
 
 
 
