@@ -242,6 +242,7 @@ body {
     width: calc(100% - 280px);
     left: 280px;
     transition: .3s ease;
+    padding-top: 0;
 }
 
 #sidebar.hide~#content {
@@ -404,7 +405,7 @@ body {
 
 #content main {
     width: 100%;
-    padding: 20px 20px;
+    padding: 10px 20px;
     font-family: var(--poppins);
     max-height: calc(100vh - 56px);
     overflow-y: auto;

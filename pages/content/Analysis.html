@@ -1,0 +1,266 @@
+<body>
+    <div class="container">
+        <div class="fw-bold fs-3">Biểu đồ dòng tiền</div>
+        <div class="row mb-2">
+            <div class="col text-center">
+                <button id="btn-weekly" class="btn btn-primary">Tuần</button>
+                <button id="btn-monthly" class="btn btn-secondary">Tháng</button>
+                <button id="btn-yearly" class="btn btn-secondary">Năm</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="chart" class="bg-white rounded-3 p-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-8">
+                <div class="rounded-3 p-2 bg-white" id="column-chart"></div>
+            </div>
+            <div class="col-4">
+                <div class="rounded-3 p-2 bg-white" id="chart2"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ------------LINE CHART------------
+        // Placeholder data for the chart
+        const data = {
+            weekly: {
+                inflow: [
+                    { x: 'Tuần 1', y: 30 },
+                    { x: 'Tuần 2', y: 40 },
+                    { x: 'Tuần 3', y: 35 },
+                    { x: 'Tuần 4', y: 50 }
+                ],
+                outflow: [
+                    { x: 'Tuần 1', y: 20 },
+                    { x: 'Tuần 2', y: 60 },
+                    { x: 'Tuần 3', y: 25 },
+                    { x: 'Tuần 4', y: 55 }
+                ]
+            },
+            monthly: {
+                inflow: [
+                    { x: 'Tháng 1', y: 100 },
+                    { x: 'Tháng 2', y: 80 },
+                    { x: 'Tháng 3', y: 90 },
+                    { x: 'Tháng 4', y: 120 },
+                    { x: 'Tháng 5', y: 130 },
+                    { x: 'Tháng 6', y: 110 },
+                    { x: 'Tháng 7', y: 150 },
+                    { x: 'Tháng 8', y: 170 },
+                    { x: 'Tháng 9', y: 160 },
+                    { x: 'Tháng 10', y: 190 },
+                    { x: 'Tháng 11', y: 200 },
+                    { x: 'Tháng 12', y: 210 }
+                ],
+                outflow: [
+                    { x: 'Tháng 1', y: 50 },
+                    { x: 'Tháng 2', y: 60 },
+                    { x: 'Tháng 3', y: 70 },
+                    { x: 'Tháng 4', y: 80 },
+                    { x: 'Tháng 5', y: 90 },
+                    { x: 'Tháng 6', y: 100 },
+                    { x: 'Tháng 7', y: 110 },
+                    { x: 'Tháng 8', y: 120 },
+                    { x: 'Tháng 9', y: 130 },
+                    { x: 'Tháng 10', y: 140 },
+                    { x: 'Tháng 11', y: 150 },
+                    { x: 'Tháng 12', y: 160 }
+                ]
+            },
+            yearly: {
+                inflow: [
+                    { x: '2021', y: 800 },
+                    { x: '2022', y: 850 },
+                    { x: '2023', y: 900 },
+                    { x: '2024', y: 950 }
+                ],
+                outflow: [
+                    { x: '2021', y: 400 },
+                    { x: '2022', y: 420 },
+                    { x: '2023', y: 450 },
+                    { x: '2024', y: 470 }
+                ]
+            }
+        };
+
+        // Initialize the chart
+        const options = {
+            chart: {
+                type: 'line',
+                height: 350,
+                animations: {
+                    enabled: true
+                }
+            },
+            series: [
+                {
+                    name: 'Dòng tiền vào',
+                    data: data.weekly.inflow
+                },
+                {
+                    name: 'Dòng tiền ra',
+                    data: data.weekly.outflow
+                }
+            ],
+            xaxis: {
+                type: 'category'
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            legend: {
+                position: 'top'
+            }
+        };
+
+        const chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        // Update chart data based on selected period
+        function updateChart(period) {
+            chart.updateSeries([
+                {
+                    name: 'Dòng tiền vào',
+                    data: data[period].inflow
+                },
+                {
+                    name: 'Dòng tiền ra',
+                    data: data[period].outflow
+                }
+            ]);
+        }
+
+        // Button click handlers
+        $('#btn-weekly').on('click', function () {
+            updateChart('weekly');
+            setActiveButton($(this));
+        });
+
+        $('#btn-monthly').on('click', function () {
+            updateChart('monthly');
+            setActiveButton($(this));
+        });
+
+        $('#btn-yearly').on('click', function () {
+            updateChart('yearly');
+            setActiveButton($(this));
+        });
+
+        // Set active button style
+        function setActiveButton(button) {
+            $('.btn').removeClass('btn-primary').addClass('btn-secondary');
+            button.removeClass('btn-secondary').addClass('btn-primary');
+        }
+
+        // ------------DONUT CHART------------
+        var donutData = {
+            series: [55, 55, 13, 43, 22, 14, 31, 9, 18],
+            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+        };
+        // Options for the donut chart2
+        var donutOptions = {
+            chart: {
+                type: 'donut',
+                height: 300,
+
+            },
+            series: donutData.series,
+            labels: donutData.labels,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        // Initialize the donut chart
+        var donutChart = new ApexCharts(document.querySelector("#chart2"), donutOptions);
+        // Render the chart
+        donutChart.render();
+
+
+        //------------COLUMN CHART------------
+        var options3 = {
+            series: [
+                {
+                    name: 'Q1 Budget',
+                    group: 'budget',
+                    data: [44000, 55000, 41000, 67000, 22000, 43000]
+                },
+                {
+                    name: 'Q1 Actual',
+                    group: 'actual',
+                    data: [48000, 50000, 40000, 65000, 25000, 40000]
+                },
+                {
+                    name: 'Q2 Budget',
+                    group: 'budget',
+                    data: [13000, 36000, 20000, 8000, 13000, 27000]
+                },
+                {
+                    name: 'Q2 Actual',
+                    group: 'actual',
+                    data: [20000, 40000, 25000, 10000, 12000, 28000]
+                }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+            },
+            stroke: {
+                width: 1,
+                colors: ['#fff']
+            },
+            dataLabels: {
+                formatter: (val) => {
+                    return val / 1000 + 'K'
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false
+                }
+            },
+            xaxis: {
+                categories: [
+                    'Online advertising',
+                    'Sales Training',
+                    'Print advertising',
+                    'Catalogs',
+                    'Meetings',
+                    'Public relations'
+                ]
+            },
+            fill: {
+                opacity: 1
+            },
+            colors: ['#80c7fd', '#008FFB', '#80f1cb', '#00E396'],
+            yaxis: {
+                labels: {
+                    formatter: (val) => {
+                        return val / 1000 + 'K'
+                    }
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
+            }
+        };
+
+        var chart3 = new ApexCharts(document.querySelector("#column-chart"), options3);
+        chart3.render();
+    </script>
+</body>
