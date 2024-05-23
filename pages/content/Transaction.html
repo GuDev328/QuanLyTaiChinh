@@ -221,14 +221,31 @@
             $(".middle_money-result").text(moneyItemsResult);
             $(".header_money").text(moneyItemsResult);
         })
-
+        $(".time_1").click(function() {
+            $(".content_1").css("display","block");
+            $(".content_2").css("display","none");
+            $(".content_3").css("display","none");
+            
+        })
+        $(".time_2").click(function() {
+            $(".content_2").css("display","block");
+            $(".content_3").css("display","none");
+            $(".content_1").css("display","none");
+            
+        })
+        $(".time_3").click(function() {
+            $(".content_3").css("display","block");
+            $(".content_2").css("display","none");
+            $(".content_1").css("display","none");
+            
+        })
         
         
     })
 
 </script>
 <div class="container rounded-3 p-0 layout_1">
-    <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center">
+    <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center fixed">
         <div class="header_left ms-3">
             <div class="header_label mt-1">
                 SỐ DƯ
@@ -243,10 +260,10 @@
                 <img src="../../img/Icon/icon_25.png" alt="">
             </div>
             <div class="dropdown-center">
-                <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Ví giao dịch
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end position-absolute">
                   <li><a class="dropdown-item vi_1" href="#">Ví chính</a></li>
                   <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
                   <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
@@ -264,256 +281,758 @@
               </ul>
         </div>
     </div>
-    <div class="middle_transaction position-relative">
-        <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around">
-            <span class="col-lg-4 text-center time_1">11/2023</span>
-            <span class="col-lg-4 text-center select time_3">12/2023</span>
-            <span class="col-lg-4 text-center time_3">01/2024</span>
-            <span class="col-lg-4 text-center time_4">02/2024</span>
-
-        </div>
-        <div class="middle_calculate text-center">
-            <div class="middle_in row">
-                <span class="col-lg-6">Tiền vào: </span>
-                <span class="col-lg-6 text-primary fw-bold middle_money-in">1,500,000</span>
+    <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around btn-group" role="group">
+        <span class="col-lg-4 text-center time_1 ">11/2023</span>
+        <span class="col-lg-4 text-center select time_2">12/2023</span>
+        <span class="col-lg-4 text-center time_3">01/2024</span>
+    </div>
+    <div class="content_1" style="display: none;">
+        <div class="middle_transaction position-relative ">
+            <div class="middle_calculate text-center">
+                <div class="middle_in row">
+                    <span class="col-lg-6">Tiền vào: </span>
+                    <span class="col-lg-6 text-primary fw-bold middle_money-in">1,500,000</span>
+                </div>
+                <div class="middle_out row">
+                    <span class="col-lg-6">Tiền ra: </span>
+                    <span class="col-lg-6 text-danger fw-bold middle_money-out">700,000</span>
+                </div>
+                <div class="middle_result row">
+                    <span class="col-lg-6">Số dư:</span>
+                    <span class="col-lg-6 fw-bold middle_money-result">800,000</span>
+                </div>
             </div>
-            <div class="middle_out row">
-                <span class="col-lg-6">Tiền ra: </span>
-                <span class="col-lg-6 text-danger fw-bold middle_money-out">700,000</span>
+            <div class="text-center">
+                <button class="middle_btn">
+                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
+                        data-placement="right" title="Phân tích">
+                        <span class="text">Xem báo cáo cho giai đoạn này</span>
+                    </a>
+                </button>
             </div>
-            <div class="middle_result row">
-                <span class="col-lg-6">Số dư:</span>
-                <span class="col-lg-6 fw-bold middle_money-result">800,000</span>
-            </div>
-        </div>
-        <div class="text-center">
-            <button class="middle_btn">
-                <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
-                    data-placement="right" title="Phân tích">
-                    <span class="text">Xem báo cáo cho giai đoạn này</span>
-                </a>
+            <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                <i class="fa-solid fa-circle-plus"></i>
             </button>
-        </div>
-        <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-            <i class="fa-solid fa-circle-plus"></i>
-        </button>
-        <!-- MODAL  -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row mb-2">
-                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
-                        <div class="col-sm-9">
-                          <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
+            <!-- MODAL  -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
+                            <div class="col-sm-9">
+                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
+                            <div class="col-sm-9">
+                                <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
+                                    <label class="form-check-label" for="gridRadios1">
+                                      Khoản thu
+                                    </label>
+                                  </div>
+                                  <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
+                                    <label class="form-check-label" for="gridRadios2">
+                                      Khoản chi
+                                    </label>
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
+                            <div class="col-sm-9">
+                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
+                                    <option value="Ăn uống">Ăn uống</option>
+                                    <option value="Bảo hiểm">Bảo hiểm</option>
+                                    <option value="Giải trí">Giải trí</option>
+                                    <option value="Gia đình">Gia đình</option>
+                                    <option value="Giáo dục">Giáo dục</option>
+                                    <option value="Mua sắm">Mua săm</option>
+                                    <option value="Sức khỏe">Sức khỏe</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
+                            <div class="col-sm-9">
+                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row mb-2">
-                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
-                        <div class="col-sm-9">
-                            <div class="form-check d-inline-block">
-                                <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
-                                <label class="form-check-label" for="gridRadios1">
-                                  Khoản thu
-                                </label>
-                              </div>
-                              <div class="form-check d-inline-block">
-                                <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
-                                <label class="form-check-label" for="gridRadios2">
-                                  Khoản chi
-                                </label>
-                              </div>
-                              
-                        </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
                     </div>
-                    <div class="form-group row mb-2">
-                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
-                        <div class="col-sm-9">
-                            <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
-                                <option value="Ăn uống">Ăn uống</option>
-                                <option value="Bảo hiểm">Bảo hiểm</option>
-                                <option value="Giải trí">Giải trí</option>
-                                <option value="Gia đình">Gia đình</option>
-                                <option value="Giáo dục">Giáo dục</option>
-                                <option value="Mua sắm">Mua săm</option>
-                                <option value="Sức khỏe">Sức khỏe</option>
-                            </select>
-                        </div>
-                        
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
-                        <div class="col-sm-9">
-                          <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
+                  </div>
                 </div>
               </div>
+        </div>
+        <div class="list_transaction mt-3 container">
+            <div class="row">
+                <div class="col-lg-6 money_out bg-white">
+                    <div class="header_list header_list_out bg-danger">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">28</div>
+                                <div class="time_day">
+                                    <div class="day">Chủ Nhật</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-danger">
+                                -200,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/AnUong.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Ăn uống</div>
+                                    <div class="month">Đi ăn lẩu cùng bạn</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item_2 item_1 px-2 item_1">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">30</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Bảy</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-danger">
+                                -500,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/Shopping.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Mua sắm</div>
+                                    <div class="month">Mua giày sneaker</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_12.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Xe cộ</div>
+                                    <div class="month">Đổ xăng xe</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -300,000
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-6 money_in bg-white">
+                    <div class="header_list_in header_list">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">29</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Sáu</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-primary">
+                                +600,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_20.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +600,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item_2 item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">01</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Hai</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-primary">
+                                +900,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_65.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +700,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_71.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +200,000
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
-    <div class="list_transaction mt-3 container">
-        <div class="row">
-            <div class="col-lg-6 money_out bg-white">
-                <div class="header_list header_list_out bg-danger">
-                    
+    <div class="content_2">
+        <div class="middle_transaction position-relative ">
+            <div class="middle_calculate text-center">
+                <div class="middle_in row">
+                    <span class="col-lg-6">Tiền vào: </span>
+                    <span class="col-lg-6 text-primary fw-bold middle_money-in">1,500,000</span>
                 </div>
-                <div class="item_1 px-2">
-                    <div class="header_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">28</div>
-                            <div class="time_day">
-                                <div class="day">Chủ Nhật</div>
-                                <div class="month">tháng 12 2023</div>
-                            </div>
-                        </div>
-                        <div class="money_item text-danger">
-                            -200,000
-                        </div>
-                    </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/AnUong.png" alt="">
-                            </div>
-                            <div class="time_day">
-                                <div class="day">Ăn uống</div>
-                                <div class="month">Đi ăn lẩu cùng bạn</div>
-                            </div>
-                        </div>
-                        <div class="money_item">
-                            -200,000
-                        </div>
-                    </div>
+                <div class="middle_out row">
+                    <span class="col-lg-6">Tiền ra: </span>
+                    <span class="col-lg-6 text-danger fw-bold middle_money-out">700,000</span>
                 </div>
-                <div class="item_2 item_1 px-2 item_1">
-                    <div class="header_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">30</div>
-                            <div class="time_day">
-                                <div class="day">Thứ Bảy</div>
-                                <div class="month">tháng 12 2023</div>
-                            </div>
-                        </div>
-                        <div class="money_item text-danger">
-                            -500,000
-                        </div>
-                    </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/Shopping.png" alt="">
-                            </div>
-                            <div class="time_day">
-                                <div class="day">Mua sắm</div>
-                                <div class="month">Mua giày sneaker</div>
-                            </div>
-                        </div>
-                        <div class="money_item">
-                            -200,000
-                        </div>
-                    </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/icon_12.png" alt="">
-                            </div>
-                            <div class="time_day">
-                                <div class="day">Xe cộ</div>
-                                <div class="month">Đổ xăng xe</div>
-                            </div>
-                        </div>
-                        <div class="money_item">
-                            -300,000
-                        </div>
-                    </div>
+                <div class="middle_result row">
+                    <span class="col-lg-6">Số dư:</span>
+                    <span class="col-lg-6 fw-bold middle_money-result">800,000</span>
                 </div>
-                
             </div>
-            <div class="col-lg-6 money_in bg-white">
-                <div class="header_list_in header_list">
+            <div class="text-center">
+                <button class="middle_btn">
+                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
+                        data-placement="right" title="Phân tích">
+                        <span class="text">Xem báo cáo cho giai đoạn này</span>
+                    </a>
+                </button>
+            </div>
+            <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>
+            <!-- MODAL  -->
+            <div class="modal fade float-start" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
+                            <div class="col-sm-9">
+                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
+                            <div class="col-sm-9">
+                                <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
+                                    <label class="form-check-label" for="gridRadios1">
+                                      Khoản thu
+                                    </label>
+                                  </div>
+                                  <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
+                                    <label class="form-check-label" for="gridRadios2">
+                                      Khoản chi
+                                    </label>
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
+                            <div class="col-sm-9">
+                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
+                                    <option value="Ăn uống">Ăn uống</option>
+                                    <option value="Bảo hiểm">Bảo hiểm</option>
+                                    <option value="Giải trí">Giải trí</option>
+                                    <option value="Gia đình">Gia đình</option>
+                                    <option value="Giáo dục">Giáo dục</option>
+                                    <option value="Mua sắm">Mua săm</option>
+                                    <option value="Sức khỏe">Sức khỏe</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
+                            <div class="col-sm-9">
+                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="list_transaction mt-3 container">
+            <div class="row">
+                <div class="col-lg-6 money_out bg-white">
+                    <div class="header_list header_list_out bg-danger">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">26</div>
+                                <div class="time_day">
+                                    <div class="day">Chủ Nhật</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-danger">
+                                -200,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/AnUong.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Ăn uống</div>
+                                    <div class="month">Đi ăn lẩu cùng bạn</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item_2 item_1 px-2 item_1">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">30</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Bảy</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-danger">
+                                -500,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/Shopping.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Mua sắm</div>
+                                    <div class="month">Mua giày sneaker</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_12.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Xe cộ</div>
+                                    <div class="month">Đổ xăng xe</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -300,000
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
-                <div class="item_1 px-2">
-                    <div class="header_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">29</div>
-                            <div class="time_day">
-                                <div class="day">Thứ Sáu</div>
-                                <div class="month">tháng 12 2023</div>
+                <div class="col-lg-6 money_in bg-white">
+                    <div class="header_list_in header_list">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">29</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Sáu</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-primary">
+                                +600,000
                             </div>
                         </div>
-                        <div class="money_item text-primary">
-                            +600,000
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_20.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +600,000
+                            </div>
                         </div>
                     </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/icon_20.png" alt="">
+                    <div class="item_2 item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">01</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Hai</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
                             </div>
-                            <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                            <div class="money_item text-primary">
+                                +900,000
                             </div>
                         </div>
-                        <div class="money_item">
-                            +600,000
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_65.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +700,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_71.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +200,000
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="item_2 item_1 px-2">
-                    <div class="header_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex gap-3 align-items-center">
-                            <div class="time_main fw-bold">01</div>
-                            <div class="time_day">
-                                <div class="day">Thứ Hai</div>
-                                <div class="month">tháng 12 2023</div>
+            </div>
+        </div>
+    </div>
+    <div class="content_3" style="display: none;">
+        <div class="middle_transaction position-relative ">
+            <div class="middle_calculate text-center">
+                <div class="middle_in row">
+                    <span class="col-lg-6">Tiền vào: </span>
+                    <span class="col-lg-6 text-primary fw-bold middle_money-in">1,500,000</span>
+                </div>
+                <div class="middle_out row">
+                    <span class="col-lg-6">Tiền ra: </span>
+                    <span class="col-lg-6 text-danger fw-bold middle_money-out">700,000</span>
+                </div>
+                <div class="middle_result row">
+                    <span class="col-lg-6">Số dư:</span>
+                    <span class="col-lg-6 fw-bold middle_money-result">800,000</span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="middle_btn">
+                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
+                        data-placement="right" title="Phân tích">
+                        <span class="text">Xem báo cáo cho giai đoạn này</span>
+                    </a>
+                </button>
+            </div>
+            <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>
+            <!-- MODAL  -->
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
+                            <div class="col-sm-9">
+                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
                             </div>
                         </div>
-                        <div class="money_item text-primary">
-                            +900,000
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
+                            <div class="col-sm-9">
+                                <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
+                                    <label class="form-check-label" for="gridRadios1">
+                                      Khoản thu
+                                    </label>
+                                  </div>
+                                  <div class="form-check d-inline-block">
+                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
+                                    <label class="form-check-label" for="gridRadios2">
+                                      Khoản chi
+                                    </label>
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
+                            <div class="col-sm-9">
+                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
+                                    <option value="Ăn uống">Ăn uống</option>
+                                    <option value="Bảo hiểm">Bảo hiểm</option>
+                                    <option value="Giải trí">Giải trí</option>
+                                    <option value="Gia đình">Gia đình</option>
+                                    <option value="Giáo dục">Giáo dục</option>
+                                    <option value="Mua sắm">Mua săm</option>
+                                    <option value="Sức khỏe">Sức khỏe</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
+                            <div class="col-sm-9">
+                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
+                            </div>
                         </div>
                     </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/icon_65.png" alt="">
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="list_transaction mt-3 container">
+            <div class="row">
+                <div class="col-lg-6 money_out bg-white">
+                    <div class="header_list header_list_out bg-danger">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">27</div>
+                                <div class="time_day">
+                                    <div class="day">Chủ Nhật</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
                             </div>
-                            <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                            <div class="money_item text-danger">
+                                -200,000
                             </div>
                         </div>
-                        <div class="money_item">
-                            +700,000
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/AnUong.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Ăn uống</div>
+                                    <div class="month">Đi ăn lẩu cùng bạn</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
                         </div>
                     </div>
-                    <div class="main_item d-flex justify-content-between align-items-center">
-                        <div class="time_item d-flex align-items-center">
-                            <div class="header_icon me-4">
-                                <img src="../../img/Icon/icon_71.png" alt="">
+                    <div class="item_2 item_1 px-2 item_1">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">30</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Bảy</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
                             </div>
-                            <div class="time_day">
-                                <div class="day">Vui chơi</div>
-                                <div class="month">Băn bi-a</div>
+                            <div class="money_item text-danger">
+                                -500,000
                             </div>
                         </div>
-                        <div class="money_item">
-                            +200,000
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/Shopping.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Mua sắm</div>
+                                    <div class="month">Mua giày sneaker</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -200,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_12.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Xe cộ</div>
+                                    <div class="month">Đổ xăng xe</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                -300,000
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-6 money_in bg-white">
+                    <div class="header_list_in header_list">
+                        
+                    </div>
+                    <div class="item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">29</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Sáu</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-primary">
+                                +600,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_20.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +600,000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item_2 item_1 px-2">
+                        <div class="header_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex gap-3 align-items-center">
+                                <div class="time_main fw-bold">01</div>
+                                <div class="time_day">
+                                    <div class="day">Thứ Hai</div>
+                                    <div class="month">tháng 12 2023</div>
+                                </div>
+                            </div>
+                            <div class="money_item text-primary">
+                                +900,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_65.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +700,000
+                            </div>
+                        </div>
+                        <div class="main_item d-flex justify-content-between align-items-center">
+                            <div class="time_item d-flex align-items-center">
+                                <div class="header_icon me-4">
+                                    <img src="../../img/Icon/icon_71.png" alt="">
+                                </div>
+                                <div class="time_day">
+                                    <div class="day">Vui chơi</div>
+                                    <div class="month">Băn bi-a</div>
+                                </div>
+                            </div>
+                            <div class="money_item">
+                                +200,000
+                            </div>
                         </div>
                     </div>
                 </div>
