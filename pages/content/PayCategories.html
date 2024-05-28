@@ -1,133 +1,789 @@
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-default">Tìm danh mục: </span>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+    .container-fluid {
+        font-family: 'Roboto Condensed'
+    }
+    .monthlySpending{
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: solid 5px #eeeeee;
+    }
+    .needSpending{
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: solid 5px #eeeeee;
+    }
+    .cata{
+        height: 70px;
+        background-color: #e8e8e8;
+        border-radius: 20px;
+        border: #ffffff 5px solid;
+    }
+    .iconCata{
+        width: 50px;
+    }
+    .iconCataSellect{
+        width: 50px;
+        cursor: pointer;
+    }
+    .addButton{
+        position: fixed;
+        bottom: 30px;
+        right: 50px;
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        background-color: #54a6ec;
+        color: #e8e8e8;
+        font-size: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .modal-header{
+        background-color: #54a6ec;
+        color: #ffffff;
+    }
+.sellectCata{
+    width: 500px;
+}
+.dropdown-items{
+    cursor: pointer;
+}
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 p-4  monthlySpending ">
+              <h5 class="fw-bold">Chi tiêu hàng tháng</h5>
+
+              <div class="row group1">
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_116.png" alt="">
+                            <p class="m-0 mx-2">Ăn uống</p>
+                        </div>
+                        <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                        
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_12.png" alt="">
+                            <p class="m-0 mx-2">Di chuyển</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_136.png" alt="">
+                            <p class="m-0 mx-2">Thuê nhà</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_134.png" alt="">
+                            <p class="m-0 mx-2">Hoá đơn điện thoại</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_126.png" alt="">
+                            <p class="m-0 mx-2">Hoá đơn Internet</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_125.png" alt="">
+                            <p class="m-0 mx-2">Hoá đơn điện</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_124.png" alt="">
+                            <p class="m-0 mx-2">Hoá đơn nước</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_138.png" alt="">
+                            <p class="m-0 mx-2">Hoá đơn tiện ích khác</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+
+                    
+              </div>
+        </div>
+
+
+        <div class="col-12 col-md-6 p-4 needSpending ">
+            <h5 class="fw-bold">Chi tiêu cần thiết</h5>
+
+              <div class="row group2">
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_29.png" alt="">
+                            <p class="m-0 mx-2">Sửa, trang trí nhà</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_13.png" alt="">
+                            <p class="m-0 mx-2">Phương tiện đi lại</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_14.png" alt="">
+                            <p class="m-0 mx-2">Sức khoẻ</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_113.png" alt="">
+                            <p class="m-0 mx-2">Giáo dục</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_107.png" alt="">
+                            <p class="m-0 mx-2">Đồ gia dụng</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_41.png" alt="">
+                            <p class="m-0 mx-2">Đồ dùng cá nhân</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_8.png" alt="">
+                            <p class="m-0 mx-2">Dịch vụ gia đình</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+                    <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="../../Icon/icon_22.png" alt="">
+                            <p class="m-0 mx-2">các chi phí khác</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>
+        </div>
+
+        
     </div>
-    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    <div class="col-12 col-md-6 p-4 needSpending ">
+        <h5 class="fw-bold">Đầu tư, cho và & nợ</h5>
+
+          <div class="row group3">
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_119.png" alt="">
+                        <p class="m-0 mx-2">Đầu tư</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_141.png" alt="">
+                        <p class="m-0 mx-2">Trả nợ</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_140.png" alt="">
+                        <p class="m-0 mx-2">Thu nợ</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_4.png" alt="">
+                        <p class="m-0 mx-2">Trả lãi</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_112.png" alt="">
+                        <p class="m-0 mx-2">Đi vay</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_118.png" alt="">
+                        <p class="m-0 mx-2">Thu lãi</p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                <div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                    <div class="leftCata d-flex  align-items-center">
+                        <img class="iconCata" src="../../Icon/icon_120.png" alt="">
+                        <p class="m-0 mx-2">Cho vay </p>
+                    </div>
+                     <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                </div>
+                
+    </div>
+
 </div>
-<hr>
-<div class="row">
-    <div class="col d-flex justify-content-top align-items-center">
-        <button type="button" class="btn btn-light">Ngày</button>
-        <button type="button" class="btn btn-light ms-3 me-3 ">Tuần</button>
-        <button type="button" class="btn btn-light">Tháng</button>
-    </div>
-    <div class="datepicker col d-flex justify-content-end align-items-center">
-        <label for="startDate">Chọn ngày:</label>
-        <input id="startDate" class="form-control ms-1" type="date" style="width: 180px" />
-    </div>
+<div class="col-12 col-md-3 p-4 needSpending ">
+    <h5 class="fw-bold">Vui - chơi</h5>
+
+      <div class="row group4">
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_70.png" alt="">
+                    <p class="m-0 mx-2">Thể dục thể thao</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_63.png" alt="">
+                    <p class="m-0 mx-2">Làm đẹp</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_1.png" alt="">
+                    <p class="m-0 mx-2">Quà tặng</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_49.png" alt="">
+                    <p class="m-0 mx-2">Vui - chơi</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            
+        </div>
+
+</div>
+<div class="col-12 col-md-3 p-4 needSpending ">
+    <h5 class="fw-bold">Các khoản</h5>
+
+      <div class="row group5">
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_75.png" alt="">
+                    <p class="m-0 mx-2">Lương</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_23.png" alt="">
+                    <p class="m-0 mx-2">Thu nhập khác</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_142.png" alt="">
+                    <p class="m-0 mx-2">Tiền chuyển đi</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            <div class=" col-12  cata d-flex align-items-center justify-content-between">
+                <div class="leftCata d-flex  align-items-center">
+                    <img class="iconCata" src="../../Icon/icon_143.png" alt="">
+                    <p class="m-0 mx-2">Tiền chuyển đến</p>
+                </div>
+                 <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+            </div>
+            
+        </div>
+
+</div>
 </div>
 
-<div class="list-bill container mt-4">
-    <span class="fw-bold">Các danh mục chi tiêu theo ngày :</span>
-    <div class="container d-flex flex-column">
-        <div class="bill-item mt-4 row">
-            <div class="col-lg-1 col-md-6">
-                <img src="./img/coffee-circle.png" alt="" style="width: 50px;height: 50px;">
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div>
-                    <span class="fw-bold ">Drink cofee</span> <br>
-                    <span class="fs-6">Total Payment : $28.00</span>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div>
-                    <span class="fs-6">00 : 00</span> <br>
-                    <span class="fs-6">03/04/2024</span>
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-6" style="cursor: pointer;">
-                <i class="fa-solid fa-ellipsis-vertical mt-2"></i>
-            </div>
+<div class="addButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</div>
+</div>
+  
+  <!-- Modal --> 
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Tạo mới danh mục chi tiêu</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="Bill-item mt-4 row">
-            <div class="col-lg-1 col-md-6">
-                <img src="./img/coffee-circle.png" alt="" style="width: 50px;height: 50px;">
-
+        <div class="modal-body">
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control cataNameInput" id="floatingInput" placeholder="Tên danh mục">
+                <label for="floatingInput">Tên danh mục</label>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <div>
-                    <span class="fw-bold ">Drink cofee</span> <br>
-                    <span class="fs-6">Total Payment : $28.00</span>
+            <select class="form-select groupCataSellect mb-3">
+                <option value="0">Hãy chọn nhóm danh mục...</option>
+                <option value="1">Chi tiêu hàng tháng</option>
+                <option value="2">Chi tiêu cần thiết</option>
+                <option value="3">Đầu tư, cho và & nợ</option>
+                <option value="4">Vui - chơi</option>
+                <option value="5">Các khoản</option>
+              </select>
+              <div class="d-flex justify-content-around">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Khoản Thu
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Khoản chi
+                    </label>
+                  </div>
+              </div>
+              
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Chọn Icon
+                </button>
+                <div class="d-flex">
+                    <ul class="dropdown-menu">
+                        <li class="sellectCata">
+                          <img class="iconCataSellect" src="../../Icon/icon_1.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_2.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_3.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_4.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_5.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_6.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_7.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_8.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_9.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_10.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_11.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_12.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_13.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_14.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_15.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_16.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_17.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_18.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_19.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_20.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_21.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_22.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_23.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_24.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_25.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_26.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_27.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_28.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_29.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_30.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_31.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_32.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_33.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_34.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_35.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_36.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_37.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_38.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_39.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_40.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_41.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_42.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_43.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_44.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_45.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_46.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_47.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_48.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_49.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_50.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_51.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_52.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_53.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_54.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_55.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_56.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_57.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_58.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_59.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_60.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_61.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_62.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_63.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_64.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_65.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_66.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_67.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_68.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_69.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_70.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_71.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_72.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_73.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_74.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_75.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_76.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_77.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_78.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_79.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_80.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_81.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_82.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_83.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_84.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_85.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_86.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_87.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_88.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_89.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_90.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_91.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_92.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_93.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_94.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_95.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_96.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_97.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_98.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_99.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_100.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_101.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_102.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_103.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_104.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_105.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_106.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_107.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_108.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_109.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_110.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_111.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_112.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_113.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_114.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_115.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_116.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_117.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_118.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_119.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_120.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_121.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_122.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_123.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_124.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_125.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_126.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_127.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_128.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_129.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_130.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_131.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_132.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_133.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_134.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_135.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_136.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_137.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_138.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_139.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_140.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_141.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_142.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_143.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_144.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_145.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_146.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_147.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_148.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_149.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_150.png" alt="">
+                           <img class="iconCataSellect" src="../../Icon/icon_151.png" alt="">
+                        </li>
+                      </ul>
+                      <img src="" class="prevIcon" alt="">
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div>
-                    <span class="fs-6">00 : 00</span> <br>
-                    <span class="fs-6">03/04/2024</span>
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-6" style="cursor: pointer;">
-                <i class="fa-solid fa-ellipsis-vertical mt-2"></i>
-            </div>
+                
+              </div>
+              <p style="color: red;" class="notiCreateCata"></p>
         </div>
-        <div class="Bill-item mt-4 row">
-            <div class="col-lg-1 col-md-6">
-                <img src="./img/coffee-circle.png" alt="" style="width: 50px;height: 50px;">
-
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div>
-                    <span class="fw-bold ">Drink cofee</span> <br>
-                    <span class="fs-6">Total Payment : $28.00</span>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div>
-                    <span class="fs-6">00 : 00</span> <br>
-                    <span class="fs-6">03/04/2024</span>
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-6" style="cursor: pointer;">
-                <i class="fa-solid fa-ellipsis-vertical mt-2"></i>
-            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+          <button type="button" class="btn btn-primary createCata">Tạo</button>
         </div>
-        <div class="Bill-item mt-4 row">
-            <div class="col-lg-1 col-md-6">
-                <img src="./img/coffee-circle.png" alt="" style="width: 50px;height: 50px;">
-
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div>
-                    <span class="fw-bold ">Drink cofee</span> <br>
-                    <span class="fs-6">Total Payment : $28.00</span>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div>
-                    <span class="fs-6">00 : 00</span> <br>
-                    <span class="fs-6">03/04/2024</span>
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-6" style="cursor: pointer;">
-                <i class="fa-solid fa-ellipsis-vertical mt-2"></i>
-            </div>
-        </div>
-        .....
+      </div>
     </div>
-</div>
+  </div>
+  <script>
+    $(document).ready(function(){
+        $('.deteteCataBtn').on('click', function() {
+            $(this).closest('.cata').remove();
+        });
+        $(".iconCataSellect").click(function(){
+            const srcImg=$(this).attr("src")
+            $(".prevIcon").attr("src", srcImg)
+        })
+        $(".createCata").click(function(){
+            const srcImg=$(".prevIcon").attr("src")
+            const groupCata= $(".groupCataSellect").val()
+            const cataName= $(".cataNameInput").val()
+            if(!cataName) {
+                $(".notiCreateCata").text("Hãy nhập tên cho danh mục")
+                return 
+            }
+            else if(groupCata==0){
+                $(".notiCreateCata").text("Hãy chọn nhóm cho danh mục")
+                return
+            } 
+            else if(!srcImg){
+                $(".notiCreateCata").text("Hãy chọn 1 Icon cho danh mục")
+                return
+            }
+            else $(".notiCreateCata").text("")
+            if(groupCata<4){
+               const htmlContent= `<div class=" col-12 col-md-6 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="${srcImg}" alt="">
+                            <p class="m-0 mx-2">${cataName}</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>`
+                $(`.group${groupCata}`).append(htmlContent)
+            }else{
+                const htmlContent= `<div class=" col-12 cata d-flex align-items-center justify-content-between">
+                        <div class="leftCata d-flex  align-items-center">
+                            <img class="iconCata" src="${srcImg}" alt="">
+                            <p class="m-0 mx-2">${cataName}</p>
+                        </div>
+                         <div class="dropdown">
+                            <i class="fas fa-ellipsis-v" style="font-size: 20px;"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-items deteteCataBtn" style="color: red;"><i class="mx-2 fa-regular fa-trash"></i>Xoá danh mục</li>
+                              
+                            </ul>
+                          </div>
+                    </div>`
+                $(`.group${groupCata}`).append(htmlContent)
+            }
+            $(".prevIcon").attr("src", "")
+            $(".groupCataSellect").val(0)
+            $(".cataNameInput").val("")
+            $('#staticBackdrop').modal('hide');
+        })
+    })
+  </script>
 
-<div aria-label="..." class="d-flex justify-content-center mt-4">
-    <ul class="pagination">
-        <li class="page-item disabled">
-            <span class="page-link">Previous</span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <span class="page-link">2</span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</div>
-<div class="add-categories" style="cursor: pointer;">
-    <div class="Add container rounded-4 d-flex justify-content-center mt-4 bg-white p-3 ">
-        <i class="fa-solid fa-plus fa-lg mt-3 me-2"></i>
-        <div>
-            <span class="fw-bold fs-5">Add Categories here</span><br>
-            <span class="fs-6"></span>
-        </div>
-    </div>
-</div>
+  
