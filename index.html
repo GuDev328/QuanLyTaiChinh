@@ -18,8 +18,9 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
     <link
-        href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.2-web/css/all.min.css"
+        href="./fontawesome-pro-6.5.1-web/css/all.min.css"
         rel="stylesheet">
+        
     <title>AdminHub</title>
 </head>
 
@@ -136,11 +137,63 @@
 
             <input type="checkbox" id="switch-mode" hidden>
             <label for="switch-mode" class="switch-mode"></label>
+            
+            <li class="nav-item dropdown">
 
-            <a href="#" class="notification">
-                <i class="fa-solid fa-bell" data-toggle="tooltip" data-placement="right" title="Thông báo"></i>
-                <span class="num">8</span>
-            </a>
+                <a class="nav-link nav-icon show notification" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                    <i class="fa-solid fa-bell" data-toggle="tooltip" data-placement="right" title="Thông báo"></i>
+                    <span class="num">8</span>
+                </a><!-- End Notification Icon -->
+      
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24.8889px, 34.6667px, 0px);">
+                  <li class="dropdown-header">
+                    You have 4 new notifications
+                    <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+      
+                  <li class="notification-item">
+                    
+                  </li>
+      
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+      
+                  <li class="notification-item">
+                    
+                  </li>
+      
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+      
+                  <li class="notification-item">
+                    
+                  </li>
+      
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+      
+                  <li class="notification-item">
+                    
+                  </li>
+      
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li class="dropdown-footer text-center" >
+                    <a href="#" style="text-decoration: none;"><span class="badge rounded-pill bg-primary p-2 ms-2">Show all notifications</span></a>
+                  </li>
+      
+                </ul><!-- End Notification Dropdown Items -->
+      
+              </li>
+
+
             <a href="#" class="profile" data-toggle="tooltip" data-placement="right" title="Người dùng">
                 <img src="./img/User.png">
             </a>
@@ -165,3 +218,7 @@
 </body>
 
 </html>
+
+
+
+

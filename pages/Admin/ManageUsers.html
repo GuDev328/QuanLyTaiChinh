@@ -1,0 +1,599 @@
+<style> 
+    .search_user {
+        height: 40px;
+    }
+    .search_icon_user {
+        font-size: 25px;
+    }
+    .thead {
+        background-color: #3c91e7 !important;
+        color: white !important;
+    }
+    .icon_user {
+      border-radius: 50%;
+      color: #3C91E7;
+      background-color: #BFDBF7;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      margin-right: 5px;
+    }
+    .online {
+      width: 7px;
+      height: 7px;
+    }
+    .select {
+      background-color: #3C91E7 !important;
+      color: white;
+    }
+    @media screen and (max-width: 992px) {
+      .filter_main {
+        display: none;
+      }
+      .filter_header {
+        display: block !important;
+
+      }
+    }
+</style>
+<script>
+    $(document).ready(function(){
+
+      //Tìm kiếm người dùng
+        $(".btn_search_user").click(function() {
+          var myInput = $("#myInput").val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            // $(this).toggle($(this).text().toLowerCase().indexOf(myInput) > -1)
+            var nameText = $(this).find('.name').text().toLowerCase();
+            $(this).toggle(nameText.indexOf(myInput) > -1);
+          });
+        })
+        //Xóa người dùng
+        $("#myTable tr").on("click", ".delete", function() {
+          $(this).closest("tr").remove();
+        });
+
+      //Bộ lọc tổng tiền
+      $(".filter_btn").click(function() {
+        var money_min = parseFloat($(".money_min").val());
+        // console.log(money_min);
+        var money_max = parseFloat($(".money_max").val());
+        $("#myTable tr").each(function() {
+          var moneyText = $(this).find('.col_money').text().trim();
+            var total = parseInt(moneyText.replace(/[^0-9]/g, ''));
+
+            if (total >= money_min && total <= money_max) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+      })
+
+      // Bộ lọc số kế hoạch
+      $(".filter_button").click(function() {
+        var plan_min = parseFloat($(".plan_min").val());
+        var plan_max = parseFloat($(".plan_max").val());
+        $("#myTable tr").each(function() {
+          var planText = parseFloat($(this).find('.col_plan').text());
+
+            if (planText >= plan_min && planText <= plan_max) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+      })
+
+      //Bộ lọc trạng thái
+      function filterCheckBox() {
+        var onlineChecked = $('#onlineCheckbox').is(':checked');
+        var offlineChecked = $('#offlineCheckbox').is(':checked');
+        var maleChecked = $('#MaleCheckbox').is(':checked');
+        var femaleChecked = $('#FeMaleCheckbox').is(':checked');
+        var allUnchecked = !onlineChecked && !offlineChecked && !maleChecked && !femaleChecked;
+        $('#myTable tr').each(function() {
+              var status = $(this).find('.status').text().trim();
+              var gender = $(this).find('.col_gender').text().trim();
+              console.log(gender)
+              var shouldShow = false;
+              if (allUnchecked) {
+                  shouldShow = true;
+              } else {
+                  if ((status.includes('Online') && onlineChecked) || (status.includes('Offline') && offlineChecked)) {
+                      shouldShow = true;
+                  } else if ((gender.includes('Nam') && maleChecked) || (gender.includes('Nữ') && femaleChecked)) {
+                      shouldShow = true;
+                  }
+              }
+
+              if (shouldShow) {
+                  $(this).show();
+              } else {
+                  $(this).hide();
+              }
+        });
+      }
+      $('input[type="checkbox"]').change(function() {
+        filterCheckBox();
+      });
+      filterCheckBox();
+
+
+      $('.select_page').click(function() {
+            $('.select_page').removeClass('select');
+            $(this).addClass('select');
+      })
+
+      function updatePageSelection(direction) {
+          var $current = $('.select_page.select');
+          var $new;
+
+          if (direction === 'prev') {
+              $new = $current.prev('.select_page');
+              if (!$new.length) {
+                  $new = $('.select_page').last();
+              }
+          } else if (direction === 'next') {
+              $new = $current.next('.select_page');
+              if (!$new.length) {
+                  $new = $('.select_page').first();
+              }
+          }
+
+          if ($new && $new.length) {
+              $current.removeClass('select');
+              $new.addClass('select');
+          }
+      }
+
+      $('.pre_page').click(function() {
+          updatePageSelection('prev');
+      });
+
+      $('.next_page').click(function() {
+          updatePageSelection('next');
+      });
+
+      $('.select_page').click(function() {
+          $('.select_page').removeClass('select');
+          $(this).addClass('select');
+      });
+      $('.page_2').click(function() {
+        $("#myTable tr")
+      })
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center row">
+              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-11 col-lg-12">
+                <div class="search_icon_user text-primary mx-3 mt-1">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="input-group search_btn_user align-items-center">
+                    <input type="text" id="myInput" class="form-control border-0" placeholder="Nhập họ tên người dùng" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="border-0 bg-primary text-white rounded-pill py-1 px-3 input-group-text btn_search_user" id="basic-addon2" style="background-color: #3c91e7;">Tìm kiếm</button>
+                    </div>
+                </div>
+              </div>
+              <div class="fw-bolder fs-5 filter_header d-none col-sm-1">
+                <a class="btn fs-5" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <i class="fa-solid fa-filter"></i>
+                </a>
+              </div>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title mx-3 fw-bolder" id="offcanvasExampleLabel">BỘ LỌC TÌM KIẾM</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <div class="filter_money mx-3">
+                    Tổng tiền
+                    <div class="filter_input d-flex align-items-center justify-content-between mt-1">
+                      <input class="money_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <div> - </div>
+                      <input class="money_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                    </div>
+                    <button class="filter_btn w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
+                  </div>
+                  <hr>
+                  <div class="filter_status mx-3">
+                    Trạng thái
+                    <div class="form-check">
+                      <input type="checkbox" name="" id="onlineCheckbox" value="Online" class="form-check-input">
+                      <label for="onlineCheckbox">Online</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" name="" id="offlineCheckbox" value="Offline" class="form-check-input">
+                      <label for="offlineCheckbox">Offline</label>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="filter_plan mx-3 pb-4">
+                    Số kế hoạch
+                    <div class="filter_input d-flex align-items-center justify-content-between mt-1">
+                      <input class="plan_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <div> - </div>
+                      <input class="plan_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                    </div>
+                    <button class="filter_button w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list_user table-responsive rounded-4 mt-3" style="height: 480px;">
+                <table class="table ">
+                    <thead >
+                      <tr class="text-center">
+                        <th scope="col-2" class="thead">Ảnh</th>
+                        <th scope="col-1" class="thead">Tên người dùng</th>
+                        <th scope="col-1" class="thead">Email</th>
+                        <th scope="col-1" class="thead">Giới tính</th>
+                        <th scope="col-1" class="thead">Trạng thái</th>
+                        <th scope="col-1" class="thead">Kế hoạch</th>
+                        <th scope="col-2" class="thead">Tổng tiền</th>
+                        <th scope="col-4" class="thead"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center" id="myTable">
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Phùng Quang Chiến</td>
+                        <td>chien1@gmail.com</td>
+                        <td class="col_gender">Nữ</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-success online mx-1"></div>
+                            <span>Online</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">1</td>
+                        <td class="col_money">100,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          
+                          <button type="button" class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          </button>
+                          <!-- MODAL  -->
+                          <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin người dùng</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="form-group row mb-2">
+                                          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Tên người dùng</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row mb-2">
+                                          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Email</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row mb-2">
+                                          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Giới tính</label>
+                                          <div class="col-sm-9 ">
+                                            <div class="form-check d-inline-block">
+                                              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Nam">
+                                              <label class="form-check-label" for="gridRadios1">
+                                                Nam
+                                              </label>
+                                            </div>
+                                            <div class="form-check d-inline-block">
+                                              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Nữ">
+                                              <label class="form-check-label" for="gridRadios2">
+                                                Nữ
+                                              </label>
+                                            </div>
+                                            
+                                          </div>
+                                          
+                                      </div>
+                                      <div class="form-group row mb-2">
+                                          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số kế hoạch</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row mb-2">
+                                          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Tổng tiền</label>
+                                          <div class="col-sm-9">
+                                            <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
+                                  </div>
+                                </div>
+                              </div>
+                          </div> -->
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Phạm Tiến Đạt</td>
+                        <td>chien2@gmail.com</td>
+                        <td class="col_gender">Nam</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-danger online mx-1"></div>
+                            <span>Offline</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">2</td>
+                        <td class="col_money">90,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1 info"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5 edit"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Lê Quý Độ</td>
+                        <td>chien3@gmail.com</td>
+                        <td class="col_gender">Nam</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-success online mx-1"></div>
+                            <span>Online</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">3</td>
+                        <td class="col_money">80,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Nguyễn Đức Chung</td>
+                        <td>chien4@gmail.com</td>
+                        <td class="col_gender">Nam</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-danger online mx-1"></div>
+                            <span>Offline</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">4</td>
+                        <td class="col_money">70,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Lã Văn Đức</td>
+                        <td>chien4@gmail.com</td>
+                        <td class="col_gender">Nữ</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-success online mx-1"></div>
+                            <span>Online</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">5</td>
+                        <td class="col_money">60,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Nguyễn Khắc Cảnh</td>
+                        <td>chien4@gmail.com</td>
+                        <td class="col_gender">Nam</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-danger online mx-1"></div>
+                            <span>Offline</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">6</td>
+                        <td class="col_money">50,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Nguyễn Hữu Đức</td>
+                        <td>chien4@gmail.com</td>
+                        <td class="col_gender">Nữ</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-success online mx-1"></div>
+                            <span>Online</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">7</td>
+                        <td class="col_money">40,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td class="name">Phùng Quang Chiến</td>
+                        <td>chien4@gmail.com</td>
+                        <td class="col_gender">Nam</td>
+                        <td class="status">
+                          <div class="d-flex align-items-center">
+                            <div class=" rounded-circle bg-danger online mx-1"></div>
+                            <span>Offline</span>
+                          </div>
+                          
+                        </td>
+                        <td class="col_plan">8</td>
+                        <td class="col_money">30,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                      <!-- <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td>Phùng Quang Chiến</td>
+                        <td>chien4@gmail.com</td>
+                        <td>Nam</td>
+                        <td class="status d-flex align-items-center"><div class=" rounded-circle bg-success online mx-1"></div>Online</td>
+                        <td>2</td>
+                        <td class="col_money">100,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                        </th>
+                        <td>Phùng Quang Chiến</td>
+                        <td>chien4@gmail.com</td>
+                        <td>Nam</td>
+                        <td class="status d-flex align-items-center"><div class="rounded-circle bg-success online mx-1"></div>Online</td>
+                        <td>2</td>
+                        <td>100,000,000đ</td>
+                        <td>
+                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1"></i>
+                        </td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+            </div>
+            <div class="page_user d-flex align-items-center justify-content-center">
+              <div class="rounded-circle bg-white text-center mx-1 pre_page" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></div>
+              <div class="rounded-circle text-center bg-white mx-1 select_page select page_1" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;">1</div>
+              <div class="rounded-circle bg-white text-center mx-1 select_page page_2" style="width: 30px;height: 30px;line-height: 30px;cursor: pointer;">2</div>
+              <div class="rounded-circle bg-white text-center mx-1 select_page page_3" style="width: 30px;height: 30px;line-height: 30px;cursor: pointer;">3</div>
+              <div class="rounded-circle bg-white text-center mx-1 next_page" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </div>
+        <div class="col-lg-3 filter_main">
+            <div class="sum_user bg-white rounded-4">
+              <div class="fw-bolder fs-5 px-3 pt-1">TỔNG SỐ NGƯỜI DÙNG</div>
+              <div class="body_sum_user d-flex align-items-center justify-content-around">
+                <div class="sum_left d-flex align-items-center justify-content-start">
+                  <div class="icon_user"><i class="fa-solid fa-user-group"></i></div>
+                  <div class="fw-bolder fs-2">150</div>
+                </div>
+                <div class="sum_right">
+                  <div class="d-flex align-items-center">
+                    <div class="rounded-circle bg-success online mx-1"></div>
+                    Online : 80
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <div class="rounded-circle bg-danger online mx-1"></div>
+                    Offline : 70
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="filter_user bg-white rounded-4 mt-3">
+              <div class="header_filter d-flex align-items-center">
+                <div class="icon_filter fw-bolder fs-5 px-3 pt-1">
+                  <i class="fa-solid fa-filter"></i>
+                </div>
+                <div class="title_filter fw-bolder fs-5 pt-1">
+                  BỘ LỌC TÌM KIẾM
+                </div>
+              </div>
+              <div class="filter_money mx-3">
+                Tổng tiền
+                <div class="filter_input d-flex align-items-center justify-content-between mt-1">
+                  <input class="money_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                  <div> - </div>
+                  <input class="money_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                </div>
+                <button class="filter_btn w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
+              </div>
+              <hr>
+              <div class="filter_status mx-3">
+                Trạng thái
+                <div class="form-check">
+                  <input type="checkbox" name="" id="onlineCheckbox" value="Online" class="form-check-input">
+                  <label for="onlineCheckbox">Online</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="" id="offlineCheckbox" value="Offline" class="form-check-input">
+                  <label for="offlineCheckbox">Offline</label>
+                </div>
+              </div>
+              <hr>
+              <div class="filter_plan mx-3 pb-4">
+                Số kế hoạch
+                <div class="filter_input d-flex align-items-center justify-content-between mt-1">
+                  <input class="plan_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                  <div> - </div>
+                  <input class="plan_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                </div>
+                <button class="filter_button w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
+              </div>
+              <!-- <hr>
+              <div class="filter_gender mx-3 pb-2">
+                Giới tính
+                <div class="form-check">
+                  <input type="checkbox" name="" id="MaleCheckbox" value="Nam" class="form-check-input">
+                  <label for="MaleCheckbox">Nam</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="" id="FeMaleChecked" value="Nữ" class="form-check-input">
+                  <label for="FeMaleChecked">Nữ</label>
+                </div>
+              </div> -->
+            </div>
+        </div>
+    </div>
+</div>
