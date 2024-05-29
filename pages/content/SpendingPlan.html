@@ -1,81 +1,567 @@
-<div class="container">
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    .btn-primary{
+        background-color: #3c91e6;
+    }
+    .plan{
+        background-color: #ffffff;
+        border: 20px solid #eeeeee;
+        border-bottom: 5px;
+        border-radius: 40px;
+        position: relative;
+    }
+    .icon{
+        width: 50px;
+        height:50px;
+    }
+    p{
+        margin: 0;
+    }
+    .detailMoney{
+        width: 410px;
+    }
+    .percentSection{
+        display: flex;
+        width: 300px;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: -10px;
+        right: 0px;
+    }
+    .chart{
+        width: 140px;
+        position: absolute;
+        bottom: 0;
+        right: 18%;
+    }
+    .btn-outMoney{
+        padding: 1px 5px;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+    }
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="col-md-12 tk-6 rounded-3 bg-primary text-light">
-                <div class="top-tk d-flex justify-content-between pt-3 px-3">
-                    <p class="mt-1 me-1">Tổng tiền ví Tự Do Tài Chính</p>
-                    <p>10%</p>
-                </div>
-                <div class="number-tk d-flex justify-content-between px-3">
-                    <p>$ 4,929</p>
-                    <p>.... .... .... 3456</p>
-                </div>
-                <br>
-                <div class="bot-tk d-flex justify-content-between pt-2 px-3 mt-2">
-                    <p>Valid Thru <br> 03/23</p>
-                    <p>Name <br> Jhon Doe</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="col-md-12 tk-6 rounded-3 bg-primary text-light">
-                <div class="top-tk d-flex justify-content-between pt-3 px-3">
-                    <p class="mt-1 me-1">Tổng tiền ví Tự Do Tài Chính</p>
-                    <p>10%</p>
-                </div>
-                <div class="number-tk d-flex justify-content-between px-3">
-                    <p>$ 4,929</p>
-                    <p>.... .... .... 3456</p>
-                </div>
-                <br>
-                <div class="bot-tk d-flex justify-content-between pt-2 px-3 mt-2">
-                    <p>Valid Thru <br> 03/23</p>
-                    <p>Name <br> Jhon Doe</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="col-md-12 tk-6 rounded-3 bg-primary text-light">
-                <div class="top-tk d-flex justify-content-between pt-3 px-3">
-                    <p class="mt-1 me-1">Tổng tiền ví Tự Do Tài Chính</p>
-                    <p>10%</p>
-                </div>
-                <div class="number-tk d-flex justify-content-between px-3">
-                    <p>$ 4,929</p>
-                    <p>.... .... .... 3456</p>
-                </div>
-                <br>
-                <div class="bot-tk d-flex justify-content-between pt-2 px-3 mt-2">
-                    <p>Valid Thru <br> 03/23</p>
-                    <p>Name <br> Jhon Doe</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="col-md-12 tk-6 rounded-3 bg-primary text-light">
-                <div class="top-tk d-flex justify-content-between pt-3 px-3">
-                    <p class="mt-1 me-1">Tổng tiền ví Tự Do Tài Chính</p>
-                    <p>10%</p>
-                </div>
-                <div class="number-tk d-flex justify-content-between px-3">
-                    <p>$ 4,929</p>
-                    <p>.... .... .... 3456</p>
-                </div>
-                <br>
-                <div class="bot-tk d-flex justify-content-between pt-2 px-3 mt-2">
-                    <p>Valid Thru <br> 03/23</p>
-                    <p>Name <br> Jhon Doe</p>
-                </div>
-            </div>
+    .btn-inMoney{
+        padding: 1px 5px;
+       
+    }
+    .btnPlan{
+        position: absolute;
+        top: 10px;
+        right: 5px;
+    }
+    
+</style>
+
+<div>
+    <div class="headerPlan d-flex justify-content-between">
+        <h3 class="fw-bold">Kế hoạch chi tiêu</h3>
+            <button class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#addPlanModal"><i class="fa-solid fa-plus"></i> Thêm kế hoạch mới</button>
+    </div>
+
+    <div class="inProcessPlan mx-3">
+        <div style="font-size: 19px;">Kế hoạch đang thực hiện</div>
+        <hr style="margin: 0;"/>
+    </div>
+
+    <div class="container">
+        <div class="row inprocessRow">
+
+
+
         </div>
     </div>
 
-    <div class="Add container rounded-4 d-flex mt-4 bg-white p-3 ">
-        <i class="fa-solid fa-plus mt-1 me-2"></i>
-        <div>
-            <span class="fw-bold  fs-5">Add Sub Wallet</span><br>
-            <span class="fs-6">For saving, investing, shopping, etc.</span>
+    <div class="inProcessPlan mx-3 mt-4">
+        <div style="font-size: 19px;">Kế hoạch đã hoàn thành</div>
+        <hr style="margin: 0;"/>
+    </div>
+
+    <div class="container">
+        <div class="row donePlanRow">
+
+
+
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addPlanModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+          <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Tạo mới kế hoạch</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="dropdown">
+                <button class="btn btn-primary mb-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Chọn Danh mục kế hoạch
+                </button>
+                <div class="d-flex">
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_29.png"/>
+                            <div class="">Mua nhà</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_12.png"/>
+                            <div class="">Mua xe hơi</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_13.png"/>
+                            <div class="">Mua xe máy</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_107.png"/>
+                            <div class="">Đồ gia dụng</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_107.png"/>
+                            <div class="">Đồ gia dụng</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_49.png"/>
+                            <div class="">Vui-chơi, Du Lịch</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_63.png"/>
+                            <div class="">Làm đẹp</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_1.png"/>
+                            <div class="">Quà tặng</div>
+                        </li>
+                        <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <img class="icon mx-2" src="../../Icon/icon_22.png"/>
+                            <div class="">Khác</div>
+                        </li>
+                      </ul>
+                      <div class="d-flex align-items-center mb-3">
+                        <img class="icon prevIconCata" src="" alt="">
+                        <div class="prevTextCata"></div>
+                      </div>
+                </div>
+                
+              </div>
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control desInput" id="floatingInput" placeholder="Tên danh mục">
+                <label for="floatingInput">Mô tả</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control goalInput" id="floatingInput" placeholder="Tên danh mục">
+                <label for="floatingInput">Số tiền mục tiêu</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control currentInput" id="floatingInput" placeholder="Tên danh mục">
+                <label for="floatingInput">Số tiền đang có</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control doneDayInput" id="dateInput" >
+                <label for="dateInput">Ngày kết thúc dự kiến</label>
+            </div>
+              
+              <p style="color: red;" class="notiCreatePlan"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+          <button type="button" class="btn btn-primary createPlanBtn">Tạo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addMoneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+          <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thêm tiền vào kế hoạch</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="dropdown">
+                
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control addMoneyInput" id="floatingInput" placeholder="Tên danh mục">
+                <label for="floatingInput">Số tiền thêm vào</label>
+            </div>
+           
+              
+              <p style="color: red;" class="notiAddMoney"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+          <button type="button" class="btn btn-primary addMoneyButton">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="modal fade" id="deletePlanModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header " style="background-color: #f34e31; color: #ffffff;">
+          <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Xoá kế hoạch</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xoá kế hoạch này</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+          <button type="button" class="btn btn-danger confirmDeletePlanButton">Xoá</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="moneyOutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+          <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Rút kế hoạch</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn muốn rút và hoàn thành kế hoạch này</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+          <button type="button" class="btn btn-primary confirmDonePlanButton">Hoàn thành kế hoạch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+    dataPlans =[
+        {
+            icon: "../../Icon/icon_29.png",
+            cata: "Mua nhà",
+            des: "Mua 1 căn chung cư ở Hoàng Hoa Thám cho bố mẹ, thuận tiện đi lại",
+            current: 1200000000,
+            goal: 2000000000,
+            startDay: "12/04/2024",
+            dayGoal: "24/05/2025",
+            done: false
+        },
+        {
+            icon: "../../Icon/icon_12.png",
+            cata: "Mua xe",
+            des: "Mua con Vinfast VF8 cho gia đình để tiện việc đi lại, về quê, ...",
+            current: 1200000000,
+            goal: 1500000000,
+            startDay: "12/04/2024",
+            dayGoal: "24/12/2024",
+            done: false
+        },
+        {
+            icon: "../../Icon/icon_107.png",
+            cata: "Đồ gia dụng",
+            des: "Mua ghế mát-xa cho mẹ, ghế mất xa OKACHI LUXURY JP-I99 ",
+            current: 60000000,
+            goal: 60000000,
+            startDay: "12/04/2024",
+            dayGoal: null,
+            done: false
+        },
+        {
+            icon: "../../Icon/icon_13.png",
+            cata: "Mua xe",
+            des: "Mua Honda RSX FI 2015 để chạy be nuôi vợ con",
+            current: 20000000,
+            goal: 20000000,
+            doneAfterDay: 129,
+            doneDay: '23/04/2023',
+            done: true
+        }
+    ]
+
+    function loadData(){
+        $(".inprocessRow").html("")
+        $(".donePlanRow").html("")
+        index=0
+        dataPlans.forEach(element => {
+        const percent= Math.floor((element.current /element.goal)*100) 
+        console.log(percent)
+        let color= "#D1B07F"
+        if(percent>=80){
+            color = "#72AE79"
+        }
+        if(!element.done){
+            if(percent<100 ){
+            $(".inprocessRow").append(`
+        <div class="col-12 col-md-6 plan p-3">
+                <div class="d-flex">
+                    <img class="icon" src="${element.icon}" alt="">
+                    <div class="mx-2 my-2">
+                        <p class="fw-bold">${element.cata}</p>
+                        <p class="" style="font-size: 14px; color: #333;">${element.des}</p>
+                    </div>
+                </div>
+                <div class="detailPlan d-flex" style="font-size: 15px;">
+                    <div class="detailMoney">
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Hiện tại: </p>
+                            <p class="planCurrent">${new Intl.NumberFormat('en-US').format(element.current) + 'đ'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Mục tiêu: </p>
+                            <p class="planGoal">${new Intl.NumberFormat('en-US').format(element.goal) + 'đ'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Ngày bắt đầu: </p>
+                            <p class="planDayGoal">${element.startDay}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Dự kiến hoàn thành: </p>
+                            <p class="planDayGoal">${element.dayGoal}</p>
+                        </div>
+                    </div>
+                    <div class="btnPlan">
+                        <div class="btn btn-primary btn-inMoney plan${index}" data-selected-plan-index="${index}" data-bs-toggle="modal" data-bs-target="#addMoneyModal"><i class="mx-2 fa-regular fa-money-bill-trend-up"></i>Thêm tiền</div>
+                        <i style="cursor: pointer; color: red" class="mx-2 deletePlan fa-regular fa-trash plan${index}" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
+                    </div>
+                        <div style="padding: 0px;" class="d-none d-md-block chart chart${index}"></div>
+                        <div style="width:30%">
+                            <div class="planPercent float-end" style="width: 100px; margin-top:20px;font-size: 17px; font-weight: bold; color: ${color};">${percent}% hoàn thành</div></div>
+                        
+                    
+                    
+                </div>
+            </div>
+        `)
+        }else{
+            $(".inprocessRow").append(`
+        <div class="col-12 col-md-6 plan p-3">
+                <div class="d-flex">
+                    <img class="icon" src="${element.icon}" alt="">
+                    <div class="mx-2 my-2">
+                        <p class="fw-bold">${element.cata}</p>
+                        <p class="" style="font-size: 14px; color: #333;">${element.des}</p>
+                    </div>
+                </div>
+                <div class="detailPlan d-flex" style="font-size: 15px;">
+                    <div class="detailMoney">
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Hiện tại: </p>
+                            <p class="planCurrent">${new Intl.NumberFormat('en-US').format(element.current) + 'đ'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Mục tiêu: </p>
+                            <p class="planGoal">${new Intl.NumberFormat('en-US').format(element.goal) + 'đ'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Đã hoàn thành </p>
+                        </div>
+                    </div>
+                    <div class="btn btn-primary btn-outMoney plan${index}" data-bs-toggle="modal" data-bs-target="#moneyOutModal"><i class="fa-light mx-2 fa-money-bill-wheat"></i>Rút tiền ra</div>
+                    <div style="padding: 0px;" class="d-none d-md-block chart chart${index}"></div>
+                        <div style="width:30%">
+                            <div class="planPercent float-end" style="width: 100px;font-size: 17px; font-weight: bold; color: ${color};">${percent}% hoàn thành</div></div>
+                </div>
+            </div>
+        `)
+        }
+        }else{
+            $(".donePlanRow").append(`
+            <div class="col-12 col-md-6 plan p-3">
+                <div class="d-flex">
+                    <img class="icon" src="${element.icon}" alt="">
+                    <div class="mx-2 my-2">
+                        <p class="fw-bold">${element.cata}</p>
+                        <p class="" style="font-size: 14px; color: #333;">${element.des}</p>
+                    </div>
+                </div>
+                <div class="detailPlan d-flex" style="font-size: 15px;">
+                    <div class="detailMoney">
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Số tiền: </p>
+                            <p class="planCurrent">${new Intl.NumberFormat('en-US').format(element.goal) + 'đ'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Hoàn thành sau: </p>
+                            <p class="planGoal">${element.doneAfterDay + ' ngày'}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="fw-bold mx-2">Hoàn thành ngày: </p>
+                            <p class="planGoal">${element.doneDay}</p>
+                        </div>
+                    </div>
+                    <i style="color: #72AE79; font-size: 70px" class="fw-bold fa-regular fa-badge-check"></i>
+                </div>
+            </div>
+        `)
+        }
+        
+        
+
+        var options = {
+        chart: {
+            height: 280,
+            type: "radialBar"
+        },
+        colors: [color],
+        series: [percent],
+        
+        plotOptions: {
+            radialBar: {
+            hollow: {
+                margin: 0,
+                size: "30%"
+            },
+            dataLabels: {
+                showOn: "false",
+                name: {
+                show: false,
+                },
+                value: {
+                show: false
+                }
+            }
+            }
+        },
+
+        stroke: {
+            lineCap: "round",
+        },
+        labels: ["Progress"]
+};
+
+    var chart = new ApexCharts(document.querySelector(`.chart${index}`), options);
+    chart.render();
+
+        index++;
+    });
+
+    }
+     
+
+
+        loadData()
+        $(".prevIconCata").hide()
+        $(".itemPlanCata").click(function(){
+            var imgSrc = $(this).find('img').attr('src');
+            var divContent = $(this).find('div').text();
+            $(".prevIconCata").show()
+            $(".prevIconCata").attr("src", imgSrc)
+            $(".prevTextCata").text(divContent)
+
+        })
+
+        var selectedPlanToInMoney = null
+
+        /*Kỹ thuật "event delegation" : Cần dùng nó khi mà các phần tử html có sự kiện được
+        sinh rau sau khi chạy js (Hay là dùng js để render ra).
+        Không thể .click mà phải như này vì các phần tử sau được sinh ra sau,
+        js không nhận dc nó, nên phải gắn sự kiện vào thằng bố, thằng mà không thay đổi
+        Như ở trường hợp này khi chạy hàm loadData() nó có hàm $(".inprocessRow").html(""),
+        nó sẽ xoá hết thằng btn-outMoney mà js đã gắn sự kiện, sau đó append những thằng mới,
+        nhưng những thằng mới sẽ không nhận dc sự kiện nên nếu dùng .click sẽ k chạy. Do đó,
+        phải gắn sự kiện vào thằng chứa nó, mà không bị thay đổi*/
+        $(".inprocessRow").on("click", ".btn-outMoney", function(){
+            let classOfPlanSelected = $(this).attr("class")
+             indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
+            selectedPlanToInMoney = indexSelected    
+        })
+
+        $(".confirmDonePlanButton").click(function(){
+            dataPlans[selectedPlanToInMoney].done = true
+            loadData()
+            $("#moneyOutModal").modal("hide")
+        })
+
+        $(".inprocessRow").on("click", ".deletePlan", function(){
+            let classOfPlanSelected = $(this).attr("class")
+             indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)  
+             selectedPlanToInMoney= indexSelected
+        })
+
+        $(".confirmDeletePlanButton").click(function(){
+            
+            dataPlans.splice(selectedPlanToInMoney, 1)
+            loadData()
+            $("#deletePlanModal").modal("hide")
+        })
+
+        
+        $(".inprocessRow").on("click", ".btn-inMoney", function(){
+            let indexSelected = $(this).data("selectedPlanIndex");
+            selectedPlanToInMoney = indexSelected  
+        })
+            
+        $(".addMoneyButton").click(function(){
+            if(selectedPlanToInMoney == null){
+                return
+            }else{
+                const moneyIn = $(".addMoneyInput").val()
+                if(isNaN(moneyIn) || !moneyIn ||  Number(moneyIn)<0){
+                    $(".notiAddMoney").text("Vui lòng nhập số tiền hợp lệ")
+            }else{
+                $(".notiAddMoney").text("")
+                dataPlans[selectedPlanToInMoney].current += Number(moneyIn)
+                loadData()
+                $(".addMoneyInput").val("")
+                $("#addMoneyModal").modal("hide")
+            }
+        }
+        })
+
+
+        $(".createPlanBtn").click(function(){
+            var imgSrc = $(".prevIconCata").attr('src');
+            var cata = $(".prevTextCata").text();
+            var desInput = $(".desInput").val()
+            var goalInput = $(".goalInput").val()
+            var currentInput = $(".currentInput").val()
+            var doneDayInput = $(".doneDayInput").val()
+            const doneDayInputSplit = doneDayInput.split("-")
+            const doneDay= doneDayInputSplit[2] + "/" + doneDayInputSplit[1] + "/" + doneDayInputSplit[0]
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear();
+
+            var formattedDateToday = dd + '/' + mm + '/' + yyyy;
+            if(!desInput || !goalInput || !currentInput || !doneDayInput|| !imgSrc || !cata){
+                $(".notiCreatePlan").text("Vui lòng nhập đầy đủ thông tin")
+                return;
+            }else if(isNaN(goalInput) || isNaN(currentInput) ){
+                $(".notiCreatePlan").text("Số tiền không hợp lệ")
+            }
+            else {
+                $(".notiCreatePlan").text("")
+                dataPlans.push({
+                icon: imgSrc,
+                cata: cata,
+                des: desInput,
+                current: currentInput,
+                goal: goalInput,
+                startDay: formattedDateToday,
+                dayGoal: doneDay,
+                done: false
+            }
+            )
+            $(".desInput").val("")
+            $(".goalInput").val("")
+            $(".currentInput").val("")
+            $(".doneDayInput").val("")
+            $(".prevIconCata").attr("src", "")
+            $(".prevIconCata").hide()
+            $(".prevTextCata").text("")
+            $('#addPlanModal').modal('hide');
+            loadData()
+            }
+
+           
+
+        })
+
+</script>
