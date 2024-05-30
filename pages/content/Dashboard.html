@@ -98,7 +98,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Ví chính
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="name-wallet">
+                        <ul class="dropdown-menu dropdown-menu-wallet" aria-labelledby="name-wallet">
                             <li><button class="dropdown-item wallet-option" type="button">Ví chính</button></li>
                         </ul>
                     </div>
@@ -532,9 +532,9 @@
                     <div class="wallet-name col-5 fw-bold fs-6">Ví chính</div>
                     <div class="wallet-money col-5 fw-bold fs-6">1.000.000đ</div>
                     <div class="col-2">
-                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
+                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-UD"
                             data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
+                        <ul class="dropdown-menu" aria-labelledby="wallet-UD">
                             <li><a id="modify-wallet-btn" href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modify-wallet">Sửa</a></li>
                             <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal"
@@ -547,9 +547,9 @@
                     <div class="wallet-name col-5 fw-bold fs-6">Ví phụ</div>
                     <div class="wallet-money col-5 fw-bold fs-6">2.000.000đ</div>
                     <div class="col-2">
-                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
+                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-UD"
                             data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
+                        <ul class="dropdown-menu" aria-labelledby="wallet-UD">
                             <li><a id="modify-wallet-btn" href="#" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modify-wallet">Sửa</a></li>
                             <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal"
@@ -812,7 +812,7 @@
         //Hiển thị các ví trong modal phân bổ
         function populateWalletOptions() {
             // Clear các lựa chọn
-            $('.dropdown-menu').empty();
+            $('.dropdown-menu-wallet').empty();
 
             // Lấy tất cả tên ví
             $('#wallets-container .wallet-name').each(function () {
@@ -822,7 +822,7 @@
                     $('<button>').addClass('dropdown-item wallet-option').attr('type', 'button').text(walletName)
                 );
                 // Append the list item to the dropdown menu
-                $('.dropdown-menu').append(listItem);
+                $('.dropdown-menu-wallet').append(listItem);
             });
 
             // Cài đặt tên ví đầu tiên cho dropdown button
@@ -953,9 +953,9 @@
                     <div class="wallet-name col-5 fw-bold fs-6">${walletName}</div>
                     <div class="wallet-money col-5 fw-bold fs-6">${walletMoney}đ</div>
                     <div class="col-2">
-                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-option"
+                        <i class="fa-solid fa-ellipsis fa-xl" style="cursor: pointer;" id="wallet-UD"
                             data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="wallet-option">
+                        <ul class="dropdown-menu" aria-labelledby="wallet-UD">
                             <li><a id="modify-wallet-btn" href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modify-wallet"
                                     >Sửa</a></li>
                             <li><a href="#" class="dropdown-item" id="delete-wallet-btn" data-bs-toggle="modal" data-bs-target="#confirmDelete">Xóa</a></li>
@@ -1020,6 +1020,7 @@
                     $('#errorMessages').html(validationResult.errorMessages);
                 }
             });
+            populateWalletOptions();
         });
 
         function rgbToHex(rgb) {
@@ -1041,6 +1042,7 @@
         //     })
         // })
 
+
         // Delete wallet with index
         $(document).on('click', '#delete-wallet-btn', function () {
             var indexToDelete = $(this).closest('.wallet-item').data('index')
@@ -1051,7 +1053,9 @@
                     }).remove()
                 }
                 indexToDelete = null;
+                populateWalletOptions();
             })
+
         })
     })
 

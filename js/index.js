@@ -1,6 +1,9 @@
 //Toggle sidebar
-
 $(document).ready(function () {
+    $(window).on("load", function (){
+        var firstUrl = './pages/content/Dashboard.html';
+        $("#page-content").load(firstUrl);
+    })
     $(".sidebar-link").click(function (e) {
         e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
         var url = $(this).attr("href");
