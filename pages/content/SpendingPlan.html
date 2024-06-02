@@ -472,8 +472,24 @@
             selectedPlanToInMoney = indexSelected    
         })
 
+        function convertToDate(dateString) {
+            const [day, month, year] = dateString.split('/').map(Number);
+            return new Date(year, month - 1, day); // JavaScript tháng bắt đầu từ 0
+        }
+
         $(".confirmDonePlanButton").click(function(){
             dataPlans[selectedPlanToInMoney].done = true
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear();
+
+            var formattedDateToday = dd + '/' + mm + '/' + yyyy;
+            dataPlans[selectedPlanToInMoney].doneDay = formattedDateToday
+
+            const timeDifference = convertToDate(formattedDateToday).getTime() - convertToDate(dataPlans[selectedPlanToInMoney].startDay).getTime();
+            const dayDifference = timeDifference / (1000 * 3600 * 24);
+            dataPlans[selectedPlanToInMoney].doneAfterDay= Math.round(dayDifference)
             loadData()
             $("#moneyOutModal").modal("hide")
         })
