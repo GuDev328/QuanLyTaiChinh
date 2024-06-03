@@ -723,9 +723,13 @@
   </div>
   <script>
     $(document).ready(function(){
-        $('.deteteCataBtn').on('click', function() {
-            $(this).closest('.cata').remove();
-        });
+      $(".container-fluid").on("click", ".deteteCataBtn", function(){
+          $(this).closest('.cata').remove();
+        })
+
+        // $('.deteteCataBtn').on('click', function() {
+        //     $(this).closest('.cata').remove();
+        // });
         $(".iconCataSellect").click(function(){
             const srcImg=$(this).attr("src")
             $(".prevIcon").attr("src", srcImg)
