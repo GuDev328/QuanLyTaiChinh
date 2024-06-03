@@ -42,8 +42,8 @@
 
     .modal-body form .inputField{
         flex-basis: 68%;
-        border-left: 5px groove #3C91E7;
-        padding-left: 20px;
+        border-left: 3px solid #3C91E7;
+        padding-left: 50px;
     }
 
     form .inputField > div{
@@ -122,9 +122,19 @@
           });
         })
         //Xóa người dùng
-        $("#myTable tr").on("click", ".delete", function() {
-          $(this).closest("tr").remove();
-        });
+        
+          var rowToDelete;
+          $('.delete').on('click', function() {
+            rowToDelete = $(this).closest('tr');
+            console.log(rowToDelete)
+          });
+
+          $('.confirmDelete').on('click', function() {
+            if (rowToDelete) {
+              rowToDelete.remove();
+              rowToDelete = null;
+            }
+          });
 
       //Bộ lọc tổng tiền
       $(".filter_btn").click(function() {
@@ -224,21 +234,19 @@
             $('.select_page').removeClass('select');
             $(this).addClass('select');
         });
-        $('.page_2').click(function() {
-          $("#myTable tr")
-        })
       
-
 
         //Hiển thị thông tin người dùng qua modal
         $('.info-btn').on('click', function() {
           let row = $(this).closest('tr');
+          let imgUrl = row.find('.table-img').attr('src');
           let name = row.find('.name').text();
           let email = row.find('.email').text();
           let gender = row.find('.col_gender').text();
           let plan = row.find('.col_plan').text();
           let money = row.find('.col_money').text();
 
+          $('.infoImg').attr('src',imgUrl);
           $('#infoName').val(name);
           $('#infoEmail').val(email);
           $('#infoGender').val(gender);
@@ -251,6 +259,7 @@
         // Sủa thông tin người dùng
         $('.edit-btn').on('click', function() {
           let row = $(this).closest('tr');
+          let imgUrl = row.find('.table-img').attr('src');
           let name = row.find('.name').text();
           let email = row.find('.email').text();
           let gender = row.find('.col_gender').text();
@@ -258,6 +267,7 @@
           let money = row.find('.col_money').text();
           
           // Điền thông tin vào modal
+          $('.editImg').attr('src',imgUrl);
           $('#editName').val(name);
           $('#editEmail').val(email);
           $('#editGender').val(gender);
@@ -266,7 +276,7 @@
         });
         $(".submit").click(function(event) {
           event.preventDefault(); // Ngăn chặn form submit mặc định
-          
+          // let imgUrl = $('.editImg').attr('src');
           let name = $('#editName').val();
           let email = $('#editEmail').val();
           let gender = $('#editGender').val();
@@ -274,6 +284,7 @@
           let money = $('#editMoney').val();
           // Ghi lại các thay đổi vào bảng
           let row = $(this).closest('tr');
+          // row.find('.table-img').attr('src',imgUrl);
           row.find('.name').text(name);
           row.find('.email').text(email);
           row.find('.col_gender').text(gender);
@@ -283,20 +294,93 @@
           // Đóng modal
           $('#modalEdit').modal('hide');
         })
+        var currentRow;
+
+        $('.edit-btn').on('click', function() {
+          currentRow = $(this).closest('tr');
+        });
+        $('#uploadimg').on('change', function() {
+          if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              currentRow.find('.table-img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+          }
+        });
+
+
+
+
+        $('#newUploadImg').on('change', function() {
+        if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('.new-img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+
+      // Add new user to the table
+      $('.createUserBtn').on('click', function(event) {
+        event.preventDefault();
+        var name = $('.newName').val();
+        var email = $('.newEmail').val();
+        var gender = $('.newGender').val();
+        var plan = $('.newPlan').val();
+        var money = $('.newMoney').val();
+        var newmoney = parseInt(money.replace(/,/g, ''), 10).toLocaleString('en') + 'đ';
+        var imgSrc = $('.new-img').attr('src');
+
+        var newRow = `
+          <tr>
+            <th scope="row">
+              <img src="${imgSrc}" alt="" class="rounded-circle table-img" style="height: 25px; width: 25px;">
+            </th>
+            <td class="name">${name}</td>
+            <td class="email">${email}</td>
+            <td class="col_gender">${gender}</td>
+            <td class="status">
+              <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-success online mx-1"></div>
+                <span>Online</span>
+              </div>
+            </td>
+            <td class="col_plan">${plan}</td>
+            <td class="col_money">${newmoney}</td>
+            <td>
+              <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+              </button>
+              <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+              </button>
+                <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
+            </td>
+          </tr>
+        `;
+
+        $('#myTable').append(newRow);
+        $('#addUserModal').modal('hide');
+        $('#addUserForm')[0].reset();
+        $('.new-img').attr('src', '../../img/default.png');
+      });
     });
 </script>
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center row">
-              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-11 col-lg-12">
+              
+              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-9 col-lg-12">
                 <div class="search_icon_user text-primary mx-3 mt-1">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div class="input-group search_btn_user align-items-center">
                     <input type="text" id="myInput" class="form-control border-0" placeholder="Nhập họ tên người dùng" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="border-0 bg-primary text-white rounded-pill py-1 px-3 input-group-text btn_search_user" id="basic-addon2" style="background-color: #3c91e7;">Tìm kiếm</button>
+                        <button class="border-0 text-white rounded-pill py-1 px-3 input-group-text btn_search_user" id="basic-addon2" style="background-color: #3c91e7;">Tìm kiếm</button>
                     </div>
                 </div>
               </div>
@@ -304,6 +388,72 @@
                 <a class="btn fs-5" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                   <i class="fa-solid fa-filter"></i>
                 </a>
+              </div>
+              <div class="modal fade" id="deletePlanModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header " style="background-color: #f34e31; color: #ffffff;">
+                      <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Xoá người dùng</h1>
+                      <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xoá người dùng này không?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                      <button type="button" data-bs-dismiss="modal" class="btn btn-danger confirmDelete">Xoá</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+                      <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thêm người dùng</h1>
+                      <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="" id="addUserForm">
+
+                        <div class="card imgholder rounded-circle">
+                          <label for="newUploadImg" class="upload">
+                            <input type="file" id="newUploadImg" class="picture">
+                            <i class="fa fa-plus-circle"></i>
+                          </label>
+                          <img src="../../img/default.png" alt="" width="200" height="200" class="img rounded-circle new-img">
+                        </div>
+                        <div class="inputField">
+
+                          <div class="form-floating mb-3">
+                              <input type="name" class="form-control newName" id="floatingInput" placeholder="Tên danh mục">
+                              <label for="floatingInput">Họ tên</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                              <input type="name" class="form-control newEmail" id="floatingInput" placeholder="Tên danh mục">
+                              <label for="floatingInput">Email</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                              <input type="name" class="form-control newGender" id="floatingInput" placeholder="Tên danh mục">
+                              <label for="floatingInput">Giới tính</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="name" class="form-control newPlan" id="floatingInput" placeholder="Tên danh mục">
+                            <label for="floatingInput">Kế hoạch</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="name" class="form-control newMoney" id="floatingInput" placeholder="Tên danh mục">
+                          <label for="floatingInput">Tổng tiền</label>
+                        </div>
+                        </div>
+                      </form>             
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                      <button type="button" class="btn btn-primary createUserBtn" data-bs-dismiss="modal">Thêm</button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
@@ -362,7 +512,7 @@
                     <tbody class="text-center" id="myTable">
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Phùng Quang Chiến</td>
                         <td class="email">chien1@gmail.com</td>
@@ -383,9 +533,9 @@
                           <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                               <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin người dùng</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+                                  <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thông tin người dùng</h1>
+                                  <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                   <form action="#" id="myFormInfo">
@@ -394,7 +544,7 @@
                                         <input type="file" name="" id="uploadimg" class="picture">
                                         <i class="fa fa-plus-circle"></i>
                                       </label>
-                                      <img src="../../img/foden.png" alt="" width="200" height="200" class="img rounded-circle">
+                                      <img src="" alt="" width="200" height="200" class="img rounded-circle infoImg">
                                     </div>
                                     <div class="inputField">
                                       <div>
@@ -417,10 +567,7 @@
                                         <label for="infoMoney">Tổng tiền:</label>
                                         <input type="text" id="infoMoney" required>
                                       </div>
-                                      <div>
-                                        <label for="infoStartDate">Start Date:</label>
-                                        <input type="date" id="infoStartDate" required>
-                                      </div>
+                                      
                                     </div>
                                   </form>
                                 </div>
@@ -434,9 +581,9 @@
                           <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                               <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa thông tin người dùng</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-header bg-warning text-white">
+                                  <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Sửa thông tin người dùng</h1>
+                                  <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
 
@@ -447,7 +594,7 @@
                                               <input type="file" name="" id="imgInput">
                                               <i class="fa fa-plus-circle"></i>
                                           </label>
-                                          <img src="../../img/foden.png" alt="" width="200" height="200" class="img rounded-circle">
+                                          <img src="" alt="" width="200" height="200" class="img rounded-circle editImg">
                                       </div>
               
                                       <div class="inputField">
@@ -471,27 +618,24 @@
                                           <label for="editMoney">Tổng tiền:</label>
                                           <input type="text" id="editMoney" required>
                                         </div>
-                                        <div>
-                                          <label for="editStartDate">Start Date:</label>
-                                          <input type="date" id="editStartDate" required>
-                                        </div>
+                                        
                                       </div>
               
                                   </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" form="myFormEdit"  data-bs-dismiss="modal" class="btn btn-primary submit">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" form="myFormEdit"  data-bs-dismiss="modal" class="btn btn-primary submit">Lưu</button>
                               </div>
                               </div>
                             </div>
                           </div>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Phạm Tiến Đạt</td>
                         <td class="email">chien2@gmail.com</td>
@@ -511,12 +655,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Lê Quý Độ</td>
                         <td class="email">chien3@gmail.com</td>
@@ -537,12 +681,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Nguyễn Đức Chung</td>
                         <td class="email">chien4@gmail.com</td>
@@ -563,12 +707,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Lã Văn Đức</td>
                         <td class="email">chien4@gmail.com</td>
@@ -589,12 +733,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Nguyễn Khắc Cảnh</td>
                         <td class="email">chien4@gmail.com</td>
@@ -615,12 +759,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Nguyễn Hữu Đức</td>
                         <td class="email">chien4@gmail.com</td>
@@ -641,12 +785,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
                         </th>
                         <td class="name">Phùng Quang Chiến</td>
                         <td class="email">chien4@gmail.com</td>
@@ -667,12 +811,12 @@
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;"></i>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <!-- <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 25px;width: 25px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle" style="height: 30px;width: 30px;">
                         </th>
                         <td>Phùng Quang Chiến</td>
                         <td>chien4@gmail.com</td>
@@ -714,7 +858,10 @@
             </div>
         </div>
         <div class="col-lg-3 filter_main">
-            <div class="sum_user bg-white rounded-4">
+            <div class="add_user text-white text-center rounded-4 py-3" style="background-color: #3C91E7;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addUserModal">
+              <i class="fa-solid fa-plus mx-2"></i>Thêm người dùng mới
+            </div>
+            <div class="sum_user bg-white rounded-4 mt-3">
               <div class="fw-bolder fs-5 px-3 pt-1">TỔNG SỐ NGƯỜI DÙNG</div>
               <div class="body_sum_user d-flex align-items-center justify-content-around">
                 <div class="sum_left d-flex align-items-center justify-content-start">
