@@ -1,0 +1,657 @@
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .search{
+        position: relative;
+    }
+    .iconSearch{
+        position: absolute;
+        color: #3c91e6;
+        font-size: 30px;
+        top: 15px;
+        left: 20px;
+    }
+    .btnSearch{
+        border-radius: 20px;
+        position: absolute;
+        background-color: #3c91e6;
+        top: 10px;
+        right: 10px;
+    }
+    .inputSearch{
+        border-radius: 40px;
+    }
+    .avt{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .icon{
+        width: 45px;
+        height: 45px;
+    }
+    .filter{
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 40px;
+    }
+    .tiltleFilter{
+        font-weight: bold;
+        font-size: 20px;
+        margin: 0px 10px;
+    }
+    .avtDetail{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="search mb-2">
+                <input class="form-control py-3 inputSearch px-5" placeholder="Tìm kiếm theo tên hoặc email" type="text"/>
+                <i class="iconSearch fa-solid fa-magnifying-glass"></i>
+                <button class="btn btnSearch btn-primary"><i class="fa-solid fa-magnifying-glass"></i>Tìm kiếm</button>
+
+            </div>
+
+            <div class="filter mb-2">
+                <div class="d-flex align-items-center  flex-wrap">
+                    <div class="tiltleFilter">Bộ lọc kế hoạch: </div>
+                    <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chọn Danh mục kế hoạch
+                              </button>
+                                                  
+                        <div>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_29.png"/>
+                                    <div class="">Mua nhà</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_23.png"/>
+                                    <div class="">Mua đất</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_12.png"/>
+                                    <div class="">Mua xe hơi</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_13.png"/>
+                                    <div class="">Mua xe máy</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_107.png"/>
+                                    <div class="">Đồ gia dụng</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_41.png"/>
+                                    <div class="">Đồ dùng cá nhân</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_49.png"/>
+                                    <div class="">Vui-chơi, Du Lịch</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_63.png"/>
+                                    <div class="">Làm đẹp</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_1.png"/>
+                                    <div class="">Quà tặng</div>
+                                </li>
+                                <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <img class="icon mx-2" src="../../Icon/icon_22.png"/>
+                                    <div class="">Khác</div>
+                                </li>
+                              </ul>
+                              
+                        </div>
+                        
+                      </div>
+                      <div class="d-flex align-items-center ">
+                        <img class="icon prevIconCata" src="" alt="">
+                        <div class="prevTextCata"></div>
+                      </div>
+                </div>
+                
+                <div class="d-flex flex-wrap">
+                    <div class="btn btn-primary btn-secondary filterBtn m-1">Theo Dự kiến hoàn thành</div>
+                    <div class="btn btn-primary btn-secondary filterBtn m-1">Theo Số tiền hiện tại</div>
+                    <div class="btn btn-primary btn-secondary filterBtn m-1">Theo Số tiền mục tiêu</div>
+                    <div class="btn btn-primary btn-secondary filterBtn m-1">Theo Phần trăm hoàn thành</div>
+                    <div class="btn btnReset btn-danger m-1"><i class="mx-1 fa-solid fa-arrow-rotate-left"></i>Khôi phục</div>
+                </div>
+
+                  
+            </div>
+
+            <table class="table">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col" style="background-color: #3c91e6; color: white; padding: 15px 0px;" class="align-middle">Người dùng</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;display: none;padding: 15px 0px;" class="align-middle d-md-table-cell">Email</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;padding: 15px 0px;" class="align-middle">Kế hoạch</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;" class="d-md-none align-middle">Tiến độ</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;display: none;padding: 15px 0px;" class="align-middle d-md-table-cell">Hiện tại</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;display: none;padding: 15px 0px;" class="align-middle d-md-table-cell">Mục tiêu</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;display: none;padding: 15px 0px;" class="align-middle d-md-table-cell">Dự kiến hoàn thành</th>
+                    <th scope="col" style="background-color: #3c91e6; color: white;"></th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  <tr>
+                    <td class="d-flex align-items-center align-middle">
+                        <img class="avt" src="../../img/Avt/avt1.jpg" alt=""/>
+                        <p class="m-2">Phạm Tiến Đạt</p>
+                    </td>
+                    <td class="align-middle d-none d-md-table-cell text-center">
+                        phamtiendat@gmail.com
+                    </td>
+                    <td class="align-middle">
+                        <img class="avt float-start" src="../../Icon/icon_1.png" alt=""/>
+                        <p class="m-2" style="width: 100px;">Mua nhà</p>
+                    </td>
+                    <td class="align-middle d-md-none">70%</td>
+                    <td class="align-middle d-none d-md-table-cell">1,000,000,000</td>
+                    <td class="align-middle text-center d-none d-md-table-cell">3,000,000,000</td>
+                    <td class="align-middle text-center d-none d-md-table-cell">12/12/2025</td>
+                    <td class="align-middle text-center"><i class="fa-regular fa-eye" style="font-size: 20px; color: #3c91e6;" data-bs-toggle="modal" data-bs-target="#showMoreModal"></i></td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <div class="page_user d-flex align-items-center justify-content-center">
+                <div class="rounded-circle bg-white text-center mx-1 page_1" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="rounded-circle text-center bg-white mx-1 page_1 " style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;">1</div>
+                <div class="rounded-circle bg-white text-center mx-1 s page_2" style="width: 30px;height: 30px;line-height: 30px;cursor: pointer;">2</div>
+                <div class="rounded-circle bg-white text-center mx-1 page_2" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal mx-5 fade" id="showMoreModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+          <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thông tin chi tiết kế hoạch</h1>
+          <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-7 userDetail d-flex align-items-center">
+                        
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <div class="chart"></div>
+                        <div class="planInfoDetail">
+                            
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<script>
+    planDataList=[]
+    function resetData(){
+        planDataList = [
+    {
+        avt: "../../img/Avt/avt1.jpg",
+        name: "Phạm Tiến Đạt",
+        email: "phamtiendat@gmail.com",
+        phoneNumber: "0987654321",
+        birthday: "12/12/2000",
+        gender: "Nam",
+        address: "Nguyên Xá, Đống Đa, Hà Nội",
+        imgPlan: "../../img/Icon/icon_12.png",
+        plan: "Mua xe hơi",
+        current: 1200000000,
+        goal: 1500000000,
+        startDay: "01/01/2022",
+        goalDay: "12/12/2023",
+        description: "Muốn mua một chiếc xe hơi mới để tiện đi lại và phục vụ công việc."
+    },
+    {
+        avt: "../../img/Avt/avt2.jpg",
+        name: "Phùng Quang Chiến",
+        email: "phungquangchien@gmail.com",
+        phoneNumber: "0662554321",
+        birthday: "12/12/2000",
+        gender: "Nam",
+        address: "Minh Khai, Thanh Xuân, Hà Nội",
+        imgPlan: "../../img/Icon/icon_29.png",
+        plan: "Mua nhà",
+        current: 500000000,
+        goal: 3000000000,
+        startDay: "01/02/2023",
+        goalDay: "12/12/2026",
+        description: "Mong muốn mua một căn nhà ở trung tâm Hà Nội để ổn định cuộc sống."
+    },
+    {
+        avt: "../../img/Avt/avt3.jpg",
+        name: "Lê Quý Độ",
+        email: "lequydo@gmail.com",
+        phoneNumber: "0987654321",
+        birthday: "12/12/2000",
+        gender: "Nam",
+        address: "Nguyên Xá, Đống Đa, Hà Nội",
+        imgPlan: "../../img/Icon/icon_49.png",
+        plan: "Vui-chơi, Du Lịch",
+        current: 500000000,
+        goal: 1000000000,
+        startDay: "01/03/2024",
+        goalDay: "12/12/2026",
+        description: "Đang tiết kiệm để có chuyến du lịch dài ngày với gia đình."
+    },
+    {
+        avt: "../../img/Avt/avt1.jpg",
+        name: "Nguyễn Văn An",
+        email: "nguyenvanan@gmail.com",
+        phoneNumber: "0909090909",
+        birthday: "01/01/1990",
+        gender: "Nam",
+        address: "Láng Hạ, Ba Đình, Hà Nội",
+        imgPlan: "../../img/Icon/icon_23.png",
+        plan: "Mua đất",
+        current: 200000000,
+        goal: 1000000000,
+        startDay: "01/04/2025",
+        goalDay: "01/01/2024",
+        description: "Đang lên kế hoạch mua một mảnh đất ngoại ô để xây nhà."
+    },
+    {
+        avt: "../../img/Avt/avt2.jpg",
+        name: "Trần Thị Bích",
+        email: "tranthibich@gmail.com",
+        phoneNumber: "0919191919",
+        birthday: "02/02/1985",
+        gender: "Nữ",
+        address: "Kim Mã, Ba Đình, Hà Nội",
+        imgPlan: "../../img/Icon/icon_63.png",
+        plan: "Làm đẹp",
+        current: 50000000,
+        goal: 200000000,
+        startDay: "01/05/2021",
+        goalDay: "02/02/2025",
+        description: "Đang tiết kiệm tiền để làm đẹp và chăm sóc bản thân."
+    },
+    {
+        avt: "../../img/Avt/avt3.jpg",
+        name: "Hoàng Văn Cường",
+        email: "hoangvancuong@gmail.com",
+        phoneNumber: "0929292929",
+        birthday: "03/03/1995",
+        gender: "Nam",
+        address: "Hoàng Hoa Thám, Tây Hồ, Hà Nội",
+        imgPlan: "../../img/Icon/icon_13.png",
+        plan: "Mua xe máy",
+        current: 200000000,
+        goal: 500000000,
+        startDay: "01/06/2022",
+        goalDay: "03/03/2025",
+        description: "Đang lên kế hoạch mua một chiếc xe máy mới để đi làm hàng ngày."
+    },
+    {
+        avt: "../../img/Avt/avt1.jpg",
+        name: "Phạm Minh Dũng",
+        email: "phamminhdung@gmail.com",
+        phoneNumber: "0939393939",
+        birthday: "04/04/1992",
+        gender: "Nam",
+        address: "Thái Hà, Đống Đa, Hà Nội",
+        imgPlan: "../../Icon/icon_1.png",
+        plan: "Quà tặng",
+        current: 10000000,
+        goal: 50000000,
+        startDay: "01/07/2023",
+        goalDay: "25/12/2024",
+        description: "Dự định mua quà tặng cho gia đình và bạn bè vào dịp lễ cuối năm."
+    },
+    {
+        avt: "../../img/Avt/avt2.jpg",
+        name: "Nguyễn Thị Nga",
+        email: "nguyenthinga@gmail.com",
+        phoneNumber: "0949494949",
+        birthday: "05/05/1987",
+        gender: "Nữ",
+        address: "Đê La Thành, Ba Đình, Hà Nội",
+        imgPlan: "../../img/Icon/icon_23.png",
+        plan: "Mua đất",
+        current: 1500000000,
+        goal: 5000000000,
+        startDay: "01/08/2022",
+        goalDay: "05/05/2027",
+        description:        "Muốn mua một mảnh đất ở ngoại ô để đầu tư và xây dựng nhà nghỉ dưỡng."
+    },
+    {
+        avt: "../../img/Avt/avt3.jpg",
+        name: "Lê Văn Hoàng",
+        email: "levanhoang@gmail.com",
+        phoneNumber: "0959595959",
+        birthday: "06/06/1980",
+        gender: "Nam",
+        address: "Cầu Giấy, Hà Nội",
+        imgPlan: "../../img/Icon/icon_29.png",
+        plan: "Mua nhà",
+        current: 3000000000,
+        goal: 10000000000,
+        startDay: "01/09/2023",
+        goalDay: "06/06/2028",
+        description: "Đang tích góp tiền để xây dựng một ngôi nhà lớn cho gia đình và con cái."
+    },
+    {
+        avt: "../../img/Avt/avt1.jpg",
+        name: "Phan Thị Hồng",
+        email: "phanthihong@gmail.com",
+        phoneNumber: "0969696969",
+        birthday: "07/07/1985",
+        gender: "Nữ",
+        address: "Trung Hòa, Cầu Giấy, Hà Nội",
+        imgPlan: "../../img/Icon/icon_107.png",
+        plan: "Đồ gia dụng",
+        current: 50000000,
+        goal: 300000000,
+        startDay: "01/10/2021",
+        goalDay: "07/07/2025",
+        description: "Đang có kế hoạch mua sắm các đồ gia dụng mới cho gia đình."
+    },
+    {
+        avt: "../../img/Avt/avt2.jpg",
+        name: "Vũ Quang Hải",
+        email: "vuquanghai@gmail.com",
+        phoneNumber: "0979797979",
+        birthday: "08/08/1990",
+        gender: "Nam",
+        address: "Nguyễn Chí Thanh, Đống Đa, Hà Nội",
+        imgPlan: "../../img/Icon/icon_41.png",
+        plan: "Đồ dùng cá nhân",
+        current: 20000000,
+        goal: 100000000,
+        startDay: "01/11/2022",
+        goalDay: "08/08/2025",
+        description: "Đang chuẩn bị tiền để mua các đồ dùng cá nhân mới."
+    },
+    {
+        avt: "../../img/Avt/avt3.jpg",
+        name: "Trần Văn Bình",
+        email: "tranvanbinh@gmail.com",
+        phoneNumber: "0989898989",
+        birthday: "09/09/1995",
+        gender: "Nam",
+        address: "Phạm Hùng, Cầu Giấy, Hà Nội",
+        imgPlan: "../../img/Icon/icon_12.png",
+        plan: "Mua ô tô",
+        current: 600000000,
+        goal: 2000000000,
+        startDay: "01/12/2023",
+        goalDay: "09/09/2026",
+        description: "Muốn mua một chiếc ô tô mới để thuận tiện cho việc đi lại và công việc."
+    },
+    {
+        avt: "../../img/Avt/avt1.jpg",
+        name: "Hoàng Thị Lan",
+        email: "hoangthilan@gmail.com",
+        phoneNumber: "0999999999",
+        birthday: "10/10/1988",
+        gender: "Nữ",
+        address: "Láng Thượng, Đống Đa, Hà Nội",
+        imgPlan: "../../img/Icon/icon_63.png",
+        plan: "Làm đẹp",
+        current: 30000000,
+        goal: 200000000,
+        startDay: "01/01/2022",
+        goalDay: "10/10/2025",
+        description: "Đang tiết kiệm tiền để làm đẹp và chăm sóc bản thân."
+    },
+    {
+        avt: "../../img/Avt/avt2.jpg",
+        name: "Nguyễn Văn Kiên",
+        email: "nguyenvankien@gmail.com",
+        phoneNumber: "0910101010",
+        birthday: "11/11/1980",
+        gender: "Nam",
+        address: "Nguyễn Trãi, Thanh Xuân, Hà Nội",
+        imgPlan: "../../img/Icon/icon_22.png",
+        plan: "Khác",
+        current: 2000000000,
+        goal: 6000000000,
+        startDay: "01/02/2023",
+        goalDay: "11/11/2027",
+        description: "Muốn mua một căn nhà để cho thuê và kiếm thêm thu nhập."
+    }
+]
+
+
+    }
+    $(document).ready(function() {
+        indexSelected=0
+        resetData();
+        $(".btnReset").click(function(){
+            $(".prevIconCata").hide()
+            $(".prevIconCata").attr("src", "")
+            $(".prevTextCata").text("")
+            $(".inputSearch").val("")
+            $(".filterBtn").attr("class", "btn btn-primary btn-secondary filterBtn m-1")
+            resetData()
+            loadData()
+        })
+        $(".prevIconCata").hide()
+        $(".itemPlanCata").click(function(){
+            resetData()
+            var imgSrc = $(this).find('img').attr('src');
+            var divContent = $(this).find('div').text();
+            $(".prevIconCata").show()
+            $(".prevIconCata").attr("src", imgSrc)
+            $(".prevTextCata").text(divContent)
+            planDataList = planDataList.filter(item => item.plan === divContent);
+            loadData()
+
+        })
+        $(".btnSearch").click(function(){
+            resetData()
+            const searchString = $(".inputSearch").val();
+            planDataList= planDataList.filter(item => 
+                item.name.includes(searchString) || item.email.includes(searchString)
+            );
+            loadData()
+        })
+        filterBy="";
+        $(".filterBtn").click(function(){
+            $(".filterBtn").attr("class", "btn btn-primary btn-secondary filterBtn m-1")
+            $(this).toggleClass("btn-secondary")
+            filterBy= $(this).text()
+            if(filterBy==="Theo Dự kiến hoàn thành"){
+                planDataList= planDataListPrev.sort((a, b) => new Date(a.goalDay) - new Date(b.goalDay));
+                loadData()
+            }else if(filterBy==="Theo Số tiền hiện tại"){
+                planDataList=planDataListPrev.sort((a, b) => b.current - a.current);
+                loadData()
+            }else if(filterBy==="Theo Số tiền mục tiêu"){
+                planDataList=planDataListPrev.sort((a, b) => b.goal - a.goal);
+                loadData()
+            }else if(filterBy==="Theo Phần trăm hoàn thành"){
+                planDataList=planDataListPrev.sort((a, b) => (b.current / b.goal) - (a.current / a.goal));
+                loadData()
+            }
+
+        })
+        
+        pageSelected=1;
+        $(".page_1").click(function(){
+            if(pageSelected===1) return ;
+            resetDataFromPrev()
+            pageSelected=1;
+            loadData()
+            
+        })
+        $(".page_2").click(function(){
+            if(pageSelected===2) return ;
+            resetDataFromPrev()
+            pageSelected=2;
+            loadData()
+            
+        })
+        function resetDataFromPrev(){
+            planDataList= planDataListPrev
+        }
+        function loadData() {
+            $(".tbody").html("");
+            if(planDataList.length<=10) $(".page_2").hide();
+            else $(".page_2").show();
+            planDataListPrev= planDataList;
+            if(pageSelected===1){
+                planDataList= planDataList.slice(0,10)
+            }else planDataList= planDataList.slice(11)
+            planDataList.map(function(item, index) {
+                const percent= Math.floor((item.current*1.0 /item.goal)*100) 
+                $(".tbody").append(`
+                <tr>
+                    <td class="align-middle">
+                        <img class="avt float-start" src="${item.avt}" alt=""/>
+                        <p class="m-2">${item.name}</p>
+                    </td>
+                    <td class="align-middle text-center d-none d-md-table-cell">
+                        ${item.email}
+                    </td>
+                    <td class="align-middle">
+                        <img class="avt float-start" src="${item.imgPlan}" alt=""/>
+                        <p class="m-2">${item.plan}</p>
+                    </td>
+                    <td class="align-middle d-md-none">${percent+ "%"}</td>
+                    <td class="align-middle d-none d-md-table-cell">${new Intl.NumberFormat('en-US').format(item.current)}</td>
+                    <td class="align-middle text-center d-none d-md-table-cell">${new Intl.NumberFormat('en-US').format(item.goal)}</td>
+                    <td class="align-middle text-center d-none d-md-table-cell">${item.goalDay}</td>
+                    <td class="align-middle showModal text-center index${index}"><i class="fa-regular fa-eye" style="font-size: 20px; color: #3c91e6;" data-bs-toggle="modal" data-bs-target="#showMoreModal"></i></td>
+                  </tr>
+                `)
+            })
+        } 
+        loadData();
+        
+        $(".tbody").on("click", ".showModal", function(){
+            let classOfPlanSelected = $(this).attr("class")
+             indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1) 
+             percent= Math.floor((planDataList[indexSelected].current /planDataList[indexSelected].goal)*100) 
+                    let color= "#D1B07F"
+                    if(percent>=80){
+                        color = "#72AE79"
+                    }
+                    $(".userDetail").html("")
+                $(".userDetail").append(`
+                <div class="d-flex">
+                            <img class="avtDetail" src="${planDataList[indexSelected].avt}"/>
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <p class="fw-bold mx-1">Họ và tên: </p>
+                                <p class="">${planDataList[indexSelected].name}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Giới tính: </p>
+                                <p class="">${planDataList[indexSelected].gender}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Email: </p>
+                                <p class="">${planDataList[indexSelected].email}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Số điện thoại: </p>
+                                <p class="">${planDataList[indexSelected].phoneNumber}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Ngày sinh: </p>
+                                <p class="">${planDataList[indexSelected].birthday}</p>
+                            </div>
+                           
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Địa chỉ: </p>
+                                <p class="">${planDataList[indexSelected].address}</p>
+                            </div>
+                        </div>
+                        </div>
+                `)
+                $(".planInfoDetail").html("")
+                $(".planInfoDetail").append(`
+                <div class="d-flex">
+                                <p class="fw-bold mx-1">Mô tả: </p>
+                                <p class="">${planDataList[indexSelected].description}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Hiện tại: </p>
+                                <p class="">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].current) + 'đ'}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Mục tiêu: </p>
+                                <p class="">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].goal) + 'đ'}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Ngày bắt đầu: </p>
+                                <p class="">${planDataList[indexSelected].startDay}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="fw-bold mx-1">Dự kiến hoàn thành: </p>
+                                <p class="">${planDataList[indexSelected].goalDay}</p>
+                            </div>
+                `)
+                var options = {
+                    chart: {
+                        height: 280,
+                        type: "radialBar"
+                    },
+                    colors: [color],
+                    series: [percent],
+                    
+                    plotOptions: {
+                        radialBar: {
+                        hollow: {
+                            margin: 0,
+                            size: "30%"
+                        },
+                        dataLabels: {
+                            showOn: "true",
+                            name: {
+                            show: true,
+                            },
+                            value: {
+                            show: false
+                            }
+                        }
+                        }
+                    },
+
+                    stroke: {
+                        lineCap: "round",
+                    },
+                    labels: [percent+"%"]
+            };
+                var chart = new ApexCharts(document.querySelector(`.chart`), options);
+                chart.render();
+                })
+
+        })
+
+
+        
+
+
+
+    
+</script>
