@@ -17,10 +17,10 @@
 
     <div class="container my-2">
         <div class="row">
-            <div class="col-8">
+            <div class="col-lg-8 col-sm-12">
                 <div class="rounded-3 p-2 bg-white" id="column-chart"></div>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-sm-12">
                 <div class="rounded-3 p-2 bg-white" id="chart2"></div>
             </div>
         </div>
@@ -30,7 +30,7 @@
     <script>
         // ------------LINE CHART------------
         // Placeholder data for the chart
-        const data = {
+        data = {
             weekly: {
                 inflow: [
                     { x: 'Tuần 1', y: 30 },
@@ -92,7 +92,7 @@
         };
 
         // Initialize the chart
-        const options = {
+        options = {
             chart: {
                 type: 'line',
                 height: 350,
@@ -121,7 +121,7 @@
             }
         };
 
-        const chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
         // Update chart data based on selected period
@@ -161,12 +161,12 @@
         }
 
         // ------------DONUT CHART------------
-        var donutData = {
+        donutData = {
             series: [55, 55, 13, 43, 22, 14, 31, 9, 18],
             labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
         };
         // Options for the donut chart2
-        var donutOptions = {
+        donutOptions = {
             chart: {
                 type: 'donut',
                 height: 300,
@@ -185,13 +185,13 @@
             }]
         };
         // Initialize the donut chart
-        var donutChart = new ApexCharts(document.querySelector("#chart2"), donutOptions);
+        donutChart = new ApexCharts(document.querySelector("#chart2"), donutOptions);
         // Render the chart
         donutChart.render();
 
 
         //------------COLUMN CHART------------
-        var options3 = {
+        options3 = {
             series: [
                 {
                     name: 'Q1 Budget',
@@ -260,7 +260,7 @@
             }
         };
 
-        var chart3 = new ApexCharts(document.querySelector("#column-chart"), options3);
+        chart3 = new ApexCharts(document.querySelector("#column-chart"), options3);
         chart3.render();
     </script>
 </body>
