@@ -2,52 +2,52 @@
 <div class="container mt-2">
     <div class="row g-2">
         <div class="col-lg-3 col-sm-6">
-            <div class="p-3 bg-white rounded-4">
+            <div class="p-3 rounded-4" style="background-color: #97BE5A;">
                 <div class="row">
-                    <div class="total-money col-8 fs-5 fw-bold">9.100.000đ</div>
+                    <div class="total-money col-8 fs-5 fw-bold text-light">9.100.000đ</div>
                     <div class="col-4">
-                        <div
-                            class="change-percent-total bg-light d-flex align-items-center justify-content-center rounded-3">
+                        <div class="change-percent-total d-flex align-items-center justify-content-center rounded-3"
+                            style="background-color: #F9F9E0;">
                             +2.5%
                         </div>
                     </div>
                 </div>
-                <div class="fs-6 mt-2">Tổng số tiền</div>
+                <div class="fs-6 mt-2 text-light">Tổng số tiền</div>
             </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-            <div class="p-3 bg-white rounded-4">
+            <div class="p-3 rounded-4" style="background-color: #01BEFE;">
                 <div class="row">
-                    <div class="plan-money col-8 fs-5 fw-bold">2.100.000 ₫</div>
+                    <div class="plan-money col-8 fs-5 fw-bold text-light">2.100.000 ₫</div>
                     <div class="col-4">
-                        <div
-                            class="change-percent-plan bg-light d-flex align-items-center justify-content-center rounded-3">
+                        <div class="change-percent-plan d-flex align-items-center justify-content-center rounded-3"
+                            style="background-color: #64f2f4;">
                             +1.8%
                         </div>
                     </div>
                 </div>
-                <div class="fs-6 mt-2">Tiền trong kế hoạch</div>
+                <div class="fs-6 mt-2 text-light">Tiền trong kế hoạch</div>
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="mb-2 p-3 bg-white rounded-4">
-                <div class="d-flex">
-                    <div class="money-after-loan fs-5 fw-bold me-4"></div>
+            <div class="mb-2 p-2 rounded-4" style="background-color: #FF684D;">
+                <div class="d-flex p-1">
+                    <div class="money-after-loan fs-5 fw-bold me-4 text-light"></div>
                     <div class="row">
-                        <div class="d-flex flex-column ms-5">
+                        <div class="d-flex flex-column ms-5 text-light">
                             <span>Khoản cần trả</span>
                             <span>Khoản cần thu</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="d-flex flex-column ms-5">
-                            <span class="need-to-pay fw-bold text-info">1.200.000đ</span>
-                            <span class="need-to-receive fw-bold text-info">3.700.000đ</span>
+                            <span class="need-to-pay fw-bold text-light">1.200.000đ</span>
+                            <span class="need-to-receive fw-bold text-light">3.700.000đ</span>
                         </div>
                     </div>
 
                 </div>
-                <div class="fs-6">Số tiền sau vay nợ</div>
+                <div class="fs-6 text-light ms-1">Số tiền sau vay nợ</div>
             </div>
         </div>
         <div class="col-lg-1 col-sm-12">
@@ -140,11 +140,11 @@
 </div>
 
 <!-- Modal giao dịch gần đây  -->
-<div class="modal fade modal-lg" id="all-transaction" tabindex="-1" aria-labelledby="allTransaction" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="all-transaction" tabindex="-1" aria-labelledby="allTransaction" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="allTransaction">Xem tất cả giao dịch trong ngày</h5>
+                <h5 class="modal-title fw-bold" id="allTransaction">Xem tất cả giao dịch trong ngày</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
@@ -240,7 +240,7 @@
 
             <div id="wallets-container">
                 <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="0"
-                    style="background-color: #000000; color: white;">
+                    style="background-color: #538392; color: white;">
                     <div class="wallet-name col-5 fw-bold fs-6">Ví chính</div>
                     <div class="wallet-money col-5 fw-bold fs-6">1.000.000 ₫</div>
                     <div class="col-2">
@@ -255,7 +255,7 @@
                     </div>
                 </div>
                 <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="1"
-                    style="background-color: #000000; color: white;">
+                    style="background-color: #EF9C66; color: white;">
                     <div class="wallet-name col-5 fw-bold fs-6">Ví phụ</div>
                     <div class="wallet-money col-5 fw-bold fs-6">2.000.000 ₫</div>
                     <div class="col-2">
@@ -340,9 +340,8 @@
 </div>
 
 <!-- Modal kế hoạch chi tiêu  -->
-<div class="modal fade modal-md" id="all-spending-plan" tabindex="-1" aria-labelledby="allSpendingPlan"
-    aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="all-spending-plan" tabindex="-1" aria-labelledby="allSpendingPlan" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header ">
                 <h5 class="modal-title fw-bold" id="allSpendingPlan">Các kế hoạch chi tiêu</h5>
@@ -502,22 +501,22 @@
             transactionsForModal.forEach(transaction => {
                 transactionRowsModal += `
                         <div class="row bm-3 px-0 py-2" style="border-bottom: 2px solid black;">
-                            <div class="col-1">
-                                <img class="ms-2" src="${transaction.image}" style="width: 35px; height: 35px;">
+                            <div class="col-1 d-flex justify-content-center">
+                                <img class="ms-2" src="${transaction.image}" style="width: 40px; height: 40px;">
                             </div>
-                            <div class="col-2 d-flex align-items-center">
+                            <div class="col-2 mt-1">
                                 <div class="fs-6">${transaction.category}</div>
                             </div>
-                            <div class="col-3 d-flex align-items-center">
+                            <div class="col-3 mt-1">
                                 <div class="fs-6">${transaction.content}</div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
+                            <div class="col-2 mt-1">
                                 <div class="fs-6">${transaction.date}</div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
+                            <div class="col-2 mt-1">
                                 <div class="fs-6 d-flex justify-content-center">${transaction.wallet}</div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
+                            <div class="col-2 mt-1">
                                 <div class="fs-6 d-flex justify-content-center">+${transaction.amount} đ</div>
                             </div>
                         </div>
@@ -530,10 +529,10 @@
                         <div class="col-2 px-0 py-2">
                             <div class="fw-bold fs-5">Danh mục</div>
                         </div>
-                        <div class="col-3 px-0 py-2">
+                        <div class="col-3 py-2">
                             <div class="fw-bold fs-5">Nội dung</div>
                         </div>
-                        <div class="col-2 px-0 py-2">
+                        <div class="col-2 py-2">
                             <div class="fw-bold fs-5">Ngày tạo</div>
                         </div>
                         <div class="col-2 px-0 py-2">
@@ -607,8 +606,8 @@
             plansForModal.forEach(plan => {
                 planRowsModal += `
                         <div class="row bm-3 px-0 py-2" style="border-bottom: 2px solid black;">
-                        <div class="col-1 ps-1 pt-1">
-                            <img class="" src="${plan.icon}" style="width: 35px; height: 35px;">
+                        <div class="col-1 d-flex justify-content-center">
+                            <img class="" src="${plan.icon}" style="width: 40px; height: 40px;">
                         </div>
                         <div class="col-5 ">
                             <div class="fw-bold fs-6 ">${plan.content}</div>
@@ -637,7 +636,7 @@
                         <div class="row d-flex mt-2">
                 <div class="col-6 d-flex align-items-center justify-content-start">
                     <div class="icon me-3">
-                        <img class="" src="${plan.icon}" style="width: 35px; height: 35px;">
+                        <img class="" src="${plan.icon}" style="width: 40px; height: 40px;">
                     </div>
                     <div class="info">
                         <div class="fw-bold">
