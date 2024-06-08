@@ -1,0 +1,304 @@
+<body>
+    <div class="container">
+        <div class="fw-bold fs-4">Biểu đồ thu nhập và chi tiêu</div>
+        <div class="row mb-2">
+            <div class="col text-center">
+                <button id="btn-weekly" class="btn btn-primary">Tuần</button>
+                <button id="btn-monthly" class="btn btn-secondary">Tháng</button>
+                <button id="btn-yearly" class="btn btn-secondary">Năm</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="chart" class="bg-white rounded-3 p-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-2">
+
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+                <div class="fw-bold fs-4">Biểu đồ kế hoạch </div>
+                <div class="rounded-3 p-2 bg-white" id="column-chart"></div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="fw-bold fs-4">Biểu đồ chi tiêu theo danh mục </div>
+                <div class="rounded-3 p-2 bg-white d-flex align-items-center justify-content-center" id="chart2"
+                    style="height: 320px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ------------LINE CHART------------
+        data = {
+            weekly: {
+                inflow: [
+                    { x: 'Tuần 1', y: 1 },
+                    { x: 'Tuần 2', y: 3 },
+                    { x: 'Tuần 3', y: 5 },
+                    { x: 'Tuần 4', y: 2 }
+                ],
+                outflow: [
+                    { x: 'Tuần 1', y: 2 },
+                    { x: 'Tuần 2', y: 1 },
+                    { x: 'Tuần 3', y: 3 },
+                    { x: 'Tuần 4', y: 2 }
+                ]
+            },
+            monthly: {
+                inflow: [
+                    { x: 'Tháng 1', y: 10 },
+                    { x: 'Tháng 2', y: 20 },
+                    { x: 'Tháng 3', y: 30 },
+                    { x: 'Tháng 4', y: 15 },
+                    { x: 'Tháng 5', y: 13 },
+                    { x: 'Tháng 6', y: 11 },
+                    { x: 'Tháng 7', y: 15 },
+                    { x: 'Tháng 8', y: 17 },
+                    { x: 'Tháng 9', y: 16 },
+                    { x: 'Tháng 10', y: 19 },
+                    { x: 'Tháng 11', y: 20 },
+                    { x: 'Tháng 12', y: 21 }
+                ],
+                outflow: [
+                    { x: 'Tháng 1', y: 8 },
+                    { x: 'Tháng 2', y: 10 },
+                    { x: 'Tháng 3', y: 12 },
+                    { x: 'Tháng 4', y: 15 },
+                    { x: 'Tháng 5', y: 10 },
+                    { x: 'Tháng 6', y: 8 },
+                    { x: 'Tháng 7', y: 7 },
+                    { x: 'Tháng 8', y: 9 },
+                    { x: 'Tháng 9', y: 13 },
+                    { x: 'Tháng 10', y: 14 },
+                    { x: 'Tháng 11', y: 15 },
+                    { x: 'Tháng 12', y: 16 }
+                ]
+            },
+            yearly: {
+                inflow: [
+                    { x: '2021', y: 1 },
+                    { x: '2022', y: 1.5 },
+                    { x: '2023', y: 1.6 },
+                    { x: '2024', y: 1.9 }
+                ],
+                outflow: [
+                    { x: '2021', y: 0.7 },
+                    { x: '2022', y: 0.8 },
+                    { x: '2023', y: 0.9 },
+                    { x: '2024', y: 1.2 }
+                ]
+            }
+        };
+
+        // Initialize the chart
+        options = {
+            chart: {
+                type: 'line',
+                height: 350,
+                animations: {
+                    enabled: true
+                }
+            },
+            series: [
+                {
+                    name: 'Thu nhập',
+                    data: data.weekly.inflow
+                },
+                {
+                    name: 'Chi tiêu',
+                    data: data.weekly.outflow
+                }
+            ],
+            xaxis: {
+                type: 'category'
+            },
+            yaxis: {
+                title: {
+                    text: 'Số tiền (chục triệu)'
+                },
+                labels: {
+                    formatter: (value) => {
+                        if (value < 1) {
+                            return (value * 10).toFixed(1); //làm tròn giá trị đến một chữ số thập phân
+                        } else if (value >= 1 && value < 100) {
+                            return (value / 10).toFixed(1);
+                        } else {
+                            return (value / 100).toFixed(1);
+                        }
+                    }
+                }
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            legend: {
+                position: 'top'
+            }
+        };
+
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        // Update chart data based on selected period
+        function updateChart(type, title) {
+            chart.updateOptions({
+                series: [
+                    {
+                        name: 'Thu nhập',
+                        data: data[type].inflow
+                    },
+                    {
+                        name: 'Chi tiêu',
+                        data: data[type].outflow
+                    }
+                ],
+                yaxis: {
+                    title: {
+                        text: title
+                    }
+                }
+            });
+        }
+
+        // Button click handlers
+        $('#btn-weekly').on('click', function () {
+            updateChart('weekly', 'Số tiền (chục triệu)');
+            setActiveButton($(this));
+        });
+
+        $('#btn-monthly').on('click', function () {
+            updateChart('monthly', 'Số tiền (trăm triệu)');
+            setActiveButton($(this));
+        });
+
+        $('#btn-yearly').on('click', function () {
+            updateChart('yearly', 'Số tiền (tỉ)');
+            setActiveButton($(this));
+        });
+
+        // Set active button style
+        function setActiveButton(button) {
+            $('.btn').removeClass('btn-primary').addClass('btn-secondary');
+            button.removeClass('btn-secondary').addClass('btn-primary');
+        }
+
+        // ------------DONUT CHART------------
+        donutData = {
+            series: [55, 55, 13, 43, 22, 14, 31, 9, 18],
+            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+        };
+        // Options for the donut chart2
+        donutOptions = {
+            chart: {
+                type: 'donut',
+                width: 380,
+
+            },
+            series: donutData.series,
+            labels: donutData.labels,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        // Initialize the donut chart
+        donutChart = new ApexCharts(document.querySelector("#chart2"), donutOptions);
+        // Render the chart
+        donutChart.render();
+
+
+        //------------COLUMN CHART------------
+
+        // Dữ liệu mức hiện tại và mục tiêu
+        currentValues = [1200000000, 100000000, 11000000, 11000000, 11000000];
+        targetValues = [5800000000, 400000000, 29000000, 12000000, 29000000];
+
+        // Tính toán phần trăm
+        currentPercentages = currentValues.map((value, index) => (value / targetValues[index] * 100).toFixed(2));
+        targetPercentages = [100, 100, 100, 100, 100];
+
+        options3 = {
+            series: [
+                {
+                    name: 'Mức hiện tại',
+                    data: currentPercentages
+                },
+                {
+                    name: 'Mức mục tiêu',
+                    data: targetPercentages
+                }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '50%',
+                    endingShape: 'rounded'
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: [
+                    'Mua nhà',
+                    'Mua xe',
+                    'Mua máy tính',
+                    'Mua điện thoại',
+                    'Đầu tư quỹ'
+                ]
+            },
+            yaxis: {
+                title: {
+                    text: 'Phần trăm (%)'
+                },
+                labels: {
+                    formatter: (val) => {
+                        return val + '%';
+                    }
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                shared: true,
+                intersect: false,
+                y: {
+                    formatter: function (val, { series, seriesIndex, dataPointIndex, w }) {
+                        value = val + '%';
+                        money = seriesIndex === 0
+                            ? currentValues[dataPointIndex].toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                            : targetValues[dataPointIndex].toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                        return value + " (" + money + ")";
+                    }
+                }
+            },
+            colors: ['#007bff', '#fd7e14'],
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
+            }
+        };
+        chart3 = new ApexCharts(document.querySelector("#column-chart"), options3);
+        chart3.render();
+    </script>
+
+
+</body>

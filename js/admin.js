@@ -1,7 +1,7 @@
 //Toggle sidebar
 $(document).ready(function () {
     $(window).on("load", function (){
-        var firstUrl = './pages/content/Dashboard.html';
+        var firstUrl = './pages/Admin/ManageUsers.html';
         $("#page-content").load(firstUrl);
     })
     $(".sidebar-link").click(function (e) {
