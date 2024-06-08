@@ -1,0 +1,401 @@
+<body>
+    <div class="container">
+        <div class="fw-bold fs-4">Tổng Quan Dòng Tiền Hệ Thống</div>
+        <div class="row">
+            <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center mb-4">
+                <button id="btn-weekly" class="btn btn-1 btn-primary my-1">Tuần</button>
+                <button id="btn-monthly" class="btn btn-1 btn-secondary my-1">Tháng</button>
+                <button id="btn-yearly" class="btn btn-1 btn-secondary my-1">Năm</button>
+            </div>
+            <div id="chart" class="col-lg-11 bg-white rounded-3"></div>
+        </div>
+
+    </div>
+    <div class="row ">
+        <div class="col-lg-6 mt-3">
+            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Danh Mục</div>
+            <div id="category-chart" class="bg-white rounded-3 p-4"></div>
+        </div>
+        <div class="col-lg-6 mt-3">
+            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Các Mục Lớn</div>
+            <div id="radar-chart" class="bg-white rounded-3"></div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="fw-bold fs-4">Trực Quan Kế Hoạch</div>
+        <div class="mt-2 row">
+            <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center ">
+                <button id="btn-weekly2" class="btn btn-2 btn-secondary my-1">Tuần</button>
+                <button id="btn-monthly2" class="btn btn-2 btn-secondary my-1">Tháng</button>
+                <button id="btn-yearly2" class="btn btn-2 btn-secondary my-1">Năm</button>
+            </div>
+            <div id="achievement-chart" class="col-lg-11 bg-white rounded-3"></div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            //Mock data
+            weeklyData = {
+                categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
+                totalIncome: [100, 150, 200, 250],
+                totalExpense: [80, 100, 150, 180]
+            };
+            monthlyData = {
+                categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                totalIncome: [1000, 1500, 2000, 2500, 3000, 3500, 1000, 1500, 2000, 2500, 3000, 3500],
+                totalExpense: [800, 1000, 1500, 1800, 2000, 2200, 800, 1000, 1500, 1800, 2000, 2200]
+            };
+            yearlyData = {
+                categories: ['Năm 2020', 'Năm 2021', 'Năm 2022', 'Năm 2023', 'Năm 2024', 'Năm 2025'],
+                totalIncome: [10000, 15000, 20000, 25000, 30000, 35000],
+                totalExpense: [8000, 10000, 15000, 18000, 20000, 22000]
+            };
+
+            // Khởi tạo biểu đồ hiển thị tháng
+            currentData = monthlyData;
+
+            // Tính toán dòng tiền ròng
+            function calculateNetCashFlow(income, expense) {
+                return income.map((inc, index) => inc - expense[index]);
+            }
+
+            // Cập nhật biểu đồ theo khung thời gian
+            function updateChart(timeframe) {
+                if (timeframe === 'weekly') {
+                    currentData = weeklyData;
+                } else if (timeframe === 'monthly') {
+                    currentData = monthlyData;
+                } else if (timeframe === 'yearly') {
+                    currentData = yearlyData;
+                }
+
+                netCashFlow = calculateNetCashFlow(currentData.totalIncome, currentData.totalExpense);
+
+                chart.updateOptions({
+                    series: [
+                        {
+                            name: 'Tổng Thu Nhập',
+                            data: currentData.totalIncome
+                        },
+                        {
+                            name: 'Tổng Chi Tiêu',
+                            data: currentData.totalExpense
+                        },
+                        {
+                            name: 'Dòng Tiền Ròng',
+                            data: netCashFlow
+                        }
+                    ],
+                    xaxis: {
+                        categories: currentData.categories
+                    }
+                });
+
+                updateYAxisTitle(timeframe);
+            }
+
+            //Cập nhật title trục y
+            function updateYAxisTitle(timeframe) {
+                title = '';
+                switch (timeframe) {
+                    case 'weekly':
+                        title = 'Số Tiền (triệu VND)';
+                        break;
+                    case 'monthly':
+                        title = 'Số Tiền (trăm triệu VND)';
+                        break;
+                    case 'yearly':
+                        title = 'Số Tiền (nghìn tỉ VND)';
+                        break;
+                }
+                chart.updateOptions({
+                    yaxis: {
+                        title: {
+                            text: title
+                        },
+                        labels: {
+                            formatter: function (value) {
+                                if (timeframe === 'weekly') {
+                                    return value + ' triệu';
+                                } else if (timeframe === 'monthly') {
+                                    return value / 1000 + ' tỉ';
+                                } else {
+                                    return value / 1000 + ' k/tỉ';
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Options for the bar chart
+            options = {
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                series: [
+                    {
+                        name: 'Tổng Thu Nhập',
+                        data: currentData.totalIncome
+                    },
+                    {
+                        name: 'Tổng Chi Tiêu',
+                        data: currentData.totalExpense
+                    },
+                    {
+                        name: 'Dòng Tiền Ròng',
+                        data: calculateNetCashFlow(currentData.totalIncome, currentData.totalExpense)
+                    }
+                ],
+                xaxis: {
+                    categories: currentData.categories
+                },
+                yaxis: {
+                    title: {
+                        text: 'Số Tiền (VND)'
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val.toLocaleString();
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
+
+
+            // Render the chart
+            chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+            // Event listeners for the buttons
+            $('#btn-weekly').on('click', function () {
+                updateChart('weekly');
+                setActiveButton(this);
+            });
+
+            $('#btn-monthly').on('click', function () {
+                updateChart('monthly');
+                setActiveButton(this);
+            });
+
+            $('#btn-yearly').on('click', function () {
+                updateChart('yearly');
+                setActiveButton(this);
+            });
+
+            // Set active button style
+            function setActiveButton(button) {
+                document.querySelectorAll('.btn-1').forEach(btn => btn.classList.remove('btn-primary'));
+                document.querySelectorAll('.btn-1').forEach(btn => btn.classList.add('btn-secondary'));
+                button.classList.remove('btn-secondary');
+                button.classList.add('btn-primary');
+            }
+
+
+            // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //Biểu đồ tổng quan danh mục
+            categoryData = {
+                labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục'],
+                series: [30, 15, 25, 10, 5, 5, 5, 3, 2] // Example percentages for each category
+            };
+
+            // Options for the donut chart
+            options2 = {
+                chart: {
+                    type: 'donut',
+                    height: 350
+                },
+                series: categoryData.series,
+                labels: categoryData.labels,
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + '%';
+                        }
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options2: {
+                        chart: {
+                            width: 300
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            // Render the chart
+            chart2 = new ApexCharts(document.querySelector("#category-chart"), options2);
+            chart2.render();
+
+            //--------------------------------------------------------------------------------------------------------------------------------------
+            const achievementData = {
+                weekly: {
+                    categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
+                    achieved: [80, 85, 90, 75],
+                    target: [100, 100, 100, 100]
+                },
+                monthly: {
+                    categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                    achieved: [30, 35, 40, 45, 50, 55, 60, 65, 75, 80, 85, 95],
+                    target: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+                },
+                yearly: {
+                    categories: ['2020', '2021', '2022', '2023'],
+                    achieved: [60, 75, 80, 90],
+                    target: [100, 100, 100, 100]
+                }
+            };
+
+            // Function to update the achievement chart
+            function updateAchievementChart(period) {
+                const data = achievementData[period];
+                achievementChart.updateOptions({
+                    xaxis: {
+                        categories: data.categories
+                    },
+                    series: [
+                        {
+                            name: 'Đạt Được',
+                            data: data.achieved
+                        },
+                        {
+                            name: 'Mục Tiêu',
+                            data: data.target
+                        }
+                    ]
+                });
+            }
+
+            // Options for the achievement chart
+            const achievementOptions = {
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                series: [
+                    {
+                        name: 'Đạt Được',
+                        data: achievementData.weekly.achieved
+                    },
+                    {
+                        name: 'Mục Tiêu',
+                        data: achievementData.weekly.target
+                    }
+                ],
+                xaxis: {
+                    categories: achievementData.weekly.categories
+                },
+                yaxis: {
+                    title: {
+                        text: 'Phần Trăm (%)'
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + '%';
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
+
+            // Render the achievement chart
+            const achievementChart = new ApexCharts(document.querySelector("#achievement-chart"), achievementOptions);
+            achievementChart.render();
+
+            // Event listeners for buttons
+            $('#btn-weekly2').on('click', function () {
+                updateAchievementChart('weekly');
+                setActiveButton2($(this));
+            });
+
+            $('#btn-monthly2').on('click', function () {
+                updateAchievementChart('monthly');
+                setActiveButton2($(this));
+            });
+
+            $('#btn-yearly2').on('click', function () {
+                updateAchievementChart('yearly');
+                setActiveButton2($(this));
+            });
+            // Set active button style
+            function setActiveButton2(button) {
+                $('.btn-2').removeClass('btn-primary').addClass('btn-secondary');
+                button.removeClass('btn-secondary').addClass('btn-primary');
+            }
+
+            //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // Data for radar chart
+            radarData = {
+                series: [{
+                    name: 'Chi Tiêu Hàng Tháng',
+                    data: [90, 60, 70, 40, 35]
+                }],
+                categories: ['Chi Tiêu Hàng Tháng', 'Chi Tiêu Cần Thiết', 'Đầu Tư & Nợ', 'Vui Chơi', 'Các Khoản Khác']
+            };
+
+            // Options for the radar chart
+            radarOptions = {
+                chart: {
+                    type: 'radar',
+                    height: 350
+                },
+                series: radarData.series,
+                labels: radarData.categories,
+                xaxis: {
+                    categories: radarData.categories
+                },
+                yaxis: {
+                    tickAmount: 5,
+                    labels: {
+                        formatter: function (val) {
+                            return val + '%';
+                        }
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + '%';
+                        }
+                    }
+                },
+                fill: {
+                    opacity: 0.3
+                },
+                markers: {
+                    size: 4,
+                    hover: {
+                        size: 7
+                    }
+                }
+            };
+
+            // Render the radar chart
+            radarChart = new ApexCharts(document.querySelector("#radar-chart"), radarOptions);
+            radarChart.render();
+
+        });
+
+    </script>
+</body>
+
+</html>
