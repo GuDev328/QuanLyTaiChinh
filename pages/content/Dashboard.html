@@ -112,7 +112,7 @@
             <div class="order">
                 <div class="head d-flex align-items-center mb-2">
                     <div class="fw-bold me-auto fs-4">Giao dịch gần đây</div>
-                    <a class="load-otherp fw-bold p-1 me-2" href="./pages/content/Transaction.html"
+                    <a class="load-other fw-bold p-1 me-2" href="./pages/content/Transaction.html"
                         style="text-decoration: none">
                         Sổ giao dịch
                     </a>
@@ -234,12 +234,16 @@
         <div class="col-lg-4 col-sm-12 bg-white rounded-4 p-3 mb-2">
             <div class="container d-flex justify-content-between">
                 <div class="fw-bold fs-4">Ví</div>
+                <div class="over-wallet mt-1" style="display: none;">
+                    <i class="prev fa-regular fa-circle-left fa-xl me-2" style="cursor: pointer;"></i>
+                    <i class="next fa-regular fa-circle-right fa-xl" style="cursor: pointer;"></i>
+                </div>
                 <i class="fa-solid fa-circle-plus fa-2xl mt-3" style="color: #0093E6; cursor: pointer;"
                     data-bs-toggle="modal" data-bs-target="#add-wallet"></i>
             </div>
 
             <div id="wallets-container">
-                <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="0"
+                <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="-1"
                     style="background-color: #538392; color: white;">
                     <div class="wallet-name col-5 fw-bold fs-6">Ví chính</div>
                     <div class="wallet-money col-5 fw-bold fs-6">1.000.000 ₫</div>
@@ -254,7 +258,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="1"
+                <div class="wallet-item row rounded-4 mt-2 px-1 py-3 mx-1" data-index="0"
                     style="background-color: #EF9C66; color: white;">
                     <div class="wallet-name col-5 fw-bold fs-6">Ví phụ</div>
                     <div class="wallet-money col-5 fw-bold fs-6">2.000.000 ₫</div>
@@ -546,10 +550,11 @@
             `
             );
         }
-        // Load data when the modal is shown
+
         $('#all-transaction').on('shown.bs.modal', function () {
             showModalTransaction();
         });
+
         function loadDataTransaction() {
             const transactionsForList = Data.transactions.slice(0, 4); // Lấy 4 giao dịch đầu tiên
             let transactionRowsList = '';
@@ -599,7 +604,6 @@
         }
         loadDataTransaction()
 
-
         function showModalPlan() {
             const plansForModal = Data.plans;
             let planRowsModal = '';
@@ -624,10 +628,11 @@
             });
             $('.plans-modal').html(planRowsModal);
         }
-        // Load data when the modal is shown
+
         $('#all-spending-plan').on('shown.bs.modal', function () {
             showModalPlan();
         });
+
         function loadDataPlan() {
             const plansForList = Data.plans.slice(0, 3);
             let planRowsList = '';
@@ -655,7 +660,6 @@
             $('.plans-list').html(planRowsList)
         }
         loadDataPlan()
-
 
         //Converts a number to a currency string formatted VND
         function formatCurrency(number) {
@@ -698,10 +702,9 @@
             }
 
             return { isValid: isValid, errorFields: errorFields };
-
         }
 
-        //Synchronize money allocation data
+        //Đồng bộ tiền vào, tiền phân bổ kế hoạch và tiền phân bổ cho ví
         function updateAllocatedValues1() {
             const moneyInput = parseFloat($('#money-input').val()) || 0;
             const allocatedToPlan = parseFloat($('#allocated-to-plan').val()) || 0;
@@ -709,9 +712,12 @@
 
             $('#allocated-to-wallet').val(allocatedToWallet);
         }
+
         $('#money-input, #allocated-to-plan').on('input', function () {
             updateAllocatedValues1();
         });
+
+        //Đồng bộ tiền phân bổ cho ví và các ví
         function updateAllocatedValues2() {
             const allocatedToWallet = $('#allocated-to-wallet').val() || 0
             const addToWallet = parseFloat($('#input-wallet-option').val()) || 0
@@ -727,12 +733,10 @@
                 $('#send-to-wallet').removeAttr('disabled')
             }
         }
+
         $('#input-wallet-option').on('change', function () {
             updateAllocatedValues2()
         });
-
-
-
 
         //Load total-money
         function updateTotalMoney() {
@@ -854,13 +858,14 @@
 
             const allParentSide = $("#sidebar .side-menu.top li a");
             allParentSide.each(function () {
+                //Check if satisfy the condition
                 if ($(this).attr("href") === childUrl) {
-                    //Check if satisfy the condition
-                    var li = $(this).parent();
                     //Remove all parent has active class
                     allParentSide.each(function () {
                         $(this).parent().removeClass("active");
                     })
+                    var li = $(this).parent();
+                    //Add class active for target
                     li.addClass("active")
                 }
             })
@@ -906,9 +911,9 @@
             return { isValid: isValid, errorMessages: errorMessages };
         }
 
+        synchronizationColor($("#addWalletColor"), $("#addColorCode"));
         var index = 1;
         //Add wallet
-        synchronizationColor($("#addWalletColor"), $("#addColorCode"));
         $("#create-wallet-btn").on('click', function () {
             var walletName = $("#addWalletName").val().trim();
             var walletMoney = $("#addWalletMoney").val().trim();
@@ -948,6 +953,7 @@
                 // Lấy thể hiện modal sử dung hide
                 var modal = bootstrap.Modal.getInstance(document.getElementById('add-wallet'));
                 modal.hide();
+                updateWalletPage()
             } else {
                 $('#errorMessages').html(validationResult.errorMessages);
             }
@@ -1027,12 +1033,49 @@
 
                 updateTotalMoney();
                 showWalletOptions();
+                updateWalletPage()
             })
 
         })
     })
 
-    // Sample data for the donut chart
+    //Quản lý số ví: over
+    function updateWalletPage() {
+        var $walletContainer = $('#wallets-container');
+        var $walletItems = $walletContainer.find('.wallet-item');
+        var $overWallet = $('.over-wallet');
+        var itemsPerPage = 3;
+        let currentIndex = 0;
+
+        console.log('wallet item: ', $walletItems.length)
+
+        function updateWalletDisplay() {
+            $walletItems.hide();
+            for (let i = currentIndex; i < currentIndex + itemsPerPage; i++) {
+                $walletItems.eq(i).show();
+            }
+            $overWallet.toggle($walletItems.length > itemsPerPage);
+        }
+
+        $('.next').click(function () {
+            if (currentIndex + itemsPerPage < $walletItems.length) {
+                currentIndex += itemsPerPage;
+                updateWalletDisplay();
+            }
+        });
+
+        $('.prev').click(function () {
+            if (currentIndex - itemsPerPage >= 0) {
+                currentIndex -= itemsPerPage;
+                updateWalletDisplay();
+            }
+        });
+
+        updateWalletDisplay();
+    }
+
+
+    // Data for the donut chart
     var donutData = {
         series: [30, 8, 20, 43, 50],
         labels: ['Ăn uống', 'Di chuyển', 'Sức khỏe', 'Giáo dục', 'Khác']
@@ -1058,5 +1101,6 @@
     var donutChart = new ApexCharts(document.querySelector("#chart"), donutOptions);
     // Render the chart
     donutChart.render();
+
 
 </script>
