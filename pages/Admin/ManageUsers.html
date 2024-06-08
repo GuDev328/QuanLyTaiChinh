@@ -1,4 +1,42 @@
 <style> 
+  /* Đảm bảo bảng không bị vỡ khi trên các thiết bị nhỏ hơn */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table thead th, .table tbody td {
+        white-space: nowrap; /* Ngăn chặn việc xuống dòng trong tiêu đề cột */
+    }
+
+    /* Ẩn các cột không cần thiết trên các thiết bị nhỏ */
+    @media (max-width: 767px) {
+        .table thead th:nth-child(1),
+        .table tbody td:nth-child(1),
+        .table thead th:nth-child(4),
+        .table tbody td:nth-child(4),
+        .table thead th:nth-child(5),
+        .table tbody td:nth-child(5),
+        .table thead th:nth-child(6),
+        .table tbody td:nth-child(6),
+        .table thead th:nth-child(7),
+        .table tbody td:nth-child(7),
+        .table thead th:nth-child(8),
+        .table tbody td:nth-child(8) {
+            display: none;
+        }
+    }
+
+    /* Điều chỉnh các modal để phù hợp với màn hình nhỏ hơn */
+    .modal-dialog {
+        max-width: 75%;
+        margin: 0 auto;
+    }
+    .modal-body {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
   .modal-body form {
     display: flex;
     justify-content: space-between;
@@ -116,9 +154,14 @@
         $(".btn_search_user").click(function() {
           var myInput = $("#myInput").val().toLowerCase();
           $("#myTable tr").filter(function() {
-            // $(this).toggle($(this).text().toLowerCase().indexOf(myInput) > -1)
             var nameText = $(this).find('.name').text().toLowerCase();
-            $(this).toggle(nameText.indexOf(myInput) > -1);
+            var emailText = $(this).find('.email').text().toLowerCase();
+
+            // Kiểm tra nếu myInput có trong nameText hoặc emailText
+            var match = nameText.indexOf(myInput) > -1 || emailText.indexOf(myInput) > -1;
+
+            // Hiển thị hoặc ẩn dòng hiện tại dựa trên kết quả kiểm tra
+            $(this).toggle(match);
           });
         })
         //Xóa người dùng
@@ -348,8 +391,8 @@
                 <span>Online</span>
               </div>
             </td>
-            <td class="col_plan">${plan}</td>
-            <td class="col_money">${newmoney}</td>
+            <td class="col_plan">0</td>
+            <td class="col_money">0</td>
             <td>
               <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
                 <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
@@ -384,7 +427,7 @@
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center row">
               
-              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-9 col-lg-12">
+              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-11 col-lg-12">
                 <div class="search_icon_user text-primary mx-3 mt-1">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -450,11 +493,11 @@
                           </div>
                           <div class="form-floating mb-3">
                             <input type="name" class="form-control newPlan" id="floatingInput" placeholder="Tên danh mục">
-                            <label for="floatingInput">Kế hoạch</label>
+                            <label for="floatingInput">Số điện thoại</label>
                         </div>
                         <div class="form-floating mb-3">
                           <input type="name" class="form-control newMoney" id="floatingInput" placeholder="Tên danh mục">
-                          <label for="floatingInput">Tổng tiền</label>
+                          <label for="floatingInput">Địa chỉ</label>
                         </div>
                         </div>
                       </form>             
@@ -466,7 +509,8 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+              <!-- RESPONSIVE BỘ LỌC TÌM KIẾM -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
                   <h5 class="offcanvas-title mx-3 fw-bolder" id="offcanvasExampleLabel">BỘ LỌC TÌM KIẾM</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -475,9 +519,9 @@
                   <div class="filter_money mx-3">
                     Tổng tiền
                     <div class="filter_input d-flex align-items-center justify-content-between mt-1">
-                      <input class="money_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="money_min1" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                       <div> - </div>
-                      <input class="money_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="money_max1" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                     </div>
                     <button class="filter_btn w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
                   </div>
@@ -485,11 +529,11 @@
                   <div class="filter_status mx-3">
                     Trạng thái
                     <div class="form-check">
-                      <input type="checkbox" name="" id="onlineCheckbox" value="Online" class="form-check-input">
+                      <input type="checkbox" name="" id="onlineCheckbox1" value="Online" class="form-check-input">
                       <label for="onlineCheckbox">Online</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="" id="offlineCheckbox" value="Offline" class="form-check-input">
+                      <input type="checkbox" name="" id="offlineCheckbox1" value="Offline" class="form-check-input">
                       <label for="offlineCheckbox">Offline</label>
                     </div>
                   </div>
@@ -497,27 +541,27 @@
                   <div class="filter_plan mx-3 pb-4">
                     Số kế hoạch
                     <div class="filter_input d-flex align-items-center justify-content-between mt-1">
-                      <input class="plan_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="plan_min1" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                       <div> - </div>
-                      <input class="plan_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="plan_max1" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                     </div>
                     <button class="filter_button w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <div class="list_user table-responsive rounded-4 mt-3" style="height: 480px;">
                 <table class="table ">
                     <thead >
                       <tr class="text-center">
-                        <th scope="col-2" class="thead">Ảnh</th>
-                        <th scope="col-1" class="thead">Tên người dùng</th>
-                        <th scope="col-1" class="thead">Email</th>
-                        <th scope="col-1" class="thead">Giới tính</th>
-                        <th scope="col-1" class="thead">Trạng thái</th>
-                        <th scope="col-1" class="thead">Kế hoạch</th>
-                        <th scope="col-2" class="thead">Tổng tiền</th>
-                        <th scope="col-4" class="thead"></th>
+                        <th scope="col-md-2" class="thead">Ảnh</th>
+                        <th scope="col-md-1" class="thead">Tên người dùng</th>
+                        <th scope="col-md-1" class="thead">Email</th>
+                        <th scope="col-md-1" class="thead">Giới tính</th>
+                        <th scope="col-md-1" class="thead">Trạng thái</th>
+                        <th scope="col-md-1" class="thead">Kế hoạch</th>
+                        <th scope="col-md-2" class="thead">Tổng tiền</th>
+                        <th scope="col-md-4" class="thead"></th>
                       </tr>
                     </thead>
                     <tbody class="text-center" id="myTable">
@@ -622,11 +666,11 @@
                                           <input type="text" id="editGender" required>
                                         </div>
                                         <div>
-                                          <label for="editPlan">Số kế hoạch:</label>
+                                          <label for="editPlan">Số điện thoại:</label>
                                           <input type="text" id="editPlan" required>
                                         </div>
                                         <div>
-                                          <label for="editMoney">Tổng tiền:</label>
+                                          <label for="editMoney">Địa chỉ:</label>
                                           <input type="text" id="editMoney" required>
                                         </div>
                                         
