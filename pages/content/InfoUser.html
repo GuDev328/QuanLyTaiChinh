@@ -1,1 +1,160 @@
-<h1>Chào CHiến</h1>
+<style>
+    .imgholder{
+        width: 200px;
+        height: 200px;
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .imgholder .upload{
+        position: absolute;
+        bottom: 0;
+        left: 10;
+        width: 100%;
+        height: 100px;
+        background: rgba(0,0,0,0.3);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .upload i{
+        color: #fff;
+        font-size: 35px;
+    }
+
+    .imgholder:hover .upload{
+        display: flex;
+    }
+
+    .imgholder .upload input{
+        display: none;
+    }
+</style>
+<div class="container">
+    <div class="row d-flex" >
+        <div class="col-10 col-md-6" style="margin: auto;">
+            <div id="">
+                <div class="d-flex">
+                    <div class="card imgholder rounded-circle mb-3" style="margin: auto;">
+                        <label for="newUploadImg" class="upload">
+                          <input type="file" id="newUploadImg" class="picture">
+                          <i class="fa fa-plus-circle"></i>
+                        </label>
+                        <img src="../../img/default.png" alt="" width="200" height="200" class="img rounded-circle new-img">
+                      </div>
+                </div>
+                
+                <div class="inputField">
+
+                  <div class="form-floating mb-3">
+                      <input type="name" class="form-control newName" id="floatingInput" placeholder="Tên danh mục">
+                      <label for="floatingInput">Họ tên</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input type="name" class="form-control newEmail" id="floatingInput" placeholder="Tên danh mục">
+                      <label for="floatingInput">Email</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input type="name" class="form-control newGender" id="floatingInput" placeholder="Tên danh mục">
+                      <label for="floatingInput">Giới tính</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="name" class="form-control newPhoneNumber" id="floatingInput" placeholder="Tên danh mục">
+                    <label for="floatingInput">Số điện thoại</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="name" class="form-control newAddress" id="floatingInput" placeholder="Tên danh mục">
+                  <label for="floatingInput">Địa chỉ</label>
+                </div>
+                </div>
+              </div>
+
+            <div class="d-flex justify-content-around">
+                <div class="btn btn-warning editInfo" style="color: white;">Chỉnh sửa thông tin</div>
+                <div class="btn btn-primary changePassword">Đổi mật khẩu</div>
+                <div class="btn btn-secondary CancleSave">Huỷ bỏ</div>
+                <div class="btn btn-primary Save">Lưu lại</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        let originalData={
+                srcAvt: '../../img/Avt/avt1.jpg',
+                name: 'Người dùng CDD',
+                email: 'user@gmail.com',
+                gender: 'Nam',
+                phoneNumber: '0123456789',
+                address: 'Văn Trì, Minh Khai, Bắc Từ Liêm, Hà Nội'
+            }
+        $(".CancleSave").hide()
+        $(".Save").hide()
+        function genOriginalData(){
+            
+            $('.picture').prop('disabled', true)
+            $('.new-img').attr('src', originalData.srcAvt)
+            $('.newName').val(originalData.name).prop('disabled', true)
+            $('.newEmail').val(originalData.email).prop('disabled', true)
+            $('.newGender').val(originalData.gender).prop('disabled', true)
+            $('.newPhoneNumber').val(originalData.phoneNumber).prop('disabled', true)
+            $('.newAddress').val(originalData.address).prop('disabled', true)
+        }
+        genOriginalData()
+
+        $('.editInfo').click(function(){
+            $('.picture').prop('disabled', false)
+            $('.newName').prop('disabled', false)
+            $('.newGender').prop('disabled', false)
+            $('.newPhoneNumber').prop('disabled', false)
+            $('.newAddress').prop('disabled', false)
+            $('.CancleSave').show()
+            $('.Save').show()
+            $('.editInfo').hide()
+            $('.changePassword').hide()
+        })
+
+        $('.Save').click(function(){
+            $('.picture').prop('disabled', true)
+            $('.newName').prop('disabled', true)
+            $('.newGender').prop('disabled', true)
+            $('.newPhoneNumber').prop('disabled', true)
+            $('.newAddress').prop('disabled', true)
+            $('.CancleSave').hide()
+            $('.Save').hide()
+
+            originalData.srcAvt =  $('.new-img').attr('src')
+            originalData.name = $('.newName').val()
+            originalData.gender = $('.newGender').val()
+            originalData.phoneNumber = $('.newPhoneNumber').val()
+            originalData.address = $('.newAddress').val()
+            $('.editInfo').show()
+            $('.changePassword').show()
+            $(".CancleSave").hide()
+        $(".Save").hide()
+        })
+        $('.CancleSave').click(function(){
+            genOriginalData()
+            $('.editInfo').show()
+            $('.changePassword').show()
+            $(".CancleSave").hide()
+        $(".Save").hide()
+        })
+
+        $('#newUploadImg').on('change', function() {
+        if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('.new-img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+    })
+        
+    
+</script>
