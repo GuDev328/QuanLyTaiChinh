@@ -1,13 +1,13 @@
 <body>
     <div class="container">
-        <div class="fw-bold fs-4">Biểu đồ thu nhập và chi tiêu</div>
-        <div class="row mb-2">
+        <div class="row">
             <div class="col text-center">
                 <button id="btn-weekly" class="btn btn-primary">Tuần</button>
                 <button id="btn-monthly" class="btn btn-secondary">Tháng</button>
                 <button id="btn-yearly" class="btn btn-secondary">Năm</button>
             </div>
         </div>
+        <div class="fw-bold fs-4 text-center  mb-2">Biểu đồ thu nhập và chi tiêu</div>
         <div class="row">
             <div class="col">
                 <div id="chart" class="bg-white rounded-3 p-2"></div>
@@ -18,21 +18,26 @@
     <div class="container my-2">
 
         <div class="row">
-            <div class="col-lg-8 col-sm-12">
-                <div class="fw-bold fs-4">Biểu đồ kế hoạch </div>
-                <div class="rounded-3 p-2 bg-white" id="column-chart"></div>
+            <div class="col-lg-4 col-sm-12 ">
+                <div class="fw-bold fs-4 text-center">Mục tiêu đạt được</div>
+                <div id="progress" class="rounded-3 bg-white"></div>
             </div>
             <div class="col-lg-4 col-sm-12">
-                <div class="fw-bold fs-4">Biểu đồ chi tiêu theo danh mục </div>
-                <div class="rounded-3 p-2 bg-white d-flex align-items-center justify-content-center" id="chart2"
-                    style="height: 320px;"></div>
+                <div class="fw-bold fs-4 text-center">Biểu đồ chi tiêu theo danh mục</div>
+                <div class="rounded-3 bg-white py-4" id="chartCateOutcome"> </div>
             </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="fw-bold fs-4 text-center">Biểu đồ thu nhập theo danh mục</div>
+                <div class="rounded-3 bg-white py-4" id="chartCateIncome"> </div>
+            </div>
+
+
         </div>
 
     </div>
 
     <script>
-        // ------------LINE CHART------------
+        //BIỂU ĐỒ THU NHẬP VÀ CHI TIÊU ------------------------------------------------------------------------------------------------
         data = {
             weekly: {
                 inflow: [
@@ -50,32 +55,32 @@
             },
             monthly: {
                 inflow: [
-                    { x: 'Tháng 1', y: 10 },
-                    { x: 'Tháng 2', y: 20 },
-                    { x: 'Tháng 3', y: 30 },
-                    { x: 'Tháng 4', y: 15 },
-                    { x: 'Tháng 5', y: 13 },
-                    { x: 'Tháng 6', y: 11 },
-                    { x: 'Tháng 7', y: 15 },
-                    { x: 'Tháng 8', y: 17 },
-                    { x: 'Tháng 9', y: 16 },
-                    { x: 'Tháng 10', y: 19 },
-                    { x: 'Tháng 11', y: 20 },
-                    { x: 'Tháng 12', y: 21 }
+                    { x: 'Tháng 1', y: 100 },
+                    { x: 'Tháng 2', y: 200 },
+                    { x: 'Tháng 3', y: 300 },
+                    { x: 'Tháng 4', y: 150 },
+                    { x: 'Tháng 5', y: 130 },
+                    { x: 'Tháng 6', y: 110 },
+                    { x: 'Tháng 7', y: 150 },
+                    { x: 'Tháng 8', y: 170 },
+                    { x: 'Tháng 9', y: 160 },
+                    { x: 'Tháng 10', y: 190 },
+                    { x: 'Tháng 11', y: 200 },
+                    { x: 'Tháng 12', y: 210 }
                 ],
                 outflow: [
-                    { x: 'Tháng 1', y: 8 },
-                    { x: 'Tháng 2', y: 10 },
-                    { x: 'Tháng 3', y: 12 },
-                    { x: 'Tháng 4', y: 15 },
-                    { x: 'Tháng 5', y: 10 },
-                    { x: 'Tháng 6', y: 8 },
-                    { x: 'Tháng 7', y: 7 },
-                    { x: 'Tháng 8', y: 9 },
-                    { x: 'Tháng 9', y: 13 },
-                    { x: 'Tháng 10', y: 14 },
-                    { x: 'Tháng 11', y: 15 },
-                    { x: 'Tháng 12', y: 16 }
+                    { x: 'Tháng 1', y: 80 },
+                    { x: 'Tháng 2', y: 100 },
+                    { x: 'Tháng 3', y: 102 },
+                    { x: 'Tháng 4', y: 150 },
+                    { x: 'Tháng 5', y: 100 },
+                    { x: 'Tháng 6', y: 80 },
+                    { x: 'Tháng 7', y: 70 },
+                    { x: 'Tháng 8', y: 90 },
+                    { x: 'Tháng 9', y: 130 },
+                    { x: 'Tháng 10', y: 140 },
+                    { x: 'Tháng 11', y: 150 },
+                    { x: 'Tháng 12', y: 160 }
                 ]
             },
             yearly: {
@@ -118,16 +123,16 @@
             },
             yaxis: {
                 title: {
-                    text: 'Số tiền (chục triệu)'
+                    text: 'Số tiền '
                 },
                 labels: {
                     formatter: (value) => {
                         if (value < 1) {
-                            return (value * 10).toFixed(1); //làm tròn giá trị đến một chữ số thập phân
+                            return (value).toFixed(1) + ' triệu'; //làm tròn giá trị đến một chữ số thập phân
                         } else if (value >= 1 && value < 100) {
-                            return (value / 10).toFixed(1);
+                            return (value).toFixed(1) + ' triệu';
                         } else {
-                            return (value / 100).toFixed(1);
+                            return (value).toFixed(1) + ' triệu';
                         }
                     }
                 }
@@ -144,7 +149,7 @@
         chart.render();
 
         // Update chart data based on selected period
-        function updateChart(type, title) {
+        function updateChart(type, lable) {
             chart.updateOptions({
                 series: [
                     {
@@ -158,25 +163,117 @@
                 ],
                 yaxis: {
                     title: {
-                        text: title
+                        text: 'Số tiền '
+                    },
+                    labels: {
+                        formatter: (value) => {
+                            if (value < 1) {
+                                return (value).toFixed(1) + lable;
+                            } else if (value >= 1 && value < 100) {
+                                return (value).toFixed(1) + lable;
+                            } else {
+                                return (value).toFixed(1) + lable;
+                            }
+                        }
                     }
                 }
             });
         }
 
+        //BIỂU ĐỒ THEO DANH MỤC -------------------------------------------------------------------------------------------------------------------------------------
+        function createCateChart(data, labels, chartCate, chartElementId) {
+            cateOptions = {
+                chart: {
+                    type: 'donut',
+                    width: 380,
+                },
+                series: data,
+                labels: labels,
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+            if (chartCate) {
+                chartCate.updateSeries(data);
+            } else {
+                chartCate = new ApexCharts(document.querySelector(`#${chartElementId}`), cateOptions);
+                chartCate.render();
+            }
+            return chartCate;
+        }
+
+        // OUTCOME
+        outcomeCateData = {
+            weekly: [10, 20, 15, 30, 10, 5, 20, 10, 15],
+            monthly: [55, 55, 13, 43, 22, 14, 31, 9, 18],
+            yearly: [600, 700, 400, 500, 300, 200, 450, 250, 300],
+            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+        };
+
+        chartCateOutcome = createCateChart(outcomeCateData.weekly, outcomeCateData.labels, null, 'chartCateOutcome');
+
+        // INCOME
+        incomeCateData = {
+            weekly: [5, 15, 10, 25, 8, 4, 18, 9, 12],
+            monthly: [30, 40, 20, 50, 25, 10, 35, 15, 20],
+            yearly: [400, 500, 300, 450, 250, 150, 350, 200, 250],
+            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+        };
+
+        chartCateIncome = createCateChart(incomeCateData.weekly, incomeCateData.labels, null, 'chartCateIncome');
+
+        // Update charts on button click
+        function updateCharts(period) {
+            chartCateOutcome = createCateChart(outcomeCateData[period], outcomeCateData.labels, chartCateOutcome, 'chartCateOutcome');
+            chartCateIncome = createCateChart(incomeCateData[period], incomeCateData.labels, chartCateIncome, 'chartCateIncome');
+        }
+
+
+        //BIỂU ĐỒ QUÁ TRÌNH -----------------------------------------------------------------------------------------------------------    
+        progress = {
+            chart: {
+                height: 280,
+                type: "radialBar",
+            },
+            series: [67, 84, 70],
+            plotOptions: {
+                radialBar: {
+                    dataLabels: {
+                        total: {
+                            show: true,
+                            label: 'Target'
+                        }
+                    }
+                }
+            },
+            labels: ['Mục tiêu thu nợ', 'Mục tiêu trả nợ', 'Mục tiêu kế hoạch']
+        };
+        new ApexCharts(document.querySelector("#progress"), progress).render();
+
+
+
+
         // Button click handlers
         $('#btn-weekly').on('click', function () {
-            updateChart('weekly', 'Số tiền (chục triệu)');
+            updateChart('weekly', ' triệu');
+            updateCharts('weekly');
             setActiveButton($(this));
         });
 
         $('#btn-monthly').on('click', function () {
-            updateChart('monthly', 'Số tiền (trăm triệu)');
+            updateChart('monthly', ' triệu');
+            updateCharts('monthly');
             setActiveButton($(this));
         });
 
         $('#btn-yearly').on('click', function () {
-            updateChart('yearly', 'Số tiền (tỉ)');
+            updateChart('yearly', ' tỉ');
+            updateCharts('yearly');
             setActiveButton($(this));
         });
 
@@ -185,119 +282,6 @@
             $('.btn').removeClass('btn-primary').addClass('btn-secondary');
             button.removeClass('btn-secondary').addClass('btn-primary');
         }
-
-        // ------------DONUT CHART------------
-        donutData = {
-            series: [55, 55, 13, 43, 22, 14, 31, 9, 18],
-            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
-        };
-        // Options for the donut chart2
-        donutOptions = {
-            chart: {
-                type: 'donut',
-                width: 380,
-
-            },
-            series: donutData.series,
-            labels: donutData.labels,
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-        // Initialize the donut chart
-        donutChart = new ApexCharts(document.querySelector("#chart2"), donutOptions);
-        // Render the chart
-        donutChart.render();
-
-
-        //------------COLUMN CHART------------
-
-        // Dữ liệu mức hiện tại và mục tiêu
-        currentValues = [1200000000, 100000000, 11000000, 11000000, 11000000];
-        targetValues = [5800000000, 400000000, 29000000, 12000000, 29000000];
-
-        // Tính toán phần trăm
-        currentPercentages = currentValues.map((value, index) => (value / targetValues[index] * 100).toFixed(2));
-        targetPercentages = [100, 100, 100, 100, 100];
-
-        options3 = {
-            series: [
-                {
-                    name: 'Mức hiện tại',
-                    data: currentPercentages
-                },
-                {
-                    name: 'Mức mục tiêu',
-                    data: targetPercentages
-                }
-            ],
-            chart: {
-                type: 'bar',
-                height: 350,
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '50%',
-                    endingShape: 'rounded'
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            xaxis: {
-                categories: [
-                    'Mua nhà',
-                    'Mua xe',
-                    'Mua máy tính',
-                    'Mua điện thoại',
-                    'Đầu tư quỹ'
-                ]
-            },
-            yaxis: {
-                title: {
-                    text: 'Phần trăm (%)'
-                },
-                labels: {
-                    formatter: (val) => {
-                        return val + '%';
-                    }
-                }
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                shared: true,
-                intersect: false,
-                y: {
-                    formatter: function (val, { series, seriesIndex, dataPointIndex, w }) {
-                        value = val + '%';
-                        money = seriesIndex === 0
-                            ? currentValues[dataPointIndex].toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
-                            : targetValues[dataPointIndex].toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                        return value + " (" + money + ")";
-                    }
-                }
-            },
-            colors: ['#007bff', '#fd7e14'],
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            }
-        };
-        chart3 = new ApexCharts(document.querySelector("#column-chart"), options3);
-        chart3.render();
     </script>
 
 
