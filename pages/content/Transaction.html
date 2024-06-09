@@ -126,21 +126,20 @@
         
             });
         });
-        //Render dữ liệu nhập ra UI
-        $(".save").click(function() {
-        
+
+        function renderUI2() {
             let money_number = $("#money_number").val();
             let money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
             let take_note = $("#take_note").val();
             let time_transaction = $("#time_transaction").val();
-            var dateObj = new Date(time_transaction);
-            var day = dateObj.getDate();
-            var dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
-            var monthYear = dateObj.toLocaleString('vi-VN', { month: 'long', year: 'numeric' });
-            let selectedCategory = $('.prevTextCata').text();
+            let dateObj = new Date(time_transaction);
+            let day = dateObj.getDate();
+            let dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
+            let monthYear = dateObj.toLocaleString('vi-VN', { month: 'long', year: 'numeric' });
+            let selectedCategory = $('.content_2 .prevTextCata').text();
             let selectedIconSrc = $('.prevIconCata').attr('src');
-
-            var itemHtml = `
+            
+            let itemOut = `
                 <div class="item_1 px-2">
                     <div class="header_item d-flex justify-content-between align-items-center">
                         <div class="time_item d-flex gap-3 align-items-center">
@@ -151,7 +150,7 @@
                             </div>
                         </div>
                         <div class="money_item text-danger">
-                            ${money}
+                            -${money}
                         </div>
                     </div>
                     <div class="main_item d-flex justify-content-between align-items-center">
@@ -161,42 +160,337 @@
                             </div>
                             <div class="time_day">
                                 <div class="day">${selectedCategory}</div>
-                                <div class="month">${note}</div>
+                                <div class="month">${take_note}</div>
                             </div>
                         </div>
                         <div class="money_item">
-                            ${money}
+                            -${money}
                         </div>
                     </div>
                 </div>
             `; 
+            let itemIn = `
+                <div class="item_1 px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">${day}</div>
+                            <div class="time_day">
+                                <div class="day">${dayOfWeek}</div>
+                                <div class="month">${monthYear}</div>
+                            </div>
+                        </div>
+                        <div class="money_item text-primary">
+                            +${money}
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+                </div>
+            `; 
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+                $(".content_2 .money_in").append(itemIn)
+            } else {
+                $(".content_2 .money_out").append(itemOut)
+            }
+            //Tính toán tiền ra
+            let moneyItemsOut = $(".content_2 .money_out .header_item .money_item");
+            let total = 0;
+            moneyItemsOut.each(function() {
+                total += parseInt($(this).text().trim().replace(',', ''));
+            });
+            console.log(total)
+            let money1 = total.toLocaleString('en').replace("-","")
             
+            $(".content_2 .middle_money-out").text(money1);
+
+            //Tính toán tiền vào
+            let moneyItemsIn = $(".content_2 .money_in .header_item .money_item");
+            let sum = 0;
+
+            moneyItemsIn.each(function() {
+                // Loại bỏ dấu phân cách hàng nghìn và các ký tự không phải số
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                
+                // Kiểm tra xem giá trị chuyển đổi có hợp lệ không
+                if (!isNaN(moneyValue)) {
+                    sum += moneyValue;
+                }
+            });
+
+            // Chuyển đổi tổng thành chuỗi định dạng tiếng Anh
+            let money2 = sum.toLocaleString('en').replace("+", "");
+            console.log(money2);
+            $(".content_2 .middle_money-in").text(money2);
 
 
-            // //Tính toán tiền ra
-            // var moneyItemsOut = $(".money_out .header_item .money_item");
-            // var total = 0;
-            // moneyItemsOut.each(function() {
-            //     total += parseInt($(this).text().trim().replace(',', ''));
-            // });
-            // var money1 = total.toLocaleString('en').replace("-","")
-            // console.log(money1)
-            // $(".middle_money-out").text(money1);
-            // //Tính toán tiền vào
-            // var moneyItemsIn = $(".money_in .header_item .money_item");
-            // var sum = 0;
-            // moneyItemsIn.each(function() {
-            //     sum += parseInt($(this).text().trim().replace(',', ''));
-            // });
-            // var money2 = sum.toLocaleString('en').replace("+","")
-            // console.log(money2)
-            // //Tính toán số dư
-            // $(".middle_money-in").text(money2);
-            // var moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
-            // console.log(moneyItemsResult);
-            // $(".middle_money-result").text(moneyItemsResult);
-            // $(".header_money").text(moneyItemsResult);
+            //Tính toán số dư
+            $(".content_2 .middle_money-in").text(money2);
+            let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
+            console.log(moneyItemsResult);
+            $(".content_2 .middle_money-result").text(moneyItemsResult);
+            $(".content_2 .header_money").text(moneyItemsResult);
+        }
+        function renderUI1() {
+            let money_number = $("#money_number").val();
+            let money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
+            let take_note = $("#take_note").val();
+            let time_transaction = $("#time_transaction").val();
+            let dateObj = new Date(time_transaction);
+            let day = dateObj.getDate();
+            let dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
+            let monthYear = dateObj.toLocaleString('vi-VN', { month: 'long', year: 'numeric' });
+            let selectedCategory = $('.content_1 .prevTextCata').text();
+            let selectedIconSrc = $('.prevIconCata').attr('src');
+            
+            let itemOut = `
+                <div class="item_1 px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">${day}</div>
+                            <div class="time_day">
+                                <div class="day">${dayOfWeek}</div>
+                                <div class="month">${monthYear}</div>
+                            </div>
+                        </div>
+                        <div class="money_item text-danger">
+                            -${money}
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -${money}
+                        </div>
+                    </div>
+                </div>
+            `; 
+            let itemIn = `
+                <div class="item_1 px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">${day}</div>
+                            <div class="time_day">
+                                <div class="day">${dayOfWeek}</div>
+                                <div class="month">${monthYear}</div>
+                            </div>
+                        </div>
+                        <div class="money_item text-primary">
+                            +${money}
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+                </div>
+            `; 
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+                $(".content_1 .money_in").append(itemIn)
+            } else {
+                $(".content_1 .money_out").append(itemOut)
+            }
+
+            //Tính toán tiền ra
+            let moneyItemsOut = $(".content_1 .money_out .header_item .money_item");
+            let total = 0;
+            moneyItemsOut.each(function() {
+                total += parseInt($(this).text().trim().replace(',', ''));
+            });
+            console.log(total)
+            let money1 = total.toLocaleString('en').replace("-","")
+            
+            $(".content_1 .middle_money-out").text(money1);
+
+            //Tính toán tiền vào
+            let moneyItemsIn = $(".content_1 .money_in .header_item .money_item");
+            let sum = 0;
+
+            moneyItemsIn.each(function() {
+                // Loại bỏ dấu phân cách hàng nghìn và các ký tự không phải số
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                
+                // Kiểm tra xem giá trị chuyển đổi có hợp lệ không
+                if (!isNaN(moneyValue)) {
+                    sum += moneyValue;
+                }
+            });
+
+            // Chuyển đổi tổng thành chuỗi định dạng tiếng Anh
+            let money2 = sum.toLocaleString('en').replace("+", "");
+            console.log(money2);
+            $(".content_1 .middle_money-in").text(money2);
+
+
+            //Tính toán số dư
+            $(".content_1 .middle_money-in").text(money2);
+            let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
+            console.log(moneyItemsResult);
+            $(".content_1 .middle_money-result").text(moneyItemsResult);
+            $(".content_1 .header_money").text(moneyItemsResult);
+        }
+        function renderUI3() {
+            let money_number = $("#money_number").val();
+            let money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
+            let take_note = $("#take_note").val();
+            let time_transaction = $("#time_transaction").val();
+            let dateObj = new Date(time_transaction);
+            let day = dateObj.getDate();
+            let dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
+            let monthYear = dateObj.toLocaleString('vi-VN', { month: 'long', year: 'numeric' });
+            let selectedCategory = $('.content_3 .prevTextCata').text();
+            let selectedIconSrc = $('.prevIconCata').attr('src');
+            
+            let itemOut = `
+                <div class="item_1 px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">${day}</div>
+                            <div class="time_day">
+                                <div class="day">${dayOfWeek}</div>
+                                <div class="month">${monthYear}</div>
+                            </div>
+                        </div>
+                        <div class="money_item text-danger">
+                            -${money}
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -${money}
+                        </div>
+                    </div>
+                </div>
+            `; 
+            let itemIn = `
+                <div class="item_1 px-2">
+                    <div class="header_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex gap-3 align-items-center">
+                            <div class="time_main fw-bold">${day}</div>
+                            <div class="time_day">
+                                <div class="day">${dayOfWeek}</div>
+                                <div class="month">${monthYear}</div>
+                            </div>
+                        </div>
+                        <div class="money_item text-primary">
+                            +${money}
+                        </div>
+                    </div>
+                    <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+                </div>
+            `; 
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+                $(".content_3 .money_in").append(itemIn)
+            } else {
+                $(".content_3 .money_out").append(itemOut)
+            }
+
+            //Tính toán tiền ra
+            let moneyItemsOut = $(".content_3 .money_out .header_item .money_item");
+            let total = 0;
+            moneyItemsOut.each(function() {
+                total += parseInt($(this).text().trim().replace(',', ''));
+            });
+            console.log(total)
+            let money1 = total.toLocaleString('en').replace("-","")
+            
+            $(".content_3 .middle_money-out").text(money1);
+
+            //Tính toán tiền vào
+            let moneyItemsIn = $(".content_3 .money_in .header_item .money_item");
+            let sum = 0;
+
+            moneyItemsIn.each(function() {
+                // Loại bỏ dấu phân cách hàng nghìn và các ký tự không phải số
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                
+                // Kiểm tra xem giá trị chuyển đổi có hợp lệ không
+                if (!isNaN(moneyValue)) {
+                    sum += moneyValue;
+                }
+            });
+
+            // Chuyển đổi tổng thành chuỗi định dạng tiếng Anh
+            let money2 = sum.toLocaleString('en').replace("+", "");
+            console.log(money2);
+            $(".content_3 .middle_money-in").text(money2);
+
+
+            //Tính toán số dư
+            $(".content_3 .middle_money-in").text(money2);
+            let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
+            console.log(moneyItemsResult);
+            $(".content_3 .middle_money-result").text(moneyItemsResult);
+            $(".content_3 .header_money").text(moneyItemsResult);
+        }
+        //Render dữ liệu nhập ra UI
+        $(".save_1").click(function() {
+            renderUI1();
+            
         })
+        $(".save_2").click(function() {
+            renderUI2();
+            
+        })
+        $(".save_3").click(function() {
+            renderUI3();
+            
+        })
+        
         $(".prevIconCata").hide()
         $(".itemPlanCata").click(function(){
             var imgSrc = $(this).find('img').attr('src');
@@ -243,7 +537,7 @@
             </div>
             <div class="header_middle d-flex align-items-center rounded-2 me-5">
                 
-                <div class="header_icon ms-1">
+                <!-- <div class="header_icon ms-1">
                     <img src="../../img/Icon/icon_25.png" alt="">
                 </div>
                 <div class="dropdown-center">
@@ -255,7 +549,7 @@
                       <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
                       <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
                     </ul>
-                  </div>
+                  </div> -->
             </div>
             <div class="header_right d-flex align-items-center gap-4 me-3">
                 <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -299,73 +593,6 @@
             <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
-            <!-- MODAL  -->
-            <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
-                            <div class="col-sm-9">
-                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
-                            <div class="col-sm-9">
-                                <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
-                                    <label class="form-check-label" for="gridRadios1">
-                                      Khoản thu
-                                    </label>
-                                  </div>
-                                  <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
-                                    <label class="form-check-label" for="gridRadios2">
-                                      Khoản chi
-                                    </label>
-                                  </div>
-                                  
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
-                            <div class="col-sm-9">
-                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
-                                    <option value="Ăn uống">Ăn uống</option>
-                                    <option value="Bảo hiểm">Bảo hiểm</option>
-                                    <option value="Giải trí">Giải trí</option>
-                                    <option value="Gia đình">Gia đình</option>
-                                    <option value="Giáo dục">Giáo dục</option>
-                                    <option value="Mua sắm">Mua săm</option>
-                                    <option value="Sức khỏe">Sức khỏe</option>
-                                </select>
-                            </div>
-                            
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
-                            <div class="col-sm-9">
-                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
               <div class="modal fade" id="exampleModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -449,7 +676,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                        <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
+                        <button type="button" class="btn btn-primary save_1" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
                     </div>
                     </div>
                 </div>
@@ -623,7 +850,7 @@
             </div>
             <div class="header_middle d-flex align-items-center rounded-2 me-5">
                 
-                <div class="header_icon ms-1">
+                <!-- <div class="header_icon ms-1">
                     <img src="../../img/Icon/icon_25.png" alt="">
                 </div>
                 <div class="dropdown-center">
@@ -635,7 +862,7 @@
                       <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
                       <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
                     </ul>
-                  </div>
+                  </div> -->
             </div>
             <div class="header_right d-flex align-items-center gap-4 me-3">
                 <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -679,73 +906,6 @@
             <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
-            <!-- MODAL  -->
-            <!-- <div class="modal fade " id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
-                            <div class="col-sm-9">
-                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
-                            <div class="col-sm-9">
-                                <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
-                                    <label class="form-check-label" for="gridRadios1">
-                                      Khoản thu
-                                    </label>
-                                  </div>
-                                  <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
-                                    <label class="form-check-label" for="gridRadios2">
-                                      Khoản chi
-                                    </label>
-                                  </div>
-                                  
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
-                            <div class="col-sm-9">
-                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
-                                    <option value="Ăn uống">Ăn uống</option>
-                                    <option value="Bảo hiểm">Bảo hiểm</option>
-                                    <option value="Giải trí">Giải trí</option>
-                                    <option value="Gia đình">Gia đình</option>
-                                    <option value="Giáo dục">Giáo dục</option>
-                                    <option value="Mua sắm">Mua săm</option>
-                                    <option value="Sức khỏe">Sức khỏe</option>
-                                </select>
-                            </div>
-                            
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
-                            <div class="col-sm-9">
-                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
               <div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -829,7 +989,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                        <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
+                        <button type="button" class="btn btn-primary save_2" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
                     </div>
                     </div>
                 </div>
@@ -1003,7 +1163,7 @@
             </div>
             <div class="header_middle d-flex align-items-center rounded-2 me-5">
                 
-                <div class="header_icon ms-1">
+                <!-- <div class="header_icon ms-1">
                     <img src="../../img/Icon/icon_25.png" alt="">
                 </div>
                 <div class="dropdown-center">
@@ -1015,7 +1175,7 @@
                       <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
                       <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
                     </ul>
-                  </div>
+                  </div> -->
             </div>
             <div class="header_right d-flex align-items-center gap-4 me-3">
                 <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1059,73 +1219,6 @@
             <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
-            <!-- MODAL  -->
-            <!-- <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm giao dịch</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Số tiền</label>
-                            <div class="col-sm-9">
-                              <input type="number" class="form-control form-control-sm money_number" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Kiểu giao dịch</label>
-                            <div class="col-sm-9">
-                                <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios1" value="Khoản thu">
-                                    <label class="form-check-label" for="gridRadios1">
-                                      Khoản thu
-                                    </label>
-                                  </div>
-                                  <div class="form-check d-inline-block">
-                                    <input class="form-check-input kind_transaction" type="radio" name="gridRadios" id="gridRadios2" value="Khoản chi">
-                                    <label class="form-check-label" for="gridRadios2">
-                                      Khoản chi
-                                    </label>
-                                  </div>
-                                  
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Chọn nhóm</label>
-                            <div class="col-sm-9">
-                                <select name="" id="" class="col-sm-4 form-control form-control-sm group_transaction">
-                                    <option value="Ăn uống">Ăn uống</option>
-                                    <option value="Bảo hiểm">Bảo hiểm</option>
-                                    <option value="Giải trí">Giải trí</option>
-                                    <option value="Gia đình">Gia đình</option>
-                                    <option value="Giáo dục">Giáo dục</option>
-                                    <option value="Mua sắm">Mua săm</option>
-                                    <option value="Sức khỏe">Sức khỏe</option>
-                                </select>
-                            </div>
-                            
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Ghi chú</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control form-control-sm take_note" id="colFormLabelSm">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm">Thời gian</label>
-                            <div class="col-sm-9">
-                              <input type="date" class="form-control form-control-sm time_transaction" id="colFormLabelSm">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>
-                    </div>
-                  </div>
-                </div>
-            </div> -->
             <div class="modal fade" id="exampleModal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -1209,7 +1302,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                        <button type="button" class="btn btn-primary save" onclick="renderUI()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
+                        <button type="button" class="btn btn-primary save_3" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Lưu</button>              
                     </div>
                     </div>
                 </div>

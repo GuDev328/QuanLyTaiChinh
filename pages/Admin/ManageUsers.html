@@ -1,4 +1,43 @@
 <style> 
+  /* Đảm bảo bảng không bị vỡ khi trên các thiết bị nhỏ hơn */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table thead th, .table tbody td {
+        white-space: nowrap; /* Ngăn chặn việc xuống dòng trong tiêu đề cột */
+    }
+
+    /* Ẩn các cột không cần thiết trên các thiết bị nhỏ */
+    @media (max-width: 767px) {
+        /* .table thead th:nth-child(),
+        .table tbody td:nth-child(1), */
+        .table thead th:nth-child(4),
+        .table tbody td:nth-child(4),
+        .table thead th:nth-child(5),
+        .table tbody td:nth-child(5),
+        .table thead th:nth-child(6),
+        .table tbody td:nth-child(6),
+        .table thead th:nth-child(7),
+        .table tbody td:nth-child(7),
+        .table thead th:nth-child(3),
+        .table tbody td:nth-child(3) {
+            display: none;
+        }
+        .modal-dialog {
+            max-width: 75%;
+            margin: 0 auto;
+        }
+    }
+
+    /* Điều chỉnh các modal để phù hợp với màn hình nhỏ hơn */
+    
+    .modal-body {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
   .modal-body form {
     display: flex;
     justify-content: space-between;
@@ -116,9 +155,14 @@
         $(".btn_search_user").click(function() {
           var myInput = $("#myInput").val().toLowerCase();
           $("#myTable tr").filter(function() {
-            // $(this).toggle($(this).text().toLowerCase().indexOf(myInput) > -1)
             var nameText = $(this).find('.name').text().toLowerCase();
-            $(this).toggle(nameText.indexOf(myInput) > -1);
+            var emailText = $(this).find('.email').text().toLowerCase();
+
+            // Kiểm tra nếu myInput có trong nameText hoặc emailText
+            var match = nameText.indexOf(myInput) > -1 || emailText.indexOf(myInput) > -1;
+
+            // Hiển thị hoặc ẩn dòng hiện tại dựa trên kết quả kiểm tra
+            $(this).toggle(match);
           });
         })
         //Xóa người dùng
@@ -243,13 +287,13 @@
           let name = row.find('.name').text();
           let email = row.find('.email').text();
           let gender = row.find('.col_gender').text();
-          let plan = row.find('.col_plan').text();
-          let money = row.find('.col_money').text();
+          // let plan = row.find('.col_plan').text();
+          // let money = row.find('.col_money').text();
 
           $('.infoImg').attr('src',imgUrl);
-          $('#infoName').val(name);
-          $('#infoEmail').val(email);
-          $('#infoGender').val(gender);
+          $('#infoName').text(name);
+          $('#infoEmail').text(email);
+          $('#infoGender').text(gender);
           $('#infoPlan').val(plan);
           $('#infoMoney').val(money);
         });
@@ -337,22 +381,22 @@
         var newRow = `
           <tr>
             <th scope="row">
-              <img src="${imgSrc}" alt="" class="rounded-circle table-img" style="height: 25px; width: 25px;">
+              <img src="${imgSrc}" alt="" class="rounded-circle table-img" style="height: 40px; width: 40px;">
             </th>
-            <td class="name">${name}</td>
-            <td class="email">${email}</td>
-            <td class="col_gender">${gender}</td>
-            <td class="status">
-              <div class="d-flex align-items-center">
+            <td class="name align-middle">${name}</td>
+            <td class="email align-middle">${email}</td>
+            <td class="col_gender align-middle">${gender}</td>
+            <td class="status align-middle">
+                <div class="d-flex align-items-center">
                 <div class="rounded-circle bg-success online mx-1"></div>
                 <span>Online</span>
               </div>
             </td>
-            <td class="col_plan">${plan}</td>
-            <td class="col_money">${newmoney}</td>
-            <td>
+            <td class="col_plan align-middle">0</td>
+            <td class="col_money align-middle">0</td>
+            <td class="align-middle">
               <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
               </button>
               <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                 <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -384,18 +428,18 @@
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center row">
               
-              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-9 col-lg-12">
+              <div class="search_user bg-white rounded-pill d-flex justify-content-between align-items-center col-sm-11 col-lg-12 col-md-11">
                 <div class="search_icon_user text-primary mx-3 mt-1">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div class="input-group search_btn_user align-items-center">
-                    <input type="text" id="myInput" class="form-control border-0" placeholder="Nhập họ tên người dùng" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="text" id="myInput" class="form-control border-0" placeholder="Nhập họ tên hoặc email người dùng" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="border-0 text-white rounded-pill py-1 px-3 input-group-text btn_search_user" id="basic-addon2" style="background-color: #3c91e7;">Tìm kiếm</button>
                     </div>
                 </div>
               </div>
-              <div class="fw-bolder fs-5 filter_header d-none col-sm-1">
+              <div class="fw-bolder fs-5 filter_header d-none col-sm-1 col-md-1">
                 <a class="btn fs-5" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                   <i class="fa-solid fa-filter"></i>
                 </a>
@@ -450,12 +494,16 @@
                           </div>
                           <div class="form-floating mb-3">
                             <input type="name" class="form-control newPlan" id="floatingInput" placeholder="Tên danh mục">
-                            <label for="floatingInput">Kế hoạch</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="name" class="form-control newMoney" id="floatingInput" placeholder="Tên danh mục">
-                          <label for="floatingInput">Tổng tiền</label>
-                        </div>
+                            <label for="floatingInput">Số điện thoại</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="name" class="form-control newMoney" id="floatingInput" placeholder="Tên danh mục">
+                            <label for="floatingInput">Địa chỉ</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="password" class="form-control newPassword" id="floatingInput" placeholder="Tên danh mục">
+                            <label for="floatingInput">Mật khẩu</label>
+                          </div>
                         </div>
                       </form>             
                     </div>
@@ -466,7 +514,177 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+
+
+              <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
+                      <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thông tin người dùng</h1>
+                      <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="#" id="myFormInfo">
+                        <div class="card imgholder rounded-circle">
+                          <label for="imgInput" class="upload">
+                            <input type="file" name="" id="uploadimg" class="picture">
+                            <i class="fa fa-plus-circle"></i>
+                          </label>
+                          <img src="" alt="" width="200" height="200" class="img rounded-circle infoImg">
+                        </div>
+                        <div class="inputField" style="padding-left: 15px;flex-basis: 40%;">
+                          <p><b>Họ tên:</b> <span id="infoName"></span></p>
+                          <p><b>Email:</b> <span id="infoEmail"></span></p>
+                          <p><b>Giới tính:</b> <span id="infoGender"></span></p>
+                          <p><b>Ngày sinh:</b> <span id="infoBirthday"></span></p>
+                          <p><b>Số điện thoại:</b> <span id="infoPhone"></span></p>
+                          <p><b>Địa chỉ:</b> <span id="infoAddress"></span></p>
+                        </div>
+                        <div class="col-lg-3 col-sm-3">
+                          <div class="p-3 rounded-4" style="background-color: #97BE5A;">
+                              <div class="row">
+                                  <div class="total-money col-8 fs-5 fw-bold text-light">9.100.000đ</div>
+                                  <div class="col-4">
+                                      <div class="change-percent-total d-flex align-items-center justify-content-center rounded-3"
+                                          style="background-color: #F9F9E0;">
+                                          +2.5%
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="fs-6 mt-2 text-light">Tổng số tiền</div>
+                          </div>
+                          <br>
+                          <br>
+                          <div class="p-3 rounded-4" style="background-color: #01BEFE;">
+                            <div class="row">
+                                <div class="plan-money col-8 fs-5 fw-bold text-light">2.100.000 ₫</div>
+                                <div class="col-4">
+                                    <div class="change-percent-plan d-flex align-items-center justify-content-center rounded-3"
+                                        style="background-color: #64f2f4;">
+                                        +1.8%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fs-6 mt-2 text-light">Tiền trong kế hoạch</div>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="col-lg-12 col-sm-12 bg-white rounded-4 p-3 mb-2">
+                        <div class="row d-flex mb-2">
+                            <div class="col-4 fw-bold fs-4">Kế hoạch chi tiêu</div>
+                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Hiện tại</div>
+                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Mục tiêu</div>
+                            <div class="col-2 fw-bold fs-6 d-flex align-items-center justify-content-center">Hoàn thành</div>
+                        </div>
+                        <hr>
+                        <div class="plans-list">
+                            <div class="row d-flex mt-2">
+                                <div class="col-4 d-flex align-items-center justify-content-start">
+                                    <div class="icon me-3">
+                                        <img src="../../img/Icon/NhaO.png" alt="" style="width: 50px;height: 50px;">
+                                    </div>
+                                    <div class="info">
+                                        <div class="fw-bold">
+                                            Mua nhà
+                                        </div>
+                                        <div class="text-info fs-7">
+                                            Đến tháng 9 năm 2030
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-center">600.000.000đ</div>
+                                <div class="col-3 text-center">1.000.000.000đ</div>
+                                <div class="col-2 text-center">60%</div>
+                            </div>
+                            <hr>
+                            <div class="row d-flex mt-2">
+                              <div class="col-4 d-flex align-items-center justify-content-start">
+                                  <div class="icon me-3">
+                                      <img src="../../img/Icon/DienThoai.png" alt="" style="width: 50px;height: 50px;">
+                                  </div>
+                                  <div class="info">
+                                      <div class="fw-bold">
+                                          Mua điện thoại
+                                      </div>
+                                      <div class="text-info fs-7">
+                                          Đến tháng 7 năm 2024
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-3 text-center">10.000.000đ</div>
+                              <div class="col-3 text-center">20.000.000đ</div>
+                              <div class="col-2 text-center">50%</div>
+
+                          </div>
+                        </div>
+            
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header bg-warning text-white">
+                      <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Sửa thông tin người dùng</h1>
+                      <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form action="#" id="myFormEdit">
+  
+                          <div class="card imgholder rounded-circle">
+                              <label for="imgInput" class="upload">
+                                  <input type="file" name="" id="imgInput">
+                                  <i class="fa fa-plus-circle"></i>
+                              </label>
+                              <img src="" alt="" width="200" height="200" class="img rounded-circle editImg">
+                          </div>
+  
+                          <div class="inputField">
+                            <div>
+                              <label for="editName">Họ tên:</label>
+                              <input type="text" id="editName" required>
+                            </div>
+                            <div>
+                              <label for="editEmail">Email:</label>
+                              <input type="email" id="editEmail" required>
+                            </div>
+                            <div>
+                              <label for="editGender">Giới tính: </label>
+                              <input type="text" id="editGender" required>
+                            </div>
+                            <div>
+                              <label for="editPhone">Số điện thoại:</label>
+                              <input type="text" id="editPhone" required>
+                            </div>
+                            <div>
+                              <label for="editAddress">Địa chỉ:</label>
+                              <input type="text" id="editAddress" required>
+                            </div>
+                            <div>
+                              <label for="editPassword">Mật khẩu:</label>
+                              <input type="password" id="editPassword" required>
+                            </div>
+                          </div>
+                          
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" form="myFormEdit"  data-bs-dismiss="modal" class="btn btn-primary submit">Lưu</button>
+                  </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- RESPONSIVE BỘ LỌC TÌM KIẾM -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
                   <h5 class="offcanvas-title mx-3 fw-bolder" id="offcanvasExampleLabel">BỘ LỌC TÌM KIẾM</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -475,9 +693,9 @@
                   <div class="filter_money mx-3">
                     Tổng tiền
                     <div class="filter_input d-flex align-items-center justify-content-between mt-1">
-                      <input class="money_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="money_min1" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                       <div> - </div>
-                      <input class="money_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="money_max1" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                     </div>
                     <button class="filter_btn w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
                   </div>
@@ -485,11 +703,11 @@
                   <div class="filter_status mx-3">
                     Trạng thái
                     <div class="form-check">
-                      <input type="checkbox" name="" id="onlineCheckbox" value="Online" class="form-check-input">
+                      <input type="checkbox" name="" id="onlineCheckbox1" value="Online" class="form-check-input">
                       <label for="onlineCheckbox">Online</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="" id="offlineCheckbox" value="Offline" class="form-check-input">
+                      <input type="checkbox" name="" id="offlineCheckbox1" value="Offline" class="form-check-input">
                       <label for="offlineCheckbox">Offline</label>
                     </div>
                   </div>
@@ -497,171 +715,77 @@
                   <div class="filter_plan mx-3 pb-4">
                     Số kế hoạch
                     <div class="filter_input d-flex align-items-center justify-content-between mt-1">
-                      <input class="plan_min" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="plan_min1" type="number" placeholder="đ Từ" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                       <div> - </div>
-                      <input class="plan_max" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
+                      <input class="plan_max1" type="number" placeholder="đ Đến" style="width: 90px;border-radius: 5px;border-color: #ccc;">
                     </div>
                     <button class="filter_button w-100 mt-3 border-0 text-white" style="background-color: #3C91E7;border-radius: 5px;">ÁP DỤNG</button>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <div class="list_user table-responsive rounded-4 mt-3" style="height: 480px;">
                 <table class="table ">
                     <thead >
                       <tr class="text-center">
-                        <th scope="col-2" class="thead">Ảnh</th>
-                        <th scope="col-1" class="thead">Tên người dùng</th>
-                        <th scope="col-1" class="thead">Email</th>
-                        <th scope="col-1" class="thead">Giới tính</th>
-                        <th scope="col-1" class="thead">Trạng thái</th>
-                        <th scope="col-1" class="thead">Kế hoạch</th>
-                        <th scope="col-2" class="thead">Tổng tiền</th>
-                        <th scope="col-4" class="thead"></th>
+                        <th scope="col-md-2" class="thead">Ảnh</th>
+                        <th scope="col-md-1" class="thead">Tên người dùng</th>
+                        <th scope="col-md-1" class="thead">Email</th>
+                        <th scope="col-md-1" class="thead">Giới tính</th>
+                        <th scope="col-md-1" class="thead">Trạng thái</th>
+                        <th scope="col-md-1" class="thead">Kế hoạch</th>
+                        <th scope="col-md-2" class="thead">Tổng tiền</th>
+                        <th scope="col-md-4" class="thead">Hành động</th>
                       </tr>
                     </thead>
                     <tbody class="text-center" id="myTable">
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Phùng Quang Chiến</td>
-                        <td class="email">chien1@gmail.com</td>
-                        <td class="col_gender">Nữ</td>
-                        <td class="status">
+                        <td class="name align-middle">Phùng Quang Chiến</td>
+                        <td class="email align-middle">chien1@gmail.com</td>
+                        <td class="col_gender align-middle">Nữ</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class="rounded-circle bg-success online mx-1"></div>
                             <span>Online</span>
                           </div>
                         </td>
-                        <td class="col_plan">1</td>
-                        <td class="col_money">100,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">1</td>
+                        <td class="col_money align-middle">100,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
-                          <!-- MODAL  -->
-                          <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                              <div class="modal-content">
-                                <div class="modal-header " style="background-color: #3c91e6; color: #ffffff;">
-                                  <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thông tin người dùng</h1>
-                                  <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <form action="#" id="myFormInfo">
-                                    <div class="card imgholder rounded-circle">
-                                      <label for="imgInput" class="upload">
-                                        <input type="file" name="" id="uploadimg" class="picture">
-                                        <i class="fa fa-plus-circle"></i>
-                                      </label>
-                                      <img src="" alt="" width="200" height="200" class="img rounded-circle infoImg">
-                                    </div>
-                                    <div class="inputField">
-                                      <div>
-                                        <label for="infoName">Họ tên:</label>
-                                        <input type="text" id="infoName" required>
-                                      </div>
-                                      <div>
-                                        <label for="infoEmail">Email:</label>
-                                        <input type="email" id="infoEmail" required>
-                                      </div>
-                                      <div>
-                                        <label for="infoGender">Giới tính: </label>
-                                        <input type="text" id="infoGender" required>
-                                      </div>
-                                      <div>
-                                        <label for="infoPlan">Số kế hoạch:</label>
-                                        <input type="text" id="infoPlan" required>
-                                      </div>
-                                      <div>
-                                        <label for="infoMoney">Tổng tiền:</label>
-                                        <input type="text" id="infoMoney" required>
-                                      </div>
-                                      
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          
+                          
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
                           <!-- MODAL  -->
-                          <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                              <div class="modal-content">
-                                <div class="modal-header bg-warning text-white">
-                                  <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Sửa thông tin người dùng</h1>
-                                  <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                  <form action="#" id="myFormEdit">
-              
-                                      <div class="card imgholder rounded-circle">
-                                          <label for="imgInput" class="upload">
-                                              <input type="file" name="" id="imgInput">
-                                              <i class="fa fa-plus-circle"></i>
-                                          </label>
-                                          <img src="" alt="" width="200" height="200" class="img rounded-circle editImg">
-                                      </div>
-              
-                                      <div class="inputField">
-                                        <div>
-                                          <label for="editName">Họ tên:</label>
-                                          <input type="text" id="editName" required>
-                                        </div>
-                                        <div>
-                                          <label for="editEmail">Email:</label>
-                                          <input type="email" id="editEmail" required>
-                                        </div>
-                                        <div>
-                                          <label for="editGender">Giới tính: </label>
-                                          <input type="text" id="editGender" required>
-                                        </div>
-                                        <div>
-                                          <label for="editPlan">Số kế hoạch:</label>
-                                          <input type="text" id="editPlan" required>
-                                        </div>
-                                        <div>
-                                          <label for="editMoney">Tổng tiền:</label>
-                                          <input type="text" id="editMoney" required>
-                                        </div>
-                                        
-                                      </div>
-              
-                                  </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" form="myFormEdit"  data-bs-dismiss="modal" class="btn btn-primary submit">Lưu</button>
-                              </div>
-                              </div>
-                            </div>
-                          </div>
+                          
                           <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Phạm Tiến Đạt</td>
-                        <td class="email">chien2@gmail.com</td>
-                        <td class="col_gender">Nam</td>
-                        <td class="status">
+                        <td class="name align-middle">Phạm Tiến Đạt</td>
+                        <td class="email align-middle">chien2@gmail.com</td>
+                        <td class="col_gender align-middle">Nam</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class="rounded-circle bg-danger online mx-1"></div>
                             <span>Offline</span>
                           </div>
                         </td>
-                        <td class="col_plan">2</td>
-                        <td class="col_money">90,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">2</td>
+                        <td class="col_money align-middle">90,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -671,23 +795,23 @@
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Lê Quý Độ</td>
-                        <td class="email">chien3@gmail.com</td>
-                        <td class="col_gender">Nam</td>
-                        <td class="status">
+                        <td class="name align-middle">Lê Quý Độ</td>
+                        <td class="email align-middle">chien3@gmail.com</td>
+                        <td class="col_gender align-middle">Nam</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-success online mx-1"></div>
                             <span>Online</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">3</td>
-                        <td class="col_money">80,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">3</td>
+                        <td class="col_money align-middle">80,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -697,23 +821,23 @@
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Nguyễn Đức Chung</td>
-                        <td class="email">chien4@gmail.com</td>
-                        <td class="col_gender">Nam</td>
-                        <td class="status">
+                        <td class="name align-middle">Nguyễn Đức Chung</td>
+                        <td class="email align-middle">chien4@gmail.com</td>
+                        <td class="col_gender align-middle">Nam</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-danger online mx-1"></div>
                             <span>Offline</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">4</td>
-                        <td class="col_money">70,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">4</td>
+                        <td class="col_money align-middle">70,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -723,23 +847,23 @@
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Lã Văn Đức</td>
-                        <td class="email">chien4@gmail.com</td>
-                        <td class="col_gender">Nữ</td>
-                        <td class="status">
+                        <td class="name align-middle">Lã Văn Đức</td>
+                        <td class="email align-middle">chien4@gmail.com</td>
+                        <td class="col_gender align-middle">Nữ</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-success online mx-1"></div>
                             <span>Online</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">5</td>
-                        <td class="col_money">60,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">5</td>
+                        <td class="col_money align-middle">60,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -749,23 +873,23 @@
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Nguyễn Khắc Cảnh</td>
-                        <td class="email">chien4@gmail.com</td>
-                        <td class="col_gender">Nam</td>
-                        <td class="status">
+                        <td class="name align-middle">Nguyễn Khắc Cảnh</td>
+                        <td class="email align-middle">chien4@gmail.com</td>
+                        <td class="col_gender align-middle">Nam</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-danger online mx-1"></div>
                             <span>Offline</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">6</td>
-                        <td class="col_money">50,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">6</td>
+                        <td class="col_money align-middle">50,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -775,23 +899,23 @@
                       </tr>
                       <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Nguyễn Hữu Đức</td>
-                        <td class="email">chien4@gmail.com</td>
-                        <td class="col_gender">Nữ</td>
-                        <td class="status">
+                        <td class="name align-middle">Nguyễn Hữu Đức</td>
+                        <td class="email align-middle">chien4@gmail.com</td>
+                        <td class="col_gender align-middle">Nữ</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-success online mx-1"></div>
                             <span>Online</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">7</td>
-                        <td class="col_money">40,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">7</td>
+                        <td class="col_money align-middle">40,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -799,32 +923,32 @@
                           <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                         </th>
-                        <td class="name">Phùng Quang Chiến</td>
-                        <td class="email">chien4@gmail.com</td>
-                        <td class="col_gender">Nam</td>
-                        <td class="status">
+                        <td class="name align-middle">Phùng Quang Chiến</td>
+                        <td class="email align-middle">chien4@gmail.com</td>
+                        <td class="col_gender align-middle">Nam</td>
+                        <td class="status align-middle">
                           <div class="d-flex align-items-center">
                             <div class=" rounded-circle bg-danger online mx-1"></div>
                             <span>Offline</span>
                           </div>
                           
                         </td>
-                        <td class="col_plan">8</td>
-                        <td class="col_money">30,000,000đ</td>
-                        <td>
+                        <td class="col_plan align-middle">8</td>
+                        <td class="col_money align-middle">30,000,000đ</td>
+                        <td class="align-middle">
                           <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                           </button>
                           <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                             <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
                           </button>
                           <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
                         </td>
-                      </tr>
+                      </tr> -->
  
                     </tbody>
                   </table>
@@ -840,28 +964,28 @@
                       <th scope="col-1" class="thead">Trạng thái</th>
                       <th scope="col-1" class="thead">Kế hoạch</th>
                       <th scope="col-2" class="thead">Tổng tiền</th>
-                      <th scope="col-4" class="thead"></th>
+                      <th scope="col-4" class="thead">Hành động</th>
                     </tr>
                   </thead>
                   <tbody class="text-center" id="myTable">
                     <tr>
                       <th scope="row">
-                        <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                        <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                       </th>
-                      <td class="name">Phùng Quang Chiến</td>
-                      <td class="email">chien1@gmail.com</td>
-                      <td class="col_gender">Nữ</td>
-                      <td class="status">
+                      <td class="name align-middle">Phùng Quang Chiến</td>
+                      <td class="email align-middle">chien1@gmail.com</td>
+                      <td class="col_gender align-middle">Nữ</td>
+                      <td class="status align-middle"> 
                         <div class="d-flex align-items-center">
                           <div class="rounded-circle bg-success online mx-1"></div>
                           <span>Online</span>
                         </div>
                       </td>
-                      <td class="col_plan">1</td>
-                      <td class="col_money">100,000,000đ</td>
-                      <td>
+                      <td class="col_plan align-middle">1</td>
+                      <td class="col_money align-middle">100,000,000đ</td>
+                      <td class="align-middle">
                         <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo_1">
-                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                         </button>
                         <!-- MODAL  -->
                         <div class="modal fade" id="modalInfo_1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -894,12 +1018,12 @@
                                       <input type="text" id="infoGender" required>
                                     </div>
                                     <div>
-                                      <label for="infoPlan">Số kế hoạch:</label>
-                                      <input type="text" id="infoPlan" required>
+                                      <label for="infoPhone">Số điện thoại:</label>
+                                      <input type="text" id="infoPhone" required>
                                     </div>
                                     <div>
-                                      <label for="infoMoney">Tổng tiền:</label>
-                                      <input type="text" id="infoMoney" required>
+                                      <label for="infoAddress">Địa chỉ:</label>
+                                      <input type="text" id="infoAddress" required>
                                     </div>
                                     
                                   </div>
@@ -945,14 +1069,17 @@
                                         <input type="text" id="editGender" required>
                                       </div>
                                       <div>
-                                        <label for="editPlan">Số kế hoạch:</label>
-                                        <input type="text" id="editPlan" required>
+                                        <label for="editPhone">Số điện thoại:</label>
+                                        <input type="text" id="editPhone" required>
                                       </div>
                                       <div>
-                                        <label for="editMoney">Tổng tiền:</label>
-                                        <input type="text" id="editMoney" required>
+                                        <label for="editAddress">Địa chỉ:</label>
+                                        <input type="text" id="editAddress" required>
                                       </div>
-                                      
+                                      <div>
+                                        <label for="editPassword">Mật khẩu:</label>
+                                        <input type="password" id="editPassword" required>
+                                      </div>
                                     </div>
             
                                 </form>
@@ -969,22 +1096,22 @@
                     </tr>
                     <tr>
                       <th scope="row">
-                        <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                        <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                       </th>
-                      <td class="name">Phạm Tiến Đạt</td>
-                      <td class="email">chien2@gmail.com</td>
-                      <td class="col_gender">Nam</td>
-                      <td class="status">
+                      <td class="name align-middle">Phạm Tiến Đạt</td>
+                      <td class="email align-middle">chien2@gmail.com</td>
+                      <td class="col_gender align-middle">Nam</td>
+                      <td class="status align-middle"> 
                         <div class="d-flex align-items-center">
                           <div class="rounded-circle bg-danger online mx-1"></div>
                           <span>Offline</span>
                         </div>
                       </td>
-                      <td class="col_plan">2</td>
-                      <td class="col_money">90,000,000đ</td>
-                      <td>
+                      <td class="col_plan align-middle">2</td>
+                      <td class="col_money align-middle">90,000,000đ</td>
+                      <td class="align-middle">
                         <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                         </button>
                         <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                           <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
@@ -994,23 +1121,23 @@
                     </tr>
                     <tr>
                       <th scope="row">
-                        <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 30px;width: 30px;">
+                        <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
                       </th>
-                      <td class="name">Lê Quý Độ</td>
-                      <td class="email">chien3@gmail.com</td>
-                      <td class="col_gender">Nam</td>
-                      <td class="status">
+                      <td class="name align-middle">Lê Quý Độ</td>
+                      <td class="email align-middle">chien3@gmail.com</td>
+                      <td class="col_gender align-middle">Nam</td>
+                      <td class="status align-middle"> 
                         <div class="d-flex align-items-center">
                           <div class=" rounded-circle bg-success online mx-1"></div>
                           <span>Online</span>
                         </div>
                         
                       </td>
-                      <td class="col_plan">3</td>
-                      <td class="col_money">80,000,000đ</td>
-                      <td>
+                      <td class="col_plan align-middle">3</td>
+                      <td class="col_money align-middle">80,000,000đ</td>
+                      <td class="align-middle">
                         <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                          <i class="fa-solid fa-info text-info fs-5 mx-1"></i>
+                          <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
                         </button>
                         <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
                           <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
