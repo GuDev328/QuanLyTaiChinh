@@ -57,8 +57,11 @@
                       <label for="floatingInput">Email</label>
                   </div>
                   <div class="form-floating mb-3">
-                      <input type="name" class="form-control newGender" id="floatingInput" placeholder="Tên danh mục">
-                      <label for="floatingInput">Giới tính</label>
+                    <select class="form-select newGender" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected class="p-3">Nam</option>
+                      <option class="p-3">Nữ</option>
+                    </select>
+                    <label for="floatingSelect">Giới tính</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input type="name" class="form-control newPhoneNumber" id="floatingInput" placeholder="Tên danh mục">
@@ -73,7 +76,7 @@
 
             <div class="d-flex justify-content-around">
                 <div class="btn btn-warning editInfo" style="color: white;">Chỉnh sửa thông tin</div>
-                <div class="btn btn-primary changePassword">Đổi mật khẩu</div>
+                <div class="btn btn-primary changePassword" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</div>
                 <div class="btn btn-secondary CancleSave">Huỷ bỏ</div>
                 <div class="btn btn-primary Save">Lưu lại</div>
 
@@ -82,9 +85,52 @@
     </div>
 </div>
 
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #3c91e6; color: #fff;">
+          <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="normalModal">
+                <div class="form-floating mb-3">
+                    <input type="name" class="form-control oldPassword" id="floatingInput" placeholder="Tên danh mục">
+                    <label for="floatingInput">Mật khẩu hiện tại</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="name" class="form-control newPassword" id="floatingInput" placeholder="Tên danh mục">
+                  <label for="floatingInput">Mật khâu mới</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="name" class="form-control confirmPassword" id="floatingInput" placeholder="Tên danh mục">
+                    <label for="floatingInput">Xác nhận mật khẩu mới</label>
+                  </div>
+                <p style="color: red;" class="notiChangePassword"></p>
+            </div>
+            
+            <div class="resultSuccess">
+                <div style='color: green; text-align:center; font-size: 40px;'> <i class="fa-solid fa-badge-check"></i></div>
+            <div style='color: green; text-align:center; font-size: 20px;'>Mật khẩu của bạn đã được thay đổi thành công</div>
+           
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+          <button type="button" class="btn btn-primary confirmChangePassword">Đổi mật khẩu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
     $(document).ready(function(){
         let originalData={
+                password: 'user',
                 srcAvt: '../../img/Avt/avt1.jpg',
                 name: 'Người dùng CDD',
                 email: 'user@gmail.com',
@@ -94,6 +140,37 @@
             }
         $(".CancleSave").hide()
         $(".Save").hide()
+        $('.changePassword').click(function(){
+            $('.notiChangePassword').text("")
+            $('.normalModal').show()
+            $('.resultSuccess').hide()
+            $('.confirmChangePassword').show()
+        })
+        $('.confirmChangePassword').click(function(){
+            let oldPassword = $('.oldPassword').val()
+            let newPassword = $('.newPassword').val()
+            let confirmPassword = $('.confirmPassword').val()
+            if(!oldPassword || !newPassword || !confirmPassword){
+                $('.notiChangePassword').text("Hãy nhập đủ thông tin")
+                return;
+            }
+            if(oldPassword != originalData.password){
+                $('.notiChangePassword').text("Mật khẩu hiện tại không đúng")
+                return;
+            }
+            if(newPassword != confirmPassword){
+                $('.notiChangePassword').text("Mật khẩu mới không trùng khớp")
+                return;
+            }
+            originalData.password = newPassword
+            $('.oldPassword').val('')
+            $('.newPassword').val('')
+            $('.confirmPassword').val('')
+            $('.resultSuccess').show()
+            $('.normalModal').hide()
+            $('.confirmChangePassword').hide()
+
+        })
         function genOriginalData(){
             
             $('.picture').prop('disabled', true)
