@@ -24,11 +24,21 @@
             </div>
             <div class="col-lg-4 col-sm-12">
                 <div class="fw-bold fs-4 text-center">Biểu đồ chi tiêu theo danh mục</div>
-                <div class="rounded-3 bg-white py-4" id="chartCateOutcome"> </div>
+                <div class="bg-white rounded-3">
+                    <div class="text-center py-2 fw-bold">Chi tiêu: <span
+                            class="totalOutcome text-danger">5.000.000đ</span>
+                    </div>
+                    <div class="pb-4" id="chartCateOutcome"></div>
+                </div>
             </div>
             <div class="col-lg-4 col-sm-12">
                 <div class="fw-bold fs-4 text-center">Biểu đồ thu nhập theo danh mục</div>
-                <div class="rounded-3 bg-white py-4" id="chartCateIncome"> </div>
+                <div class="bg-white rounded-3">
+                    <div class="text-center py-2 fw-bold">Thu nhập: <span
+                            class="totalIncome text-info">5.000.000đ</span>
+                    </div>
+                    <div class="pb-3" id="chartCateIncome"> </div>
+                </div>
             </div>
 
 
@@ -148,17 +158,24 @@
         chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
-        // Update chart data based on selected period
+        //Tính toán tổng tiền
+        function calculateTotal(data) {
+            return data.reduce((sum, current) => sum + current.y, 0);
+        }
+        // Cập nhật chart dựa vào timeframe
         function updateChart(type, lable) {
+            const inflow = data[type].inflow
+            const outflow = data[type].outflow
+
             chart.updateOptions({
                 series: [
                     {
                         name: 'Thu nhập',
-                        data: data[type].inflow
+                        data: inflow
                     },
                     {
                         name: 'Chi tiêu',
-                        data: data[type].outflow
+                        data: outflow
                     }
                 ],
                 yaxis: {
@@ -178,6 +195,11 @@
                     }
                 }
             });
+
+            const totalIncome = calculateTotal(inflow)
+            const totalOutcome = calculateTotal(outflow)
+            $('.totalIncome').text(totalIncome + lable)
+            $('.totalOutcome').text(totalOutcome + lable)
         }
 
         //BIỂU ĐỒ THEO DANH MỤC -------------------------------------------------------------------------------------------------------------------------------------
@@ -212,32 +234,32 @@
             weekly: [10, 20, 15, 30, 10, 5, 20, 10, 15],
             monthly: [55, 55, 13, 43, 22, 14, 31, 9, 18],
             yearly: [600, 700, 400, 500, 300, 200, 450, 250, 300],
-            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư-chi', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
         };
 
         chartCateOutcome = createCateChart(outcomeCateData.weekly, outcomeCateData.labels, null, 'chartCateOutcome');
 
         // INCOME
         incomeCateData = {
-            weekly: [5, 15, 10, 25, 8, 4, 18, 9, 12],
-            monthly: [30, 40, 20, 50, 25, 10, 35, 15, 20],
-            yearly: [400, 500, 300, 450, 250, 150, 350, 200, 250],
-            labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
+
+            weekly: [5, 15, 10, 25, 8],
+            monthly: [30, 40, 20, 50, 25],
+            yearly: [400, 500, 300, 450, 250],
+            labels: ['Lương cứng', 'Kinh doanh', 'Part-time', 'Lương thưởng', 'Đầu tư-thu']
         };
 
         chartCateIncome = createCateChart(incomeCateData.weekly, incomeCateData.labels, null, 'chartCateIncome');
 
-        // Update charts on button click
-        function updateCharts(period) {
+        // Cập nhật chart khi chọn timeframe
+        function updateCateCharts(period) {
             chartCateOutcome = createCateChart(outcomeCateData[period], outcomeCateData.labels, chartCateOutcome, 'chartCateOutcome');
             chartCateIncome = createCateChart(incomeCateData[period], incomeCateData.labels, chartCateIncome, 'chartCateIncome');
         }
 
-
         //BIỂU ĐỒ QUÁ TRÌNH -----------------------------------------------------------------------------------------------------------    
         progress = {
             chart: {
-                height: 280,
+                height: 300,
                 type: "radialBar",
             },
             series: [67, 84, 70],
@@ -251,29 +273,34 @@
                     }
                 }
             },
-            labels: ['Mục tiêu thu nợ', 'Mục tiêu trả nợ', 'Mục tiêu kế hoạch']
+            labels: ['Thu nợ', 'Trả nợ', 'Kế hoạch'],
+            legend: {
+                show: true,
+                position: 'bottom',
+            }
         };
         new ApexCharts(document.querySelector("#progress"), progress).render();
 
 
-
+        //Khởi tạo hình thức chart ban đầu
+        updateChart('weekly', ' triệu');
 
         // Button click handlers
         $('#btn-weekly').on('click', function () {
             updateChart('weekly', ' triệu');
-            updateCharts('weekly');
+            updateCateCharts('weekly');
             setActiveButton($(this));
         });
 
         $('#btn-monthly').on('click', function () {
             updateChart('monthly', ' triệu');
-            updateCharts('monthly');
+            updateCateCharts('monthly');
             setActiveButton($(this));
         });
 
         $('#btn-yearly').on('click', function () {
             updateChart('yearly', ' tỉ');
-            updateCharts('yearly');
+            updateCateCharts('yearly');
             setActiveButton($(this));
         });
 

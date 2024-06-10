@@ -198,8 +198,8 @@
                 <div class="row bg-white rounded-4">
                     <div class="col-8 p-3">
                         <div class="fw-bold fs-5">Tiền vào tháng</div>
-                        <div class="fw-bolder fs-4">500.000đ</div>
-                        <div class=""><span class="text-success">+500</span> so với tháng trước</div>
+                        <div class="incomeMoney fw-bolder fs-4 text-info">200.000 ₫</div>
+                        <div><span class="text-success">+5%</span> so với tháng trước</div>
                     </div>
                     <div class="col-4 p-3">
                         <img src="../../img/Line-up.png" style="object-fit: fill; width: 65px; height: 65px;">
@@ -210,8 +210,8 @@
                 <div class="row bg-white rounded-4">
                     <div class="col-8 p-3">
                         <div class="fw-bold fs-5">Tiền ra tháng</div>
-                        <div class="fw-bolder fs-4">500.000đ</div>
-                        <div class=""><span class="text-warning">-500</span> so với tháng trước</div>
+                        <div class="outcomeMoney fw-bolder fs-4 text-danger">300.000 ₫</div>
+                        <div><span class="text-warning">-5%</span> so với tháng trước</div>
                     </div>
                     <div class="col-4 p-3">
                         <img src="../../img/Line-down.png" style="object-fit: fill; width: 65px; height: 65px;">
@@ -272,8 +272,8 @@
 <div class="modal fade modal-md" id="add-wallet" tabindex="-1" aria-labelledby="addWallet" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title fw-bold" id="addWallet">Tạo ví</h5>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title fw-bold text-light" id="addWallet">Tạo ví</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
@@ -308,14 +308,14 @@
 <div class="modal fade modal-md" id="modify-wallet" tabindex="-1" aria-labelledby="modifyWallet" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title fw-bold" id="modifyWallet">Sửa ví</h5>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title fw-bold text-light" id="modifyWallet">Sửa ví</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
                 <div>
                     <label for="modifyWalletName">Tên ví:</label>
-                    <input type="text" class="form-control" id="modifyWalletName" disabled>
+                    <input type="text" class="form-control" id="modifyWalletName">
                     <label for="modifyWalletMoney">Số tiền:</label>
                     <input type="text" class="form-control" id="modifyWalletMoney">
                     <label for="modifyWalletColor" class="form-label">Màu sắc:</label>
@@ -369,8 +369,8 @@
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModal">Bạn có chắc chắn muốn xóa ví không?</h5>
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light" id="confirmDeleteModal">Bạn có chắc chắn muốn xóa ví không?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
@@ -489,6 +489,7 @@
         ]
     };
     $(document).ready(function () {
+        //Hiển thị dữ liệu
         function showModalTransaction() {
             const transactionsForModal = Data.transactions;
             let transactionRowsModal = '';
@@ -511,7 +512,7 @@
                                 <div class="fs-6 d-flex justify-content-center">${transaction.wallet}</div>
                             </div>
                             <div class="col-2 mt-1">
-                                <div class="fs-6 d-flex justify-content-center">+${transaction.amount} đ</div>
+                                <div class="fs-6 d-flex justify-content-center text-danger">-${transaction.amount} đ</div>
                             </div>
                         </div>
                     `;
@@ -565,7 +566,7 @@
                                 <div class="fs-6 d-flex justify-content-center">${transaction.wallet}</div>
                             </div>
                             <div class="col-2">
-                                <div class="fs-6 d-flex justify-content-center">+${transaction.amount} đ</div>
+                                <div class="fs-6 d-flex justify-content-center text-danger">-${transaction.amount} đ</div>
                             </div>
                         </div>
                     `;
@@ -831,6 +832,12 @@
                 $('#allocated-to-wallet').val('')
                 $('#input-wallet-option').val('')
                 updateTotalMoney()
+
+                var incomeMoney = $(".incomeMoney").val()
+                incomeMoney += inputMoney
+                $(".incomeMoney").text(formatCurrency(incomeMoney))
+
+
                 alert("Phân bổ thành công")
                 // Hide the modal using Bootstrap's modal instance
                 var modal = bootstrap.Modal.getInstance(document.getElementsByClassName('allocate-money')[0]);
@@ -955,30 +962,35 @@
             //Lấy thông tin của ví cần sửa
             var walletItem = $(this).closest('.wallet-item');
             var walletName = walletItem.find('.wallet-name').text().trim()
-            var walletMoney = walletItem.find('.wallet-money').text().trim().replace('đ', '')
+            var walletMoney = walletItem.find('.wallet-money').text().trim()
             var walletColor = walletItem.css('background-color')
+
 
             //Set data cho field
             $('#modifyWalletName').val(walletName)
-            $('#modifyWalletMoney').val(walletMoney)
+            $('#modifyWalletMoney').val(parseCurrency(walletMoney))
             var codeColor = rgbToHex(walletColor)
             $('#modifyWalletColor').val(codeColor)
             $('#modifyColorCode').val(codeColor)
 
             $('#save-modify-btn').off('click').on('click', function () {
+                synchronizationColor($("#modifyWalletColor"), $("#colorCode"));
                 var newWalletName = $("#modifyWalletName").val();
                 var newWalletMoney = $("#modifyWalletMoney").val();
                 var newColorCode = $("#modifyColorCode").val();
                 var newWalletColor = $("#modifyWalletColor").val();
 
                 var validationResult = validateWalletInputs(newWalletName, newWalletMoney, newColorCode);
-                synchronizationColor($("#modifyWalletColor"), $("#colorCode"));
 
                 if (validationResult.isValid) {
                     walletItem.find('.wallet-name').text(newWalletName);
-                    walletItem.find('.wallet-money').text(newWalletMoney + 'đ');
-                    walletItem.css('background-color', newWalletColor);
+                    walletItem.find('.wallet-money').text(formatCurrency(newWalletMoney));
+                    walletItem.css('background-color', newColorCode);
+
                     $('#errorMessages').html('');
+
+                    updateTotalMoney();
+                    showWalletOptions();
 
                     var modal = bootstrap.Modal.getInstance(document.getElementById('modify-wallet'));
                     modal.hide();
@@ -987,8 +999,7 @@
                 }
             });
 
-            updateTotalMoney();
-            showWalletOptions();
+
         });
 
         function rgbToHex(rgb) {

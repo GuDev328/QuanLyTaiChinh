@@ -1,55 +1,67 @@
 <body>
     <div class="container">
-        <div class="fw-bold fs-4 text-center">Tổng Quan Dòng Tiền Hệ Thống</div>
-        <div class="row">
-            <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center mb-4">
-                <button id="btn-weekly" class="btn btn-1 btn-primary my-1">Tuần</button>
-                <button id="btn-monthly" class="btn btn-1 btn-secondary my-1">Tháng</button>
-                <button id="btn-yearly" class="btn btn-1 btn-secondary my-1">Năm</button>
-            </div>
-            <div id="chart" class="col-lg-11 bg-white rounded-3"></div>
+        <div class=" d-flex  justify-content-center align-item-center">
+            <button id="btn-weekly" class="btn btn-secondary mx-1">Tuần</button>
+            <button id="btn-monthly" class="btn btn-primary mx-1">Tháng</button>
+            <button id="btn-yearly" class="btn btn-secondary mx-1">Năm</button>
         </div>
+        <div class="fw-bold fs-4 text-center">Tổng Quan Dòng Tiền Hệ Thống</div>
+
+        <div id="chart" class="bg-white rounded-3"></div>
+
 
     </div>
     <div class="row ">
-        <!-- <div class="col-lg-6 mt-3">
-            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Danh Mục</div>
-            <div id="category-chart" class="bg-white rounded-3 p-4"></div>
-        </div> -->
-        <!-- <div class="col-lg-6 mt-3">
-            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Các Mục Lớn</div>
-            <div id="radar-chart" class="bg-white rounded-3"></div>
-        </div> -->
+
     </div>
     <div class="row">
-        <div class="col-lg-4 mt-3">
-            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Danh Mục</div>
-            <div id="category-chart" class="bg-white rounded-3 p-4"></div>
-        </div>
-        <div class="col-lg-4 mt-3">
+        <div class="col-lg-4 col-sm-12 mt-3">
             <div class="text-center fs-4 fw-bold">Tổng quá trình hệ thống</div>
             <div id="progress" class="rounded-3 bg-white"></div>
         </div>
-        <div class="col-lg-4 mt-3" style="height: 380px; overflow-y: hidden;">
-            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Các Mục Lớn</div>
-            <div id="radar-chart" class="bg-white rounded-3 "></div>
-        </div>
-    </div>
-    <!-- <div class="container mt-3">
-        <div class="fw-bold fs-4">Trực Quan Kế Hoạch</div>
-        <div class="mt-2 row">
-            <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center ">
-                <button id="btn-weekly2" class="btn btn-2 btn-secondary my-1">Tuần</button>
-                <button id="btn-monthly2" class="btn btn-2 btn-secondary my-1">Tháng</button>
-                <button id="btn-yearly2" class="btn btn-2 btn-secondary my-1">Năm</button>
+        <div class="col-lg-4 col-sm-12 mt-3">
+            <div class="fw-bold fs-4 text-center">Chi tiêu theo danh mục</div>
+            <div class="bg-white rounded-3">
+                <div class="text-center py-3 fs-5 fw-bold">Chi tiêu: <span class="totalOutcome text-danger"></span>
+                </div>
+                <div class="pb-4" id="chartCateOutcome"></div>
             </div>
-            <div id="achievement-chart" class="col-lg-11 bg-white rounded-3"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12 mt-3">
+            <div class="fw-bold fs-4 text-center">Thu nhập theo danh mục</div>
+            <div class="bg-white rounded-3">
+                <div class="text-center py-3 fs-5 fw-bold">Thu nhập: <span class="totalIncome text-info"></span>
+                </div>
+                <div class="pb-3" id="chartCateIncome"> </div>
+            </div>
         </div>
 
-    </div> -->
+    </div>
+    <div class="row">
+        <div class="col-lg-4 mt-3" style="height: 340px; overflow-y: hidden;">
+            <div class="text-center fs-4 fw-bold">Phương hướng chi tiêu</div>
+            <div id="radar-chart" class="bg-white rounded-3 "></div>
+        </div>
+        <div class="topUser col-lg-8 mt-3">
+            <div class="text-center fs-4 fw-bold">Top người dùng thu nhập cao nhất</div>
+            <ul class="list-group " id="top-income-users">
+
+            </ul>
+            <div class="text-center fs-4 fw-bold mt-3">Top người dùng chi tiêu nhiều nhất</div>
+            <ul class="list-group " id="top-expense-users">
+
+            </ul>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function () {
+            $(document).on('click', '.list-group-item', function (e) {
+                e.preventDefault();
+                var url = $(this).attr("href");
+                $("#page-content").load(url);
+            })
+
             //Mock data
             weeklyData = {
                 categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
@@ -67,6 +79,79 @@
                 totalExpense: [8000, 10000, 15000, 18000, 20000, 22000]
             };
 
+            topUsersData = {
+                weekly: {
+                    income: [
+                        { name: 'Phùng Quang Chiến', amount: 10 },
+                        { name: 'Phạm Tiến Đạt', amount: 9 },
+                        { name: 'Lê Quý Độ', amount: 8 }
+                    ],
+                    expense: [
+                        { name: 'Nguyễn Đức Chung', amount: 8 },
+                        { name: 'Lã Văn Đức', amount: 7 },
+                        { name: 'Nguyễn Khắc Cảnh', amount: 7 }
+                    ]
+                },
+                monthly: {
+                    income: [
+                        { name: 'Phùng Quang Chiến', amount: 100 },
+                        { name: 'Phạm Tiến Đạt', amount: 90 },
+                        { name: 'Lê Quý Độ', amount: 80 }
+                    ],
+                    expense: [
+                        { name: 'Nguyễn Đức Chung', amount: 80 },
+                        { name: 'Lã Văn Đức', amount: 70 },
+                        { name: 'Nguyễn Khắc Cảnh', amount: 70 }
+                    ]
+                },
+                yearly: {
+                    income: [
+                        { name: 'Phùng Quang Chiến', amount: 900 },
+                        { name: 'Phạm Tiến Đạt', amount: 800 },
+                        { name: 'Lê Quý Độ', amount: 700 }
+                    ],
+                    expense: [
+                        { name: 'Nguyễn Đức Chung', amount: 800 },
+                        { name: 'Lã Văn Đức', amount: 780 },
+                        { name: 'Nguyễn Khắc Cảnh', amount: 750 }
+                    ]
+                }
+            };
+
+            function updateTopUsers(type) {
+                const incomeUsers = topUsersData[type].income;
+                const expenseUsers = topUsersData[type].expense;
+
+                const topIncomeUsersElement = $('#top-income-users');
+                const topExpenseUsersElement = $('#top-expense-users');
+
+                topIncomeUsersElement.text('');
+                topExpenseUsersElement.text('');
+
+
+                incomeUsers.forEach(user => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a')
+                    a.className = 'list-group-item rounded-2';
+                    a.textContent = `${user.name}: ${user.amount} triệu`;
+                    a.style = 'cursor: pointer',
+                        a.href = './pages/Admin/ManageUsers.html'
+                    li.appendChild(a)
+                    topIncomeUsersElement.append(li);
+                });
+
+                expenseUsers.forEach(user => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a')
+                    a.className = 'list-group-item rounded-2';
+                    a.textContent = `${user.name}: ${user.amount} triệu`;
+                    a.style = 'cursor: pointer',
+                        a.href = './pages/Admin/ManageUsers.html'
+                    li.appendChild(a)
+                    topExpenseUsersElement.append(li);
+                });
+            }
+
             // Khởi tạo biểu đồ hiển thị tháng
             currentData = monthlyData;
 
@@ -75,6 +160,8 @@
                 return income.map((inc, index) => inc - expense[index]);
             }
 
+
+            //BIỂU ĐỒ TỔNG QUAN DÒNG TIỀN HỆ THỐNG
             // Cập nhật biểu đồ theo khung thời gian
             function updateChart(timeframe) {
                 if (timeframe === 'weekly') {
@@ -189,187 +276,91 @@
             chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
 
-            // Event listeners for the buttons
-            $('#btn-weekly').on('click', function () {
-                updateChart('weekly');
-                setActiveButton(this);
-            });
-
-            $('#btn-monthly').on('click', function () {
-                updateChart('monthly');
-                setActiveButton(this);
-            });
-
-            $('#btn-yearly').on('click', function () {
-                updateChart('yearly');
-                setActiveButton(this);
-            });
-
-            // Set active button style
-            function setActiveButton(button) {
-                document.querySelectorAll('.btn-1').forEach(btn => btn.classList.remove('btn-primary'));
-                document.querySelectorAll('.btn-1').forEach(btn => btn.classList.add('btn-secondary'));
-                button.classList.remove('btn-secondary');
-                button.classList.add('btn-primary');
+            //Tính toán tổng tiền
+            function calculateTotal(data) {
+                return data.reduce((sum, current) => sum + current, 0);
             }
 
+            //Cập nhật chart dựa vào timeframe
+            function updateTotalCate(data, lable) {
+                const totalIncome = calculateTotal(data.totalIncome);
+                const totalOutcome = calculateTotal(data.totalExpense);
+
+                console.log('totalIncome:', totalIncome)
+                $('.totalIncome').text(totalIncome + lable)
+                $('.totalOutcome').text(totalOutcome + lable)
+            }
 
             // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //Biểu đồ tổng quan danh mục
-            categoryData = {
-                labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục'],
-                series: [30, 15, 25, 10, 5, 5, 5, 3, 2] // Example percentages for each category
-            };
-
-            // Options for the donut chart
-            options2 = {
-                chart: {
-                    type: 'donut',
-                    height: 350
-                },
-                series: categoryData.series,
-                labels: categoryData.labels,
-                legend: {
-                    position: 'bottom'
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                            return val + '%';
-                        }
-                    }
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options2: {
-                        chart: {
-                            width: 300
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
-
-            // Render the chart
-            chart2 = new ApexCharts(document.querySelector("#category-chart"), options2);
-            chart2.render();
-
-            //--------------------------------------------------------------------------------------------------------------------------------------
-            const achievementData = {
-                weekly: {
-                    categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
-                    achieved: [80, 85, 90, 75],
-                    target: [100, 100, 100, 100]
-                },
-                monthly: {
-                    categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-                    achieved: [30, 35, 40, 45, 50, 55, 60, 65, 75, 80, 85, 95],
-                    target: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-                },
-                yearly: {
-                    categories: ['2020', '2021', '2022', '2023'],
-                    achieved: [60, 75, 80, 90],
-                    target: [100, 100, 100, 100]
-                }
-            };
-
-            // Function to update the achievement chart
-            function updateAchievementChart(period) {
-                const data = achievementData[period];
-                achievementChart.updateOptions({
-                    xaxis: {
-                        categories: data.categories
+            //BIỂU ĐỒ TỔNG QUAN DANH MỤC
+            function createCateChart(data, labels, chartCate, chartElementId) {
+                cateOptions = {
+                    chart: {
+                        type: 'donut',
+                        width: 380,
                     },
-                    series: [
-                        {
-                            name: 'Đạt Được',
-                            data: data.achieved
-                        },
-                        {
-                            name: 'Mục Tiêu',
-                            data: data.target
+                    series: data,
+                    labels: labels,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            legend: {
+                                position: 'bottom'
+                            }
                         }
-                    ]
-                });
+                    }]
+                };
+                if (chartCate) {
+                    chartCate.updateSeries(data);
+                } else {
+                    chartCate = new ApexCharts(document.querySelector(`#${chartElementId}`), cateOptions);
+                    chartCate.render();
+                }
+                return chartCate;
             }
 
-            // Options for the achievement chart
-            const achievementOptions = {
-                chart: {
-                    type: 'bar',
-                    height: 350
-                },
-                series: [
-                    {
-                        name: 'Đạt Được',
-                        data: achievementData.weekly.achieved
-                    },
-                    {
-                        name: 'Mục Tiêu',
-                        data: achievementData.weekly.target
-                    }
-                ],
-                xaxis: {
-                    categories: achievementData.weekly.categories
-                },
-                yaxis: {
-                    title: {
-                        text: 'Phần Trăm (%)'
-                    }
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                            return val + '%';
-                        }
-                    }
-                },
-                legend: {
-                    position: 'top'
-                }
+            // OUTCOME
+            outcomeCateData = {
+                weekly: [10, 20, 15, 30, 10, 5, 20, 10, 15],
+                monthly: [55, 55, 13, 43, 22, 14, 31, 9, 18],
+                yearly: [600, 700, 400, 500, 300, 200, 450, 250, 300],
+                labels: ['Ăn uống', 'Di chuyển', 'Thuê nhà', 'Đầu tư-chi', 'Hóa đơn internet', 'Sức khỏe', 'Thể dục thể thao', 'Làm đẹp', 'Giáo dục']
             };
 
-            // Render the achievement chart
-            const achievementChart = new ApexCharts(document.querySelector("#achievement-chart"), achievementOptions);
-            achievementChart.render();
+            chartCateOutcome = createCateChart(outcomeCateData.weekly, outcomeCateData.labels, null, 'chartCateOutcome');
 
-            // Event listeners for buttons
-            $('#btn-weekly2').on('click', function () {
-                updateAchievementChart('weekly');
-                setActiveButton2($(this));
-            });
+            // INCOME
+            incomeCateData = {
 
-            $('#btn-monthly2').on('click', function () {
-                updateAchievementChart('monthly');
-                setActiveButton2($(this));
-            });
+                weekly: [5, 15, 10, 25, 8],
+                monthly: [30, 40, 20, 50, 25],
+                yearly: [400, 500, 300, 450, 250],
+                labels: ['Lương cứng', 'Kinh doanh', 'Part-time', 'Lương thưởng', 'Đầu tư-thu']
+            };
 
-            $('#btn-yearly2').on('click', function () {
-                updateAchievementChart('yearly');
-                setActiveButton2($(this));
-            });
-            // Set active button style
-            function setActiveButton2(button) {
-                $('.btn-2').removeClass('btn-primary').addClass('btn-secondary');
-                button.removeClass('btn-secondary').addClass('btn-primary');
+            chartCateIncome = createCateChart(incomeCateData.weekly, incomeCateData.labels, null, 'chartCateIncome');
+
+            // Cập nhật chart khi chọn timeframe
+            function updateCateCharts(period) {
+                chartCateOutcome = createCateChart(outcomeCateData[period], outcomeCateData.labels, chartCateOutcome, 'chartCateOutcome');
+                chartCateIncome = createCateChart(incomeCateData[period], incomeCateData.labels, chartCateIncome, 'chartCateIncome');
             }
 
-            //Phân Tích Chi Tiêu Theo Các Mục Lớn--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            //BIỂU ĐỒ PHÂN TÍCH CHI TIÊU THEO MỤC LỚN--------------------------------------------------------------------------------------------------------------------------------------------------------------
             radarData = {
                 series: [{
                     name: 'Chi Tiêu Hàng Tháng',
                     data: [90, 60, 70, 40, 35]
                 }],
-                categories: ['Chi Tiêu Hàng Tháng', 'Chi Tiêu Cần Thiết', 'Đầu Tư & Nợ', 'Vui Chơi', 'Các Khoản Khác']
-            };
+                categories: ['Chi Tiêu Cần Thiết', 'Đầu Tư & Nợ', 'Vui Chơi', 'Chi Tiêu Hàng Tháng', 'Các Khoản Khác']
+            }
 
             // Options for the radar chart
             radarOptions = {
                 chart: {
                     type: 'radar',
-                    height: '380px',
+                    height: '350px',
                     toolbar: {
                         show: false
                     }
@@ -412,34 +403,72 @@
                 stroke: {
                     width: 2
                 }
-            };
+            }
 
             // Render the radar chart
             radarChart = new ApexCharts(document.querySelector("#radar-chart"), radarOptions);
             radarChart.render();
 
-        });
-
-        //BIỂU ĐỒ QUÁ TRÌNH HỆ THỐNG -------------------------------------------------------------------------------------------------
-        var progress = {
-            chart: {
-                height: 320,
-                type: "radialBar",
-            },
-            series: [67, 84, 70],
-            plotOptions: {
-                radialBar: {
-                    dataLabels: {
-                        total: {
-                            show: true,
-                            label: 'Target'
+            //BIỂU ĐỒ QUÁ TRÌNH HỆ THỐNG -------------------------------------------------------------------------------------------------------------------------------
+            var progress = {
+                chart: {
+                    height: 320,
+                    type: "radialBar",
+                },
+                series: [67, 84, 70],
+                plotOptions: {
+                    radialBar: {
+                        dataLabels: {
+                            total: {
+                                show: true,
+                                label: 'Target'
+                            }
                         }
                     }
+                },
+                labels: ['Mục tiêu thu nợ', 'Mục tiêu trả nợ', 'Mục tiêu kế hoạch'],
+                legend: {
+                    show: true,
+                    position: 'bottom',
                 }
-            },
-            labels: ['Mục tiêu thu nợ', 'Mục tiêu trả nợ', 'Mục tiêu kế hoạch']
-        };
-        new ApexCharts(document.querySelector("#progress"), progress).render();
+            }
+            new ApexCharts(document.querySelector("#progress"), progress).render();
+
+            //Dữ liệu khởi tạo khi load trang
+            updateTopUsers('monthly');
+            updateTotalCate(monthlyData, ' triệu');
+
+            $('#btn-weekly').on('click', function () {
+                updateChart('weekly');
+                updateCateCharts('weekly')
+                updateTotalCate(weeklyData, ' triệu');
+                updateTopUsers('weekly');
+                setActiveButton($(this));
+            });
+
+            $('#btn-monthly').on('click', function () {
+                updateChart('monthly');
+                updateCateCharts('monthly');
+                updateTotalCate(monthlyData, ' tỉ');
+                updateTopUsers('monthly');
+                setActiveButton($(this));
+            });
+
+            $('#btn-yearly').on('click', function () {
+                updateChart('yearly');
+                updateCateCharts('yearly');
+                updateTotalCate(yearlyData, ' tỉ');
+                updateTopUsers('yearly');
+                setActiveButton($(this));
+            });
+
+            // Set active button style
+            function setActiveButton(button) {
+                $('.btn').removeClass('btn-primary').addClass('btn-secondary');
+                button.removeClass('btn-secondary').addClass('btn-primary');
+            }
+        })
+
     </script>
 </body>
 
