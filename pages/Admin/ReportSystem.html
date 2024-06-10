@@ -1,6 +1,6 @@
 <body>
     <div class="container">
-        <div class="fw-bold fs-4">Tổng Quan Dòng Tiền Hệ Thống</div>
+        <div class="fw-bold fs-4 text-center">Tổng Quan Dòng Tiền Hệ Thống</div>
         <div class="row">
             <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center mb-4">
                 <button id="btn-weekly" class="btn btn-1 btn-primary my-1">Tuần</button>
@@ -12,16 +12,30 @@
 
     </div>
     <div class="row ">
-        <div class="col-lg-6 mt-3">
+        <!-- <div class="col-lg-6 mt-3">
+            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Danh Mục</div>
+            <div id="category-chart" class="bg-white rounded-3 p-4"></div>
+        </div> -->
+        <!-- <div class="col-lg-6 mt-3">
+            <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Các Mục Lớn</div>
+            <div id="radar-chart" class="bg-white rounded-3"></div>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-lg-4 mt-3">
             <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Danh Mục</div>
             <div id="category-chart" class="bg-white rounded-3 p-4"></div>
         </div>
-        <div class="col-lg-6 mt-3">
+        <div class="col-lg-4 mt-3">
+            <div class="text-center fs-4 fw-bold">Tổng quá trình hệ thống</div>
+            <div id="progress" class="rounded-3 bg-white"></div>
+        </div>
+        <div class="col-lg-4 mt-3" style="height: 380px; overflow-y: hidden;">
             <div class="text-center fs-4 fw-bold">Phân Tích Chi Tiêu Theo Các Mục Lớn</div>
-            <div id="radar-chart" class="bg-white rounded-3"></div>
+            <div id="radar-chart" class="bg-white rounded-3 "></div>
         </div>
     </div>
-    <div class="container mt-3">
+    <!-- <div class="container mt-3">
         <div class="fw-bold fs-4">Trực Quan Kế Hoạch</div>
         <div class="mt-2 row">
             <div class="col-lg-1 d-flex flex-column justify-content-center align-item-center ">
@@ -32,7 +46,7 @@
             <div id="achievement-chart" class="col-lg-11 bg-white rounded-3"></div>
         </div>
 
-    </div>
+    </div> -->
 
     <script>
         $(document).ready(function () {
@@ -342,8 +356,7 @@
                 button.removeClass('btn-secondary').addClass('btn-primary');
             }
 
-            //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-            // Data for radar chart
+            //Phân Tích Chi Tiêu Theo Các Mục Lớn--------------------------------------------------------------------------------------------------------------------------------------------------------------
             radarData = {
                 series: [{
                     name: 'Chi Tiêu Hàng Tháng',
@@ -356,7 +369,10 @@
             radarOptions = {
                 chart: {
                     type: 'radar',
-                    height: 350
+                    height: '380px',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 series: radarData.series,
                 labels: radarData.categories,
@@ -386,6 +402,15 @@
                     hover: {
                         size: 7
                     }
+                },
+                grid: {
+                    padding: {
+                        left: 0,
+                        right: 0
+                    }
+                },
+                stroke: {
+                    width: 2
                 }
             };
 
@@ -395,6 +420,26 @@
 
         });
 
+        //BIỂU ĐỒ QUÁ TRÌNH HỆ THỐNG -------------------------------------------------------------------------------------------------
+        var progress = {
+            chart: {
+                height: 320,
+                type: "radialBar",
+            },
+            series: [67, 84, 70],
+            plotOptions: {
+                radialBar: {
+                    dataLabels: {
+                        total: {
+                            show: true,
+                            label: 'Target'
+                        }
+                    }
+                }
+            },
+            labels: ['Mục tiêu thu nợ', 'Mục tiêu trả nợ', 'Mục tiêu kế hoạch']
+        };
+        new ApexCharts(document.querySelector("#progress"), progress).render();
     </script>
 </body>
 
