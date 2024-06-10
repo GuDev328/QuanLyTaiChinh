@@ -150,6 +150,449 @@
 </style>
 <script>
     $(document).ready(function(){
+      var planDataList = []
+      function resetData() {
+        planDataList = [
+            {
+                avt: "../../img/Avt/avt1.jpg",
+                name: "Phạm Đạt",
+                email: "dat@gmail.com",
+                phoneNumber: "0987654321",
+                birthday: "12/12/2000",
+                gender: "Nam",
+                status: "Online",
+                address: "Nguyên Xá, Đống Đa, Hà Nội",
+                imgPlan: "../../img/Icon/icon_12.png",
+                plan: "Mua xe hơi",
+                current: 1200000000,
+                numberPlan: 2,
+                goal: 1500000000,
+                startDay: "01/01/2022",
+                goalDay: "12/12/2023",
+                description: "Muốn mua một chiếc xe hơi mới để tiện đi lại và phục vụ công việc."
+            },
+            {
+                avt: "../../img/Avt/avt2.jpg",
+                name: "Phùng Chiến",
+                email: "chien@gmail.com",
+                phoneNumber: "0662554321",
+                birthday: "12/12/2000",
+                gender: "Nam",
+                status: "Offline",
+                address: "Minh Khai, Thanh Xuân, Hà Nội",
+                imgPlan: "../../img/Icon/icon_29.png",
+                plan: "Mua nhà",
+                current: 500000000,
+                numberPlan: 3,
+                goal: 3000000000,
+                startDay: "01/02/2023",
+                goalDay: "12/12/2026",
+                description: "Mong muốn mua một căn nhà ở trung tâm Hà Nội để ổn định cuộc sống."
+            },
+            {
+                avt: "../../img/Avt/avt3.jpg",
+                name: "Lê Độ",
+                email: "do@gmail.com",
+                phoneNumber: "0987654321",
+                birthday: "12/12/2000",
+                gender: "Nam",
+                status: "Online",
+                address: "Nguyên Xá, Đống Đa, Hà Nội",
+                imgPlan: "../../img/Icon/icon_49.png",
+                plan: "Vui-chơi, Du Lịch",
+                current: 500000000,
+                goal: 1000000000,
+                numberPlan: 4,
+                startDay: "01/03/2024",
+                goalDay: "12/12/2026",
+                description: "Đang tiết kiệm để có chuyến du lịch dài ngày với gia đình."
+            },
+            {
+                avt: "../../img/Avt/avt1.jpg",
+                name: "Nguyễn An",
+                email: "an@gmail.com",
+                phoneNumber: "0909090909",
+                birthday: "01/01/1990",
+                gender: "Nam",
+                status: "Offline",
+                address: "Láng Hạ, Ba Đình, Hà Nội",
+                imgPlan: "../../img/Icon/icon_23.png",
+                plan: "Mua đất",
+                current: 200000000,
+                goal: 1000000000,
+                numberPlan: 5,
+                startDay: "01/04/2025",
+                goalDay: "01/01/2024",
+                description: "Đang lên kế hoạch mua một mảnh đất ngoại ô để xây nhà."
+            },
+            {
+                avt: "../../img/Avt/avt2.jpg",
+                name: "Trần Bích",
+                email: "bich@gmail.com",
+                phoneNumber: "0919191919",
+                birthday: "02/02/1985",
+                gender: "Nữ",
+                status: "Offline",
+                address: "Kim Mã, Ba Đình, Hà Nội",
+                imgPlan: "../../img/Icon/icon_63.png",
+                plan: "Làm đẹp",
+                current: 50000000,
+                goal: 200000000,
+                numberPlan: 6,
+                startDay: "01/05/2021",
+                goalDay: "02/02/2025",
+                description: "Đang tiết kiệm tiền để làm đẹp và chăm sóc bản thân."
+            },
+            {
+                avt: "../../img/Avt/avt3.jpg",
+                name: "Hoàng Cường",
+                email: "cuong@gmail.com",
+                phoneNumber: "0929292929",
+                birthday: "03/03/1995",
+                gender: "Nam",
+                address: "Hoàng Hoa Thám, Tây Hồ, Hà Nội",
+                imgPlan: "../../img/Icon/icon_13.png",
+                plan: "Mua xe máy",
+                current: 200000000,
+                goal: 500000000,
+                status: "Offline",
+                numberPlan: 9,
+                startDay: "01/06/2022",
+                goalDay: "03/03/2025",
+                description: "Đang lên kế hoạch mua một chiếc xe máy mới để đi làm hàng ngày."
+            },
+            // {
+            //     avt: "../../img/Avt/avt1.jpg",
+            //     name: "Phạm Minh Dũng",
+            //     email: "phamminhdung@gmail.com",
+            //     phoneNumber: "0939393939",
+            //     birthday: "04/04/1992",
+            //     gender: "Nam",
+            //     address: "Thái Hà, Đống Đa, Hà Nội",
+            //     imgPlan: "../../Icon/icon_1.png",
+            //     plan: "Quà tặng",
+            //     current: 10000000,
+            //     goal: 50000000,
+            //     numberPlan: 2,
+            //     startDay: "01/07/2023",
+            //     goalDay: "25/12/2024",
+            //     description: "Dự định mua quà tặng cho gia đình và bạn bè vào dịp lễ cuối năm."
+            // }
+            // {
+            //     avt: "../../img/Avt/avt2.jpg",
+            //     name: "Nguyễn Thị Nga",
+            //     email: "nguyenthinga@gmail.com",
+            //     phoneNumber: "0949494949",
+            //     birthday: "05/05/1987",
+            //     gender: "Nữ",
+            //     address: "Đê La Thành, Ba Đình, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_23.png",
+            //     plan: "Mua đất",
+            //     current: 1500000000,
+            //     goal: 5000000000,
+            //     numberPlan: 2,
+            //     startDay: "01/08/2022",
+            //     goalDay: "05/05/2027",
+            //     description: "Muốn mua một mảnh đất ở ngoại ô để đầu tư và xây dựng nhà nghỉ dưỡng."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt3.jpg",
+            //     name: "Lê Văn Hoàng",
+            //     email: "levanhoang@gmail.com",
+            //     phoneNumber: "0959595959",
+            //     birthday: "06/06/1980",
+            //     gender: "Nam",
+            //     address: "Cầu Giấy, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_29.png",
+            //     plan: "Mua nhà",
+            //     current: 3000000000,
+            //     goal: 10000000000,
+            //     numberPlan: 6,
+            //     startDay: "01/09/2023",
+            //     goalDay: "06/06/2028",
+            //     description: "Đang tích góp tiền để xây dựng một ngôi nhà lớn cho gia đình và con cái."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt1.jpg",
+            //     name: "Phan Thị Hồng",
+            //     email: "phanthihong@gmail.com",
+            //     phoneNumber: "0969696969",
+            //     birthday: "07/07/1985",
+            //     gender: "Nữ",
+            //     address: "Trung Hòa, Cầu Giấy, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_107.png",
+            //     plan: "Đồ gia dụng",
+            //     current: 50000000,
+            //     goal: 300000000,
+            //     numberPlan: 10,
+            //     startDay: "01/10/2021",
+            //     goalDay: "07/07/2025",
+            //     description: "Đang có kế hoạch mua sắm các đồ gia dụng mới cho gia đình."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt2.jpg",
+            //     name: "Vũ Quang Hải",
+            //     email: "vuquanghai@gmail.com",
+            //     phoneNumber: "0979797979",
+            //     birthday: "08/08/1990",
+            //     gender: "Nam",
+            //     address: "Nguyễn Chí Thanh, Đống Đa, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_41.png",
+            //     plan: "Đồ dùng cá nhân",
+            //     current: 20000000,
+            //     numberPlan: 7,
+            //     goal: 100000000,
+            //     startDay: "01/11/2022",
+            //     goalDay: "08/08/2025",
+            //     description: "Đang chuẩn bị tiền để mua các đồ dùng cá nhân mới."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt3.jpg",
+            //     name: "Trần Văn Bình",
+            //     email: "tranvanbinh@gmail.com",
+            //     phoneNumber: "0989898989",
+            //     birthday: "09/09/1995",
+            //     gender: "Nam",
+            //     address: "Phạm Hùng, Cầu Giấy, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_12.png",
+            //     plan: "Mua ô tô",
+            //     current: 600000000,
+            //     goal: 2000000000,
+            //     numberPlan: 4,
+            //     startDay: "01/12/2023",
+            //     goalDay: "09/09/2026",
+            //     description: "Muốn mua một chiếc ô tô mới để thuận tiện cho việc đi lại và công việc."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt1.jpg",
+            //     name: "Hoàng Thị Lan",
+            //     email: "hoangthilan@gmail.com",
+            //     phoneNumber: "0999999999",
+            //     birthday: "10/10/1988",
+            //     gender: "Nữ",
+            //     address: "Láng Thượng, Đống Đa, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_63.png",
+            //     plan: "Làm đẹp",
+            //     current: 30000000,
+            //     goal: 200000000,
+            //     numberPlan: 5,
+            //     startDay: "01/01/2022",
+            //     goalDay: "10/10/2025",
+            //     description: "Đang tiết kiệm tiền để làm đẹp và chăm sóc bản thân."
+            // },
+            // {
+            //     avt: "../../img/Avt/avt2.jpg",
+            //     name: "Nguyễn Văn Kiên",
+            //     email: "nguyenvankien@gmail.com",
+            //     phoneNumber: "0910101010",
+            //     birthday: "11/11/1980",
+            //     gender: "Nam",
+            //     address: "Nguyễn Trãi, Thanh Xuân, Hà Nội",
+            //     imgPlan: "../../img/Icon/icon_22.png",
+            //     plan: "Khác",
+            //     current: 2000000000,
+            //     goal: 6000000000,
+            //     numberPlan: 4,
+            //     startDay: "01/02/2023",
+            //     goalDay: "11/11/2027",
+            //     description: "Muốn mua một căn nhà để cho thuê và kiếm thêm thu nhập."
+            // }
+        ]
+    }
+    var indexSelected = 0
+    resetData();
+    function loadData() {
+      $(".tbody").html("");
+      planDataList.map(function (item, index) {
+                  const percent = Math.floor((item.current * 1.0 / item.goal) * 100)
+                  if(item.status == "Online") {
+                    $(".tbody").append(`
+                    <tr>
+                      <th scope="row">
+                        <img src="${item.avt}" alt="" class="rounded-circle table-img" style="height: 40px; width: 40px;">
+                      </th>
+                      <td class="name align-middle">${item.name}</td>
+                      <td class="email align-middle">${item.email}</td>
+                      <td class="col_gender align-middle">${item.gender}</td>
+                      <td class="status align-middle">
+                          <div class="d-flex align-items-center">
+                          <div class="rounded-circle bg-success online mx-1"></div>
+                          <span>${item.status}</span>
+                        </div>
+                      </td>
+                      <td class="col_plan align-middle">${item.numberPlan}</td>
+                      <td class="col_money align-middle">${new Intl.NumberFormat('en-US').format(item.goal) + 'đ'}</td>
+                      <td class="align-middle">
+                        <button type="button" class="border-0 bg-white info-btn index${index}" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                          <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
+                        </button>
+                        <button type="button" class="edit-btn border-0 bg-white index${index}" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                        </button>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete index${index}" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
+                      </td>
+                    </tr>
+                  `);
+                  } else {
+                    $(".tbody").append(`
+                    <tr>
+                      <th scope="row">
+                        <img src="${item.avt}" alt="" class="rounded-circle table-img" style="height: 40px; width: 40px;">
+                      </th>
+                      <td class="name align-middle">${item.name}</td>
+                      <td class="email align-middle">${item.email}</td>
+                      <td class="col_gender align-middle">${item.gender}</td>
+                      <td class="status align-middle">
+                          <div class="d-flex align-items-center">
+                          <div class="rounded-circle bg-danger online mx-1"></div>
+                          <span>${item.status}</span>
+                        </div>
+                      </td>
+                      <td class="col_plan align-middle">${item.numberPlan}</td>
+                      <td class="col_money align-middle">${new Intl.NumberFormat('en-US').format(item.goal) + 'đ'}</td>
+                      <td class="align-middle">
+                        <button type="button" class="border-0 bg-white info-btn index${index}" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                          <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
+                        </button>
+                        <button type="button" class="edit-btn border-0 bg-white index${index}" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                          <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
+                        </button>
+                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete index${index}" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
+                      </td>
+                    </tr>
+                  `);
+                  }
+              })
+    }
+    loadData();
+    $(".tbody").on("click", ".info-btn", function () {
+            let classOfPlanSelected = $(this).attr("class")
+            indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
+            percent = Math.floor((planDataList[indexSelected].current / planDataList[indexSelected].goal) * 100)
+            $(".userDetail").html("")
+            $(".userDetail").append(`
+                <form action="#" id="myFormInfo">
+                        <div class="card imgholder rounded-circle">
+                          <label for="imgInput" class="upload">
+                            <input type="file" name="" id="imgInput" class="picture">
+                            <i class="fa fa-plus-circle"></i>
+                          </label>
+                          <img src="${planDataList[indexSelected].avt}" alt="" width="200" height="200" class="img rounded-circle infoImg">
+                        </div>
+                        <div class="inputField" style="padding-left: 15px;flex-basis: 40%;">
+                          <p><b>Họ tên:</b> <span class="name">${planDataList[indexSelected].name}</span></p>
+                          <p><b>Email:</b> <span class="email">${planDataList[indexSelected].email}</span></p>
+                          <p><b>Giới tính:</b> <span class="gender">${planDataList[indexSelected].gender}</span></p>
+                          
+                          <p><b>Số điện thoại:</b> <span class="phoneNumber">${planDataList[indexSelected].phoneNumber}</span> </p>
+                          <p><b>Địa chỉ:</b> <span class="address">${planDataList[indexSelected].address}</span></p>
+                        </div>
+                        <div class="col-lg-3 col-sm-3">
+                          <div class="p-3 rounded-4" style="background-color: #97BE5A;">
+                              <div class="row">
+                                  <div class="total-money col-8 fs-5 fw-bold text-light">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].goal) + 'đ'}</div>
+                                  
+                              </div>
+                              <div class="fs-6 mt-2 text-light">Tổng số tiền</div>
+                          </div>
+                          <br>
+                          <br>
+                          <div class="p-3 rounded-4" style="background-color: #01BEFE;">
+                            <div class="row">
+                                <div class="plan-money col-8 fs-5 fw-bold text-light">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].current) + 'đ'}</div>
+                                
+                            </div>
+                            <div class="fs-6 mt-2 text-light">Tiền trong kế hoạch</div>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="col-lg-12 col-sm-12 bg-white rounded-4 p-3 mb-2">
+                        <div class="row d-flex mb-2">
+                            <div class="col-4 fw-bold fs-4">Kế hoạch chi tiêu</div>
+                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Hiện tại</div>
+                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Mục tiêu</div>
+                            <div class="col-2 fw-bold fs-6 d-flex align-items-center justify-content-center">Hoàn thành</div>
+                        </div>
+                        <hr>
+                        <div class="plans-list">
+                            <div class="row d-flex mt-2">
+                                <div class="col-4 d-flex align-items-center justify-content-start">
+                                    <div class="icon me-3">
+                                        <img src="../../img/Icon/NhaO.png" alt="" style="width: 50px;height: 50px;">
+                                    </div>
+                                    <div class="info">
+                                        <div class="fw-bold">
+                                            ${planDataList[indexSelected].plan}
+                                        </div>
+                                        <div class="text-info fs-7">
+                                            Đến tháng 9 năm 2030
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-center">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].current) + 'đ'}</div>
+                                <div class="col-3 text-center">${new Intl.NumberFormat('en-US').format(planDataList[indexSelected].goal) + 'đ'}</div>
+                                <div class="col-2 text-center">${percent}%</div>
+                            </div>
+
+                          </div>
+                        </div>
+            
+                    </div>
+                `)
+          })
+
+          $(".tbody").on("click", ".edit-btn", function () {
+            let classOfPlanSelected = $(this).attr("class")
+            indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
+            percent = Math.floor((planDataList[indexSelected].current / planDataList[indexSelected].goal) * 100)
+            $(".userEdit").html("")
+            $(".userEdit").append(`
+                        <form action="#" id="myFormEdit">
+  
+                          <div class="card imgholder rounded-circle">
+                              <label for="imgInput" class="upload">
+                                  <input type="file" name="" id="imgInput">
+                                  <i class="fa fa-plus-circle"></i>
+                              </label>
+                              <img src="${planDataList[indexSelected].avt}" alt="" width="200" height="200" class="img rounded-circle editImg">
+                          </div>
+  
+                          <div class="inputField">
+                            <div>
+                              <label for="editName">Họ tên:</label>
+                              <input type="text" id="editName" required value="${planDataList[indexSelected].name}">
+                            </div>
+                            <div>
+                              <label for="editEmail">Email:</label>
+                              <input type="email" id="editEmail" required value="${planDataList[indexSelected].email}">
+                            </div>
+                            <div>
+                              <label for="editGender">Giới tính: </label>
+                              <input type="text" id="editGender" required value="${planDataList[indexSelected].gender}">
+                            </div>
+                            <div>
+                              <label for="editPhone">Số điện thoại:</label>
+                              <input type="text" id="editPhone" required value="${planDataList[indexSelected].phoneNumber}">
+                            </div>
+                            <div>
+                              <label for="editAddress">Địa chỉ:</label>
+                              <input type="text" id="editAddress" required value="${planDataList[indexSelected].address}">
+                            </div>
+                            <div>
+                              <label for="editPassword">Mật khẩu:</label>
+                              <input type="password" id="editPassword" required value="${planDataList[indexSelected].phoneNumber}">
+                            </div>
+                          </div>
+                          
+                      </form>
+            `)
+          })
+
+
+
+
+
+
 
       //Tìm kiếm người dùng
         $(".btn_search_user").click(function() {
@@ -167,19 +610,20 @@
         })
         //Xóa người dùng
         
-          var rowToDelete;
-          $('.delete').on('click', function() {
-            rowToDelete = $(this).closest('tr');
-            console.log(rowToDelete)
-          });
 
-          $('.confirmDelete').on('click', function() {
-            if (rowToDelete) {
-              rowToDelete.remove();
-              rowToDelete = null;
-            }
-          });
+        $('.tbody').on("click", ".delete", function(){
+            let classOfPlanSelected = $(this).attr("class")
+             indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)  
+             selectedPlanToInMoney = indexSelected
+             
+        })
 
+        $(".confirmDelete").click(function(){
+            
+            planDataList.splice(indexSelected,1)
+            loadData()
+            $("#deletePlanModal").modal("hide")
+        })
       //Bộ lọc tổng tiền
       $(".filter_btn").click(function() {
         var money_min = parseInt($(".money_min").val());
@@ -280,136 +724,99 @@
         });
       
 
-        //Hiển thị thông tin người dùng qua modal
-        $('.info-btn').on('click', function() {
-          let row = $(this).closest('tr');
-          let imgUrl = row.find('.table-img').attr('src');
-          let name = row.find('.name').text();
-          let email = row.find('.email').text();
-          let gender = row.find('.col_gender').text();
-          // let plan = row.find('.col_plan').text();
-          // let money = row.find('.col_money').text();
-
-          $('.infoImg').attr('src',imgUrl);
-          $('#infoName').text(name);
-          $('#infoEmail').text(email);
-          $('#infoGender').text(gender);
-          $('#infoPlan').val(plan);
-          $('#infoMoney').val(money);
-        });
-
 
 
         // Sủa thông tin người dùng
+        let currentRow;
         $('.edit-btn').on('click', function() {
-          let row = $(this).closest('tr');
-          let imgUrl = row.find('.table-img').attr('src');
-          let name = row.find('.name').text();
-          let email = row.find('.email').text();
-          let gender = row.find('.col_gender').text();
-          let plan = row.find('.col_plan').text();
-          let money = row.find('.col_money').text();
-          
-          // Điền thông tin vào modal
-          $('.editImg').attr('src',imgUrl);
-          $('#editName').val(name);
-          $('#editEmail').val(email);
-          $('#editGender').val(gender);
-          $('#editPlan').val(plan);
-          $('#editMoney').val(money);
+              currentRow = $(this).closest('tr');
         });
         $(".submit").click(function(event) {
+        
+          // Event listener for the edit button to track the current row
+          
+          let classOfPlanSelected = $(this).attr("class")
+              indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
+              selectedPlanToInMoney = indexSelected
+
           event.preventDefault(); // Ngăn chặn form submit mặc định
           //let imgUrl = $('.editImg').attr('src');
           let name = $('#editName').val();
           let email = $('#editEmail').val();
           let gender = $('#editGender').val();
-          let plan = $('#editPlan').val();
-          let money = $('#editMoney').val();
+          let phoneNumber = $('#editPhone').val();
+          let address = $('#editAddress').val();
+          let password = $('#editPassword').val();
           // Ghi lại các thay đổi vào bảng
-          let row = $(this).closest('tr');
-          // row.find('.table-img').attr('src',imgUrl);
-          row.find('.name').text(name);
-          row.find('.email').text(email);
-          row.find('.col_gender').text(gender);
-          row.find('.col_plan').text(plan);
-          row.find('.col_money').text(money);
+          currentRow.find('.name').text(name);
+          currentRow.find('.email').text(email);
+          currentRow.find('.col_gender').text(gender);
 
           // Đóng modal
           $('#modalEdit').modal('hide');
         })
-        var currentRow;
-
-        $('.edit-btn').on('click', function() {
-          currentRow = $(this).closest('tr');
-        });
+        
         $('#imgInput').on('change', function() {
-          if (this.files && this.files[0]) {
-            var reader = new FileReader();
+        if (this.files && this.files[0]) {
+            let reader = new FileReader();
             reader.onload = function(e) {
-              $('.editImg').attr('src', e.target.result);
-              currentRow.find('.table-img').attr('src', e.target.result);
-            }
+                $('.editImg').attr('src', e.target.result);
+                currentRow.find('.table-img').attr('src', e.target.result);
+            };
             reader.readAsDataURL(this.files[0]);
-          }
+        }
+        });
+
+        // Event listener for new image upload to update the image preview
+        $('#newUploadImg').on('change', function() {
+            if (this.files && this.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.new-img').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
         });
 
 
 
 
-        $('#newUploadImg').on('change', function() {
-        if (this.files && this.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-            $('.new-img').attr('src', e.target.result);
-          }
-          reader.readAsDataURL(this.files[0]);
-        }
-      });
 
       // Add new user to the table
       $('.createUserBtn').on('click', function(event) {
         event.preventDefault();
-        var name = $('.newName').val();
-        var email = $('.newEmail').val();
-        var gender = $('.newGender').val();
-        var plan = $('.newPlan').val();
-        var money = $('.newMoney').val();
-        var newmoney = parseInt(money.replace(/,/g, ''), 10).toLocaleString('en') + 'đ';
-        var imgSrc = $('.new-img').attr('src');
-
-        var newRow = `
-          <tr>
-            <th scope="row">
-              <img src="${imgSrc}" alt="" class="rounded-circle table-img" style="height: 40px; width: 40px;">
-            </th>
-            <td class="name align-middle">${name}</td>
-            <td class="email align-middle">${email}</td>
-            <td class="col_gender align-middle">${gender}</td>
-            <td class="status align-middle">
-                <div class="d-flex align-items-center">
-                <div class="rounded-circle bg-success online mx-1"></div>
-                <span>Online</span>
-              </div>
-            </td>
-            <td class="col_plan align-middle">0</td>
-            <td class="col_money align-middle">0</td>
-            <td class="align-middle">
-              <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-              </button>
-              <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-              </button>
-                <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-            </td>
-          </tr>
-        `;
-
-        $('#myTable').append(newRow);
+        let row = $(this).closest('tr');
+        let name = $('.newName').val();
+        let email = $('.newEmail').val();
+        let gender = $('.newGender').val();
+        let plan = $('.newPlan').val();
+        let phoneNumber = $('.newphoneNumber').val();
+        let address = $('.newAddress').val();
+        let imgSrc = $('.new-img').attr('src');
+        planDataList.push({
+                avt: imgSrc,
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                birthday: "01/11/2003",
+                gender: gender,
+                status: "Online",
+                address: address,
+                imgPlan: "",
+                plan: "",
+                current: 0,
+                goal: 0,
+                numberPlan: 0,
+                startDay: "01/06/2022",
+                goalDay: "03/03/2025",
+                description: "Đang lên kế hoạch mua một chiếc xe máy mới để đi làm hàng ngày."
+        })
+      
+        
         $('#addUserModal').modal('hide');
         $('#addUserForm')[0].reset();
         $('.new-img').attr('src', '../../img/default.png');
+        loadData()
       });
 
 
@@ -481,27 +888,27 @@
                         <div class="inputField">
 
                           <div class="form-floating mb-3">
-                              <input type="name" class="form-control newName" id="floatingInput" placeholder="Tên danh mục">
+                              <input type="name" class="form-control newName" placeholder="Tên danh mục">
                               <label for="floatingInput">Họ tên</label>
                           </div>
                           <div class="form-floating mb-3">
-                              <input type="name" class="form-control newEmail" id="floatingInput" placeholder="Tên danh mục">
+                              <input type="name" class="form-control newEmail" placeholder="Tên danh mục">
                               <label for="floatingInput">Email</label>
                           </div>
                           <div class="form-floating mb-3">
-                              <input type="name" class="form-control newGender" id="floatingInput" placeholder="Tên danh mục">
+                              <input type="name" class="form-control newGender" placeholder="Tên danh mục">
                               <label for="floatingInput">Giới tính</label>
                           </div>
                           <div class="form-floating mb-3">
-                            <input type="name" class="form-control newPlan" id="floatingInput" placeholder="Tên danh mục">
+                            <input type="name" class="form-control newphoneNumber" placeholder="Tên danh mục">
                             <label for="floatingInput">Số điện thoại</label>
                           </div>
                           <div class="form-floating mb-3">
-                            <input type="name" class="form-control newMoney" id="floatingInput" placeholder="Tên danh mục">
+                            <input type="name" class="form-control newAddress" placeholder="Tên danh mục">
                             <label for="floatingInput">Địa chỉ</label>
                           </div>
                           <div class="form-floating mb-3">
-                            <input type="password" class="form-control newPassword" id="floatingInput" placeholder="Tên danh mục">
+                            <input type="password" class="form-control newPassword" placeholder="Tên danh mục">
                             <label for="floatingInput">Mật khẩu</label>
                           </div>
                         </div>
@@ -515,8 +922,6 @@
                 </div>
               </div>
 
-
-
               <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
@@ -524,102 +929,8 @@
                       <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Thông tin người dùng</h1>
                       <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                      <form action="#" id="myFormInfo">
-                        <div class="card imgholder rounded-circle">
-                          <label for="imgInput" class="upload">
-                            <input type="file" name="" id="uploadimg" class="picture">
-                            <i class="fa fa-plus-circle"></i>
-                          </label>
-                          <img src="" alt="" width="200" height="200" class="img rounded-circle infoImg">
-                        </div>
-                        <div class="inputField" style="padding-left: 15px;flex-basis: 40%;">
-                          <p><b>Họ tên:</b> <span id="infoName"></span></p>
-                          <p><b>Email:</b> <span id="infoEmail"></span></p>
-                          <p><b>Giới tính:</b> <span id="infoGender"></span></p>
-                          <p><b>Ngày sinh:</b> <span id="infoBirthday"></span></p>
-                          <p><b>Số điện thoại:</b> <span id="infoPhone"></span></p>
-                          <p><b>Địa chỉ:</b> <span id="infoAddress"></span></p>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                          <div class="p-3 rounded-4" style="background-color: #97BE5A;">
-                              <div class="row">
-                                  <div class="total-money col-8 fs-5 fw-bold text-light">9.100.000đ</div>
-                                  <div class="col-4">
-                                      <div class="change-percent-total d-flex align-items-center justify-content-center rounded-3"
-                                          style="background-color: #F9F9E0;">
-                                          +2.5%
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="fs-6 mt-2 text-light">Tổng số tiền</div>
-                          </div>
-                          <br>
-                          <br>
-                          <div class="p-3 rounded-4" style="background-color: #01BEFE;">
-                            <div class="row">
-                                <div class="plan-money col-8 fs-5 fw-bold text-light">2.100.000 ₫</div>
-                                <div class="col-4">
-                                    <div class="change-percent-plan d-flex align-items-center justify-content-center rounded-3"
-                                        style="background-color: #64f2f4;">
-                                        +1.8%
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fs-6 mt-2 text-light">Tiền trong kế hoạch</div>
-                          </div>
-                        </div>
-                      </form>
-                      <div class="col-lg-12 col-sm-12 bg-white rounded-4 p-3 mb-2">
-                        <div class="row d-flex mb-2">
-                            <div class="col-4 fw-bold fs-4">Kế hoạch chi tiêu</div>
-                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Hiện tại</div>
-                            <div class="col-3 fw-bold fs-6 d-flex align-items-center justify-content-center">Mục tiêu</div>
-                            <div class="col-2 fw-bold fs-6 d-flex align-items-center justify-content-center">Hoàn thành</div>
-                        </div>
-                        <hr>
-                        <div class="plans-list">
-                            <div class="row d-flex mt-2">
-                                <div class="col-4 d-flex align-items-center justify-content-start">
-                                    <div class="icon me-3">
-                                        <img src="../../img/Icon/NhaO.png" alt="" style="width: 50px;height: 50px;">
-                                    </div>
-                                    <div class="info">
-                                        <div class="fw-bold">
-                                            Mua nhà
-                                        </div>
-                                        <div class="text-info fs-7">
-                                            Đến tháng 9 năm 2030
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3 text-center">600.000.000đ</div>
-                                <div class="col-3 text-center">1.000.000.000đ</div>
-                                <div class="col-2 text-center">60%</div>
-                            </div>
-                            <hr>
-                            <div class="row d-flex mt-2">
-                              <div class="col-4 d-flex align-items-center justify-content-start">
-                                  <div class="icon me-3">
-                                      <img src="../../img/Icon/DienThoai.png" alt="" style="width: 50px;height: 50px;">
-                                  </div>
-                                  <div class="info">
-                                      <div class="fw-bold">
-                                          Mua điện thoại
-                                      </div>
-                                      <div class="text-info fs-7">
-                                          Đến tháng 7 năm 2024
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-3 text-center">10.000.000đ</div>
-                              <div class="col-3 text-center">20.000.000đ</div>
-                              <div class="col-2 text-center">50%</div>
-
-                          </div>
-                        </div>
-            
-                    </div>
+                    <div class="modal-body userDetail">
+                      
                     </div>
                   </div>
                 </div>
@@ -633,46 +944,9 @@
                       <h1 class="modal-title fs-5 fw-bold" id="staticBackdropLabel">Sửa thông tin người dùng</h1>
                       <button type="button" style="color: #ffffff;" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body userEdit">
 
-                      <form action="#" id="myFormEdit">
-  
-                          <div class="card imgholder rounded-circle">
-                              <label for="imgInput" class="upload">
-                                  <input type="file" name="" id="imgInput">
-                                  <i class="fa fa-plus-circle"></i>
-                              </label>
-                              <img src="" alt="" width="200" height="200" class="img rounded-circle editImg">
-                          </div>
-  
-                          <div class="inputField">
-                            <div>
-                              <label for="editName">Họ tên:</label>
-                              <input type="text" id="editName" required>
-                            </div>
-                            <div>
-                              <label for="editEmail">Email:</label>
-                              <input type="email" id="editEmail" required>
-                            </div>
-                            <div>
-                              <label for="editGender">Giới tính: </label>
-                              <input type="text" id="editGender" required>
-                            </div>
-                            <div>
-                              <label for="editPhone">Số điện thoại:</label>
-                              <input type="text" id="editPhone" required>
-                            </div>
-                            <div>
-                              <label for="editAddress">Địa chỉ:</label>
-                              <input type="text" id="editAddress" required>
-                            </div>
-                            <div>
-                              <label for="editPassword">Mật khẩu:</label>
-                              <input type="password" id="editPassword" required>
-                            </div>
-                          </div>
-                          
-                      </form>
+                      
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -738,218 +1012,8 @@
                         <th scope="col-md-4" class="thead">Hành động</th>
                       </tr>
                     </thead>
-                    <tbody class="text-center" id="myTable">
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Phùng Quang Chiến</td>
-                        <td class="email align-middle">chien1@gmail.com</td>
-                        <td class="col_gender align-middle">Nữ</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-success online mx-1"></div>
-                            <span>Online</span>
-                          </div>
-                        </td>
-                        <td class="col_plan align-middle">1</td>
-                        <td class="col_money align-middle">100,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          
-                          
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <!-- MODAL  -->
-                          
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/reus.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Phạm Tiến Đạt</td>
-                        <td class="email align-middle">chien2@gmail.com</td>
-                        <td class="col_gender align-middle">Nam</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-danger online mx-1"></div>
-                            <span>Offline</span>
-                          </div>
-                        </td>
-                        <td class="col_plan align-middle">2</td>
-                        <td class="col_money align-middle">90,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/kai.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Lê Quý Độ</td>
-                        <td class="email align-middle">chien3@gmail.com</td>
-                        <td class="col_gender align-middle">Nam</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-success online mx-1"></div>
-                            <span>Online</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">3</td>
-                        <td class="col_money align-middle">80,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Nguyễn Đức Chung</td>
-                        <td class="email align-middle">chien4@gmail.com</td>
-                        <td class="col_gender align-middle">Nam</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-danger online mx-1"></div>
-                            <span>Offline</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">4</td>
-                        <td class="col_money align-middle">70,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Lã Văn Đức</td>
-                        <td class="email align-middle">chien4@gmail.com</td>
-                        <td class="col_gender align-middle">Nữ</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-success online mx-1"></div>
-                            <span>Online</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">5</td>
-                        <td class="col_money align-middle">60,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Nguyễn Khắc Cảnh</td>
-                        <td class="email align-middle">chien4@gmail.com</td>
-                        <td class="col_gender align-middle">Nam</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-danger online mx-1"></div>
-                            <span>Offline</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">6</td>
-                        <td class="col_money align-middle">50,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Nguyễn Hữu Đức</td>
-                        <td class="email align-middle">chien4@gmail.com</td>
-                        <td class="col_gender align-middle">Nữ</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-success online mx-1"></div>
-                            <span>Online</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">7</td>
-                        <td class="col_money align-middle">40,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr>
-                      <!-- <tr>
-                        <th scope="row">
-                          <img src="../../img/foden.png" alt="" class="rounded-circle table-img" style="height: 40px;width: 40px;">
-                        </th>
-                        <td class="name align-middle">Phùng Quang Chiến</td>
-                        <td class="email align-middle">chien4@gmail.com</td>
-                        <td class="col_gender align-middle">Nam</td>
-                        <td class="status align-middle">
-                          <div class="d-flex align-items-center">
-                            <div class=" rounded-circle bg-danger online mx-1"></div>
-                            <span>Offline</span>
-                          </div>
-                          
-                        </td>
-                        <td class="col_plan align-middle">8</td>
-                        <td class="col_money align-middle">30,000,000đ</td>
-                        <td class="align-middle">
-                          <button type="button" class="border-0 bg-white info-btn" data-bs-toggle="modal" data-bs-target="#modalInfo">
-                            <i class="fa-regular fa-eye text-info fs-5 mx-1"></i>
-                          </button>
-                          <button type="button" class="edit-btn border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                            <i class="fa-solid fa-pen-to-square text-warning fs-5"></i>
-                          </button>
-                          <i class="fa-solid fa-trash text-danger fs-5 mx-1 delete" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deletePlanModal"></i>
-                        </td>
-                      </tr> -->
- 
+                    <tbody class="text-center tbody" id="myTable">
+                      
                     </tbody>
                   </table>
             </div>
