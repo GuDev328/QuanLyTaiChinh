@@ -88,6 +88,24 @@
 </style>
 <script>
     $(document).ready(function() {
+        $(".load-other").click(function (e) {
+            e.preventDefault();
+            var childUrl = $(this).attr("href");
+            $("#page-content", window.parent.document).load(childUrl);
+            const allParentSide = $("#sidebar .side-menu.top li a");
+            allParentSide.each(function () {
+                //Check if satisfy the condition
+                if ($(this).attr("href") === childUrl) {
+                    //Remove all parent has active class
+                    allParentSide.each(function () {
+                        $(this).parent().removeClass("active");
+                    })
+                    var li = $(this).parent();
+                    //Add class active for target
+                    li.addClass("active")
+                }
+            })
+        })
         //Thêm boder_bottom khi select ngày tháng
         $('.middle_time span').click(function() {
             $('.middle_time span').removeClass('select');
@@ -113,19 +131,19 @@
             $("#page-content").load(url);
         });
     
-        const allSideMenu = $("#sidebar .side-menu.top li a");
+        // const allSideMenu = $("#sidebar .side-menu.top li a");
     
-        allSideMenu.each(function () {
-            const li = $(this).parent();
+        // allSideMenu.each(function () {
+        //     const li = $(this).parent();
     
-            $(this).on("click", function () {
-                allSideMenu.each(function () {
-                    $(this).parent().removeClass("active");
-                });
-                li.addClass("active");
+        //     $(this).on("click", function () {
+        //         allSideMenu.each(function () {
+        //             $(this).parent().removeClass("active");
+        //         });
+        //         li.addClass("active");
         
-            });
-        });
+        //     });
+        // });
 
         function renderUI2() {
             let money_number = $("#money_number").val();
@@ -199,16 +217,59 @@
                     </div>
                 </div>
             `; 
+            let same_in = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+            `
+            let same_out = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -${money}
+                        </div>
+                </div>
+            `
+            
+            let result = parseFloat($(".header_money").text().trim().replace(/,/g, '').replace(/\./g, ''));
             if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
                 $(".content_2 .money_in").append(itemIn)
+                result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
+                
             } else {
                 $(".content_2 .money_out").append(itemOut)
+                result -= parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
             }
+            $(".header_money").text(result.toLocaleString('en') + 'đ')
             //Tính toán tiền ra
             let moneyItemsOut = $(".content_2 .money_out .header_item .money_item");
             let total = 0;
+            
             moneyItemsOut.each(function() {
-                total += parseInt($(this).text().trim().replace(',', ''));
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                if (!isNaN(moneyValue)) {
+                    total += moneyValue;
+                }
             });
             console.log(total)
             let money1 = total.toLocaleString('en').replace("-","")
@@ -241,13 +302,14 @@
             let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
             console.log(moneyItemsResult);
             $(".content_2 .middle_money-result").text(moneyItemsResult);
-            $(".content_2 .header_money").text(moneyItemsResult);
+            
         }
         function renderUI1() {
-            let money_number = $("#money_number").val();
+            let result = parseFloat($(".header_money").text().trim().replace(/,/g, '').replace(/\./g, ''));
+            let money_number = $("#money_number1").val();
             let money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
-            let take_note = $("#take_note").val();
-            let time_transaction = $("#time_transaction").val();
+            let take_note = $("#take_note1").val();
+            let time_transaction = $("#time_transaction1").val();
             let dateObj = new Date(time_transaction);
             let day = dateObj.getDate();
             let dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
@@ -315,17 +377,57 @@
                     </div>
                 </div>
             `; 
+            let same_in = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+            `
+            let same_out = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -${money}
+                        </div>
+                </div>
+            `
             if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
                 $(".content_1 .money_in").append(itemIn)
+                result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
+                
             } else {
                 $(".content_1 .money_out").append(itemOut)
+                result -= parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
             }
-
+            $(".header_money").text(result.toLocaleString('en') + 'đ')
+            
             //Tính toán tiền ra
             let moneyItemsOut = $(".content_1 .money_out .header_item .money_item");
             let total = 0;
             moneyItemsOut.each(function() {
-                total += parseInt($(this).text().trim().replace(',', ''));
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                if (!isNaN(moneyValue)) {
+                    total += moneyValue;
+                }
             });
             console.log(total)
             let money1 = total.toLocaleString('en').replace("-","")
@@ -346,7 +448,6 @@
                     sum += moneyValue;
                 }
             });
-
             // Chuyển đổi tổng thành chuỗi định dạng tiếng Anh
             let money2 = sum.toLocaleString('en').replace("+", "");
             console.log(money2);
@@ -358,13 +459,14 @@
             let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
             console.log(moneyItemsResult);
             $(".content_1 .middle_money-result").text(moneyItemsResult);
-            $(".content_1 .header_money").text(moneyItemsResult);
+            
         }
         function renderUI3() {
-            let money_number = $("#money_number").val();
+            let result = parseFloat($(".header_money").text().trim().replace(/,/g, '').replace(/\./g, ''));
+            let money_number = $("#money_number3").val();
             let money = parseInt(money_number.replace(/,/g, ''), 10).toLocaleString('en');
-            let take_note = $("#take_note").val();
-            let time_transaction = $("#time_transaction").val();
+            let take_note = $("#take_note3").val();
+            let time_transaction = $("#time_transaction3").val();
             let dateObj = new Date(time_transaction);
             let day = dateObj.getDate();
             let dayOfWeek = dateObj.toLocaleString('vi-VN', { weekday: 'long' });
@@ -432,17 +534,58 @@
                     </div>
                 </div>
             `; 
+            let same_in = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            +${money}
+                        </div>
+                    </div>
+            `
+            let same_out = `
+                <div class="main_item d-flex justify-content-between align-items-center">
+                        <div class="time_item d-flex align-items-center">
+                            <div class="header_icon me-4">
+                                <img src="${selectedIconSrc}" alt="">
+                            </div>
+                            <div class="time_day">
+                                <div class="day">${selectedCategory}</div>
+                                <div class="month">${take_note}</div>
+                            </div>
+                        </div>
+                        <div class="money_item">
+                            -${money}
+                        </div>
+                </div>
+            `
+            
             if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
                 $(".content_3 .money_in").append(itemIn)
+                result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
+                
             } else {
                 $(".content_3 .money_out").append(itemOut)
+                result -= parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
             }
-
+            $(".header_money").text(result.toLocaleString('en') + 'đ')
             //Tính toán tiền ra
             let moneyItemsOut = $(".content_3 .money_out .header_item .money_item");
             let total = 0;
             moneyItemsOut.each(function() {
-                total += parseInt($(this).text().trim().replace(',', ''));
+                let moneyText = $(this).text().trim().replace(/,/g, '').replace(/\./g, '');
+                let moneyValue = parseFloat(moneyText);
+                if (!isNaN(moneyValue)) {
+                    total += moneyValue;
+                }
+                
             });
             console.log(total)
             let money1 = total.toLocaleString('en').replace("-","")
@@ -475,7 +618,7 @@
             let moneyItemsResult = (parseInt(money2.replace(/,/g, ''), 10) - parseInt(money1.replace(/,/g, ''), 10)).toLocaleString('en');
             console.log(moneyItemsResult);
             $(".content_3 .middle_money-result").text(moneyItemsResult);
-            $(".content_3 .header_money").text(moneyItemsResult);
+            
         }
         //Render dữ liệu nhập ra UI
         $(".save_1").click(function() {
@@ -525,48 +668,49 @@
 
 </script>
 <div class="container rounded-3 p-0 layout_1">
+    <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center fixed">
+        <div class="header_left ms-3">
+            <div class="header_label mt-1">
+                SỐ DƯ
+            </div>
+            <div class="header_money fs-5 fw-bold">
+                50,000,000đ
+            </div>
+        </div>
+        <div class="header_middle d-flex align-items-center rounded-2 me-5">
+            
+            <!-- <div class="header_icon ms-1">
+                <img src="../../img/Icon/icon_25.png" alt="">
+            </div>
+            <div class="dropdown-center">
+                <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Ví giao dịch
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end position-absolute">
+                  <li><a class="dropdown-item vi_1" href="#">Ví chính</a></li>
+                  <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
+                  <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
+                </ul>
+              </div> -->
+        </div>
+        <div class="header_right d-flex align-items-center gap-4 me-3">
+            <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Ngày</a></li>
+                <li><a class="dropdown-item" href="#">Tháng</a></li>
+                <li><a class="dropdown-item" href="#">Năm</a></li>
+              </ul>
+        </div>
+    </div>
+            <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around btn-group" role="group">
+                <span class="col-lg-4 text-center time_1 ">11/2023</span>
+                <span class="col-lg-4 text-center select time_2">12/2023</span>
+                <span class="col-lg-4 text-center time_3">01/2024</span>
+            </div>
     <div class="content_1" style="display: none;">
-        <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center fixed">
-            <div class="header_left ms-3">
-                <div class="header_label mt-1">
-                    SỐ DƯ
-                </div>
-                <div class="header_money fs-5 fw-bold">
-                    4,500,000đ
-                </div>
-            </div>
-            <div class="header_middle d-flex align-items-center rounded-2 me-5">
-                
-                <!-- <div class="header_icon ms-1">
-                    <img src="../../img/Icon/icon_25.png" alt="">
-                </div>
-                <div class="dropdown-center">
-                    <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Ví giao dịch
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end position-absolute">
-                      <li><a class="dropdown-item vi_1" href="#">Ví chính</a></li>
-                      <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
-                      <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
-                    </ul>
-                  </div> -->
-            </div>
-            <div class="header_right d-flex align-items-center gap-4 me-3">
-                <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Ngày</a></li>
-                    <li><a class="dropdown-item" href="#">Tháng</a></li>
-                    <li><a class="dropdown-item" href="#">Năm</a></li>
-                  </ul>
-            </div>
-        </div>
-        <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around btn-group" role="group">
-            <span class="col-lg-4 text-center time_1 ">11/2023</span>
-            <span class="col-lg-4 text-center select time_2">12/2023</span>
-            <span class="col-lg-4 text-center time_3">01/2024</span>
-        </div>
+        
         <div class="middle_transaction position-relative ">
             <div class="middle_calculate text-center">
                 <div class="middle_in row">
@@ -584,10 +728,10 @@
             </div>
             <div class="text-center">
                 <button class="middle_btn">
-                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
-                        data-placement="right" title="Phân tích">
-                        <span class="text">Xem báo cáo cho giai đoạn này</span>
+                    <a  class="load-other  middle_link text-decoration-none " href="./pages/content/Analysis.html"> 
+                        Xem báo cáo cho giai đoạn này
                     </a>
+                    
                 </button>
             </div>
             <button type="button" class=" add_transaction position-absolute border-0" data-bs-toggle="modal" data-bs-target="#exampleModal1">
@@ -660,15 +804,15 @@
                             
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control money_number" id="floatingInput" placeholder="Tên danh mục">
+                                <input type="number" class="form-control " id="money_number1" placeholder="Tên danh mục">
                                 <label for="floatingInput">Số tiền</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="name" class="form-control take_note" id="floatingInput" placeholder="Tên danh mục">
+                                <input type="name" class="form-control " id="take_note1" placeholder="Tên danh mục">
                                 <label for="floatingInput">Ghi chú</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control time_transaction" id="dateInput" >
+                                <input type="date" class="form-control " id="time_transaction1" >
                                 <label for="dateInput">Thời gian</label>
                             </div>
                             
@@ -839,47 +983,7 @@
         </div>
     </div>
     <div class="content_2">
-        <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center fixed">
-            <div class="header_left ms-3">
-                <div class="header_label mt-1">
-                    SỐ DƯ
-                </div>
-                <div class="header_money fs-5 fw-bold">
-                    5,800,000đ
-                </div>
-            </div>
-            <div class="header_middle d-flex align-items-center rounded-2 me-5">
-                
-                <!-- <div class="header_icon ms-1">
-                    <img src="../../img/Icon/icon_25.png" alt="">
-                </div>
-                <div class="dropdown-center">
-                    <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Ví giao dịch
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end position-absolute">
-                      <li><a class="dropdown-item vi_1" href="#">Ví chính</a></li>
-                      <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
-                      <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
-                    </ul>
-                  </div> -->
-            </div>
-            <div class="header_right d-flex align-items-center gap-4 me-3">
-                <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Ngày</a></li>
-                    <li><a class="dropdown-item" href="#">Tháng</a></li>
-                    <li><a class="dropdown-item" href="#">Năm</a></li>
-                  </ul>
-            </div>
-        </div>
-        <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around btn-group" role="group">
-            <span class="col-lg-4 text-center time_1 ">11/2023</span>
-            <span class="col-lg-4 text-center select time_2">12/2023</span>
-            <span class="col-lg-4 text-center time_3">01/2024</span>
-        </div>
+        
         <div class="middle_transaction position-relative ">
             <div class="middle_calculate text-center">
                 <div class="middle_in row">
@@ -897,7 +1001,7 @@
             </div>
             <div class="text-center">
                 <button class="middle_btn">
-                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
+                    <a href="./pages/content/Analysis.html" class="load-other middle_link text-decoration-none" data-toggle="tooltip"
                         data-placement="right" title="Phân tích">
                         <span class="text">Xem báo cáo cho giai đoạn này</span>
                     </a>
@@ -1001,12 +1105,12 @@
                     <div class="header_list header_list_out bg-danger">
                         
                     </div>
-                    <div class="item_1 px-2">
+                    <div class="item_1 px-2" id="1">
                         <div class="header_item d-flex justify-content-between align-items-center">
                             <div class="time_item d-flex gap-3 align-items-center">
                                 <div class="time_main fw-bold">16</div>
                                 <div class="time_day">
-                                    <div class="day">Chủ Nhật</div>
+                                    <div class="day">Thứ Bảy</div>
                                     <div class="month">tháng 12 2023</div>
                                 </div>
                             </div>
@@ -1029,7 +1133,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item_2 item_1 px-2 item_1">
+                    <div class="item_2 item_1 px-2 item_1" id="2">
                         <div class="header_item d-flex justify-content-between align-items-center">
                             <div class="time_item d-flex gap-3 align-items-center">
                                 <div class="time_main fw-bold">30</div>
@@ -1082,7 +1186,7 @@
                             <div class="time_item d-flex gap-3 align-items-center">
                                 <div class="time_main fw-bold">27</div>
                                 <div class="time_day">
-                                    <div class="day">Thứ Sáu</div>
+                                    <div class="day">Thứ Tư</div>
                                     <div class="month">tháng 12 2023</div>
                                 </div>
                             </div>
@@ -1108,9 +1212,9 @@
                     <div class="item_2 item_1 px-2">
                         <div class="header_item d-flex justify-content-between align-items-center">
                             <div class="time_item d-flex gap-3 align-items-center">
-                                <div class="time_main fw-bold">30</div>
+                                <div class="time_main fw-bold">29</div>
                                 <div class="time_day">
-                                    <div class="day">Thứ Hai</div>
+                                    <div class="day">Thứ Sáu</div>
                                     <div class="month">tháng 12 2023</div>
                                 </div>
                             </div>
@@ -1152,47 +1256,8 @@
         </div>
     </div>
     <div class="content_3" style="display: none;">
-        <div class="header_transaction d-flex justify-content-between rounded-3 align-items-center fixed">
-            <div class="header_left ms-3">
-                <div class="header_label mt-1">
-                    SỐ DƯ
-                </div>
-                <div class="header_money fs-5 fw-bold">
-                    5,200,000đ
-                </div>
-            </div>
-            <div class="header_middle d-flex align-items-center rounded-2 me-5">
-                
-                <!-- <div class="header_icon ms-1">
-                    <img src="../../img/Icon/icon_25.png" alt="">
-                </div>
-                <div class="dropdown-center">
-                    <button class="btn btn-secondary dropdown-toggle bg-white border-0 text-dark vi position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Ví giao dịch
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end position-absolute">
-                      <li><a class="dropdown-item vi_1" href="#">Ví chính</a></li>
-                      <li><a class="dropdown-item vi_2" href="#">Ví phụ</a></li>
-                      <li><a class="dropdown-item vi_3" href="#">Ví dự phòng</a></li>
-                    </ul>
-                  </div> -->
-            </div>
-            <div class="header_right d-flex align-items-center gap-4 me-3">
-                <div class="header_expand fs-3 dropdown" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Ngày</a></li>
-                    <li><a class="dropdown-item" href="#">Tháng</a></li>
-                    <li><a class="dropdown-item" href="#">Năm</a></li>
-                  </ul>
-            </div>
-        </div>
-        <div class="middle_time mt-2 mb-4 fw-bold d-flex justify-content-around btn-group" role="group">
-            <span class="col-lg-4 text-center time_1 ">11/2023</span>
-            <span class="col-lg-4 text-center select time_2">12/2023</span>
-            <span class="col-lg-4 text-center time_3">01/2024</span>
-        </div>
+        
+        
         <div class="middle_transaction position-relative ">
             <div class="middle_calculate text-center">
                 <div class="middle_in row">
@@ -1210,7 +1275,7 @@
             </div>
             <div class="text-center">
                 <button class="middle_btn">
-                    <a href="./pages/content/Analysis.html" class="middle_link text-decoration-none" data-toggle="tooltip"
+                    <a href="./pages/content/Analysis.html" class="load-other middle_link text-decoration-none" data-toggle="tooltip"
                         data-placement="right" title="Phân tích">
                         <span class="text">Xem báo cáo cho giai đoạn này</span>
                     </a>
@@ -1286,15 +1351,15 @@
                             
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control money_number" id="floatingInput" placeholder="Tên danh mục">
+                                <input type="number" class="form-control " id="money_number3" placeholder="Tên danh mục">
                                 <label for="floatingInput">Số tiền</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="name" class="form-control take_note" id="floatingInput" placeholder="Tên danh mục">
+                                <input type="name" class="form-control " id="take_note3" placeholder="Tên danh mục">
                                 <label for="floatingInput">Ghi chú</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control time_transaction" id="dateInput" >
+                                <input type="date" class="form-control " id="time_transaction3" >
                                 <label for="dateInput">Thời gian</label>
                             </div>
                             

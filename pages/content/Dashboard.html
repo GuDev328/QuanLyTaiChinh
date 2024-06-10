@@ -850,6 +850,7 @@
         //Navigate page
         $(".load-other").click(function (e) {
             e.preventDefault();
+            alert("HELLO")
             var childUrl = $(this).attr("href");
             $("#page-content", window.parent.document).load(childUrl);
 
