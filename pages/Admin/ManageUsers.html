@@ -802,13 +802,15 @@
         $('#editPassword').val(planDataList[indexSelected].password); // Change this if necessary
         $('.editImg').attr('src', planDataList[indexSelected].avt);
     });
-
+    
     // Event listener for the image input change to update the image preview
-    $('#imgInput').on('change', function() {
+    $(document).on('change','#imgInput', function() {
+      
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('.editImg').attr('src', e.target.result);
+               
                 currentRow.find('.table-img').attr('src', e.target.result);
             };
             reader.readAsDataURL(this.files[0]);
