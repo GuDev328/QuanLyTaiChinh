@@ -190,15 +190,15 @@
                 </table>
             </div>
             <div class="page_user d-flex align-items-center justify-content-center">
-                <div class="rounded-circle bg-white text-center mx-1 page_1"
-                    style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i
+                <div class="rounded-circle  text-center mx-1 bg-white controPage page_1"
+                    style="width: 30px;height: 30px;line-height: 30px; cursor: pointer; color: black  !important;"><i
                         class="fa-solid fa-chevron-left"></i></div>
-                <div class="rounded-circle text-center bg-white mx-1 page_1 "
+                <div class="rounded-circle text-center  mx-1 page_1 "
                     style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;">1</div>
-                <div class="rounded-circle bg-white text-center mx-1 s page_2"
+                <div class="rounded-circle  text-center mx-1 s page_2"
                     style="width: 30px;height: 30px;line-height: 30px;cursor: pointer;">2</div>
-                <div class="rounded-circle bg-white text-center mx-1 page_2"
-                    style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i
+                <div class="rounded-circle bg-white controPage text-center mx-1 page_2"
+                    style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;color: black  !important;"><i
                         class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
@@ -522,10 +522,18 @@
         })
 
         pageSelected = 1;
+        $(".page_1").css("background-color", "#3c91e6")
+        $(".page_1").css("color", "#fff")
+        $('.controPage').css("color", "#333")
         $(".page_1").click(function () {
             if (pageSelected === 1) return;
             resetDataFromPrev()
             pageSelected = 1;
+            $(".page_1").css("background-color", "#3c91e6")
+            $(".page_1").css("color", "#fff")
+            $(".page_2").css("background-color", "#fff")
+            $(".page_2").css("color", "#333")
+            $('.controPage').css("color", "#333")
             loadData()
 
         })
@@ -533,6 +541,11 @@
             if (pageSelected === 2) return;
             resetDataFromPrev()
             pageSelected = 2;
+            $(".page_2").css("background-color", "#3c91e6")
+            $(".page_2").css("color", "#fff")
+            $(".page_1").css("background-color", "#fff")
+            $(".page_1").css("color", "#333")
+            $('.controPage').css("color", "#333")
             loadData()
 
         })
