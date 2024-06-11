@@ -823,6 +823,7 @@
 
         // Get values from the form
         let name = $('#editName').val();
+        let avt = $('.editImg').attr('src');
         let email = $('#editEmail').val();
         let gender = $('#editGender').val();
         let phoneNumber = $('#editPhone').val();
@@ -841,6 +842,8 @@
         planDataList[indexSelected].phoneNumber = phoneNumber;
         planDataList[indexSelected].address = address;
         planDataList[indexSelected].password = password;
+        planDataList[indexSelected].avt = avt;
+
 
         // Close the modal
         $('#modalEdit').modal('hide');
