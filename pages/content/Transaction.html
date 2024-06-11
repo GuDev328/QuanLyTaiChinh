@@ -251,7 +251,7 @@
             `
             
             let result = parseFloat($(".header_money").text().trim().replace(/,/g, '').replace(/\./g, ''));
-            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác" || selectedCategory == "Thu nợ" || selectedCategory == "Đi vay") {
                 $(".content_2 .money_in").append(itemIn)
                 result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
                 
@@ -409,7 +409,7 @@
                         </div>
                 </div>
             `
-            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác" || selectedCategory == "Thu nợ" || selectedCategory == "Đi vay") {
                 $(".content_1 .money_in").append(itemIn)
                 result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
                 
@@ -567,7 +567,7 @@
                 </div>
             `
             
-            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác") {
+            if(selectedCategory == "Lương" || selectedCategory == "Thu nhập khác" || selectedCategory == "Thu nợ" || selectedCategory == "Đi vay") {
                 $(".content_3 .money_in").append(itemIn)
                 result += parseFloat(money.trim().replace(/,/g, '').replace(/\./g, ''));
                 
@@ -795,6 +795,22 @@
                                         <img class="icon mx-2" src="../../Icon/icon_23.png"/>
                                         <div class="">Thu nhập khác</div>
                                     </li>
+                                    <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_120.png"/>
+    <div class="">Cho vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_140.png"/>
+    <div class="">Thu nợ</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_112.png"/>
+    <div class="">Đi vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_141.png"/>
+    <div class="">Trả nợ</div>
+</li>
                                     </ul>
                                     <div class="d-flex align-items-center mb-3">
                                         <img class="icon prevIconCata" src="" alt="">
@@ -809,7 +825,11 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="name" class="form-control " id="take_note1" placeholder="Tên danh mục">
-                                <label for="floatingInput">Ghi chú</label>
+                            <label for="floatingInput">Ghi chú</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="name" class="form-control " id="" placeholder="Tên danh mục">
+                                <label for="floatingInput">Với ai</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="date" class="form-control " id="time_transaction1" >
@@ -1068,6 +1088,23 @@
                                         <img class="icon mx-2" src="../../Icon/icon_23.png"/>
                                         <div class="">Thu nhập khác</div>
                                     </li>
+                                    <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_120.png"/>
+    <div class="">Cho vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_140.png"/>
+    <div class="">Thu nợ</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_112.png"/>
+    <div class="">Đi vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_141.png"/>
+    <div class="">Trả nợ</div>
+</li>
+                                    
                                     </ul>
                                     <div class="d-flex align-items-center mb-3">
                                         <img class="icon prevIconCata" src="" alt="">
@@ -1082,7 +1119,11 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control " id="take_note" placeholder="Tên danh mục">
-                                <label for="floatingInput">Ghi chú</label>
+                            <label for="floatingInput">Ghi chú</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="name" class="form-control " id="" placeholder="Tên danh mục">
+                                <label for="floatingInput">Với ai</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="date" class="form-control " id="time_transaction" >
@@ -1296,13 +1337,13 @@
                             <button class="btn btn-primary mb-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Chọn Danh mục chi tiêu
                             </button>
-                            <div class="d-flex">
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                            <div class="d-flex ">
+                                <ul class="dropdown-menu row">
+                                    <li class=" dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
                                         <img class="icon mx-2" src="../../Icon/icon_116.png"/>
                                         <div class="">Ăn uống</div>
                                     </li>
-                                    <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+                                    <li class=" dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
                                         <img class="icon mx-2" src="../../Icon/icon_12.png"/>
                                         <div class="">Di chuyển</div>
                                     </li>
@@ -1342,6 +1383,22 @@
                                         <img class="icon mx-2" src="../../Icon/icon_23.png"/>
                                         <div class="">Thu nhập khác</div>
                                     </li>
+                                    <li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_120.png"/>
+    <div class="">Cho vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_140.png"/>
+    <div class="">Thu nợ</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_112.png"/>
+    <div class="">Đi vay</div>
+</li>
+<li class="dropdown-item itemPlanCata d-flex justify-content-start align-items-center">
+    <img class="icon mx-2" src="../../Icon/icon_141.png"/>
+    <div class="">Trả nợ</div>
+</li>
                                     </ul>
                                     <div class="d-flex align-items-center mb-3">
                                         <img class="icon prevIconCata" src="" alt="">
@@ -1356,7 +1413,11 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="name" class="form-control " id="take_note3" placeholder="Tên danh mục">
-                                <label for="floatingInput">Ghi chú</label>
+                            <label for="floatingInput">Ghi chú</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="name" class="form-control " id="" placeholder="Tên danh mục">
+                                <label for="floatingInput">Với ai</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="date" class="form-control " id="time_transaction3" >
