@@ -399,6 +399,7 @@
             // }
         ]
     }
+    
     var indexSelected = 0
     resetData();
     function loadData() {
@@ -525,7 +526,7 @@
                                             ${planDataList[indexSelected].plan}
                                         </div>
                                         <div class="text-info fs-7">
-                                            Đến tháng 9 năm 2030
+                                            ${planDataList[indexSelected].goalDay}
                                         </div>
                                     </div>
                                 </div>
@@ -726,57 +727,122 @@
 
 
 
-        // Sủa thông tin người dùng
-        let currentRow;
-        $('.edit-btn').on('click', function() {
-              currentRow = $(this).closest('tr');
-        });
-        $(".submit").click(function(event) {
-        
-          // Event listener for the edit button to track the current row
+      //   // Sủa thông tin người dùng
+      //   let currentRow;
+      //   $('.edit-btn').on('click', function() {
+      //         currentRow = $(this).closest('tr');
+      //   });
+      //   $(".submit").click(function(event) {
           
-          let classOfPlanSelected = $(this).attr("class")
-              indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
-              selectedPlanToInMoney = indexSelected
 
-          event.preventDefault(); // Ngăn chặn form submit mặc định
-          //let imgUrl = $('.editImg').attr('src');
-          let name = $('#editName').val();
-          let email = $('#editEmail').val();
-          let gender = $('#editGender').val();
-          let phoneNumber = $('#editPhone').val();
-          let address = $('#editAddress').val();
-          let password = $('#editPassword').val();
-          // Ghi lại các thay đổi vào bảng
-          currentRow.find('.name').text(name);
-          currentRow.find('.email').text(email);
-          currentRow.find('.col_gender').text(gender);
+      //     // Event listener for the edit button to track the current row
+          
+      //     let classOfPlanSelected = $(this).attr("class")
+      //         indexSelected = classOfPlanSelected.charAt(classOfPlanSelected.length - 1)
+      //         selectedPlanToInMoney = indexSelected
 
-          // Đóng modal
-          $('#modalEdit').modal('hide');
-        })
+      //     event.preventDefault(); // Ngăn chặn form submit mặc định
+      //     //let imgUrl = $('.editImg').attr('src');
+      //     let name = $('#editName').val();
+      //     let email = $('#editEmail').val();
+      //     let gender = $('#editGender').val();
+      //     let phoneNumber = $('#editPhone').val();
+      //     let address = $('#editAddress').val();
+      //     let password = $('#editPassword').val();
+      //     // Ghi lại các thay đổi vào bảng
+      //     currentRow.find('.name').text(name);
+      //     currentRow.find('.email').text(email);
+      //     currentRow.find('.col_gender').text(gender);
+
+      //     // Đóng modal
+      //     $('#modalEdit').modal('hide');
+      //   })
         
-        $('#imgInput').on('change', function() {
+      //   $('#imgInput').on('change', function() {
+      //     if (this.files && this.files[0]) {
+      //       var reader = new FileReader();
+      //       reader.onload = function(e) {
+      //         $('.editImg').attr('src', e.target.result);
+      //         currentRow.find('.table-img').attr('src', e.target.result);
+      //       }
+      //       reader.readAsDataURL(this.files[0]);
+      //     }
+      //   });
+
+
+        $('#newUploadImg').on('change', function() {
         if (this.files && this.files[0]) {
-            let reader = new FileReader();
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('.new-img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+
+
+
+
+
+
+      var currentRow;
+      var indexSelected;
+
+    // Event listener for the edit button to track the current row and populate the form
+    $('.edit-btn').on('click', function() {
+        currentRow = $(this).closest('tr');
+        indexSelected = $(this).data('index'); // Assuming data-index holds the index
+
+        // Populate the form with current values
+        $('#editName').val(planDataList[indexSelected].name);
+        $('#editEmail').val(planDataList[indexSelected].email);
+        $('#editGender').val(planDataList[indexSelected].gender);
+        $('#editPhone').val(planDataList[indexSelected].phoneNumber);
+        $('#editAddress').val(planDataList[indexSelected].address);
+        $('#editPassword').val(planDataList[indexSelected].password); // Change this if necessary
+        $('.editImg').attr('src', planDataList[indexSelected].avt);
+    });
+
+    // Event listener for the image input change to update the image preview
+    $('#imgInput').on('change', function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
             reader.onload = function(e) {
                 $('.editImg').attr('src', e.target.result);
                 currentRow.find('.table-img').attr('src', e.target.result);
             };
             reader.readAsDataURL(this.files[0]);
         }
-        });
+    });
 
-        // Event listener for new image upload to update the image preview
-        $('#newUploadImg').on('change', function() {
-            if (this.files && this.files[0]) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    $('.new-img').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+    // Event listener for the form submission
+    $('.submit').click(function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get values from the form
+        let name = $('#editName').val();
+        let email = $('#editEmail').val();
+        let gender = $('#editGender').val();
+        let phoneNumber = $('#editPhone').val();
+        let address = $('#editAddress').val();
+        let password = $('#editPassword').val();
+
+        // Update the table row with new values
+        currentRow.find('.name').text(name);
+        currentRow.find('.email').text(email);
+        currentRow.find('.col_gender').text(gender);
+
+        // Optionally, update the planDataList array if you need to keep it in sync
+        planDataList[indexSelected].name = name;
+        planDataList[indexSelected].email = email;
+        planDataList[indexSelected].gender = gender;
+        planDataList[indexSelected].phoneNumber = phoneNumber;
+        planDataList[indexSelected].address = address;
+        planDataList[indexSelected].password = password;
+
+        // Close the modal
+        $('#modalEdit').modal('hide');
+    });
 
 
 
@@ -808,7 +874,7 @@
                 goal: 0,
                 numberPlan: 0,
                 startDay: "01/06/2022",
-                goalDay: "03/03/2025",
+                goalDay: "",
                 description: "Đang lên kế hoạch mua một chiếc xe máy mới để đi làm hàng ngày."
         })
       
@@ -825,6 +891,14 @@
         $('.list_user_1').css("display","block");
       })
       $('.page_1').click(function() {
+        $('.list_user').show();
+        $('.list_user_1').css("display","none");
+      })
+      $('.next_page').click(function() {
+        $('.list_user').hide();
+        $('.list_user_1').css("display","block");
+      })
+      $('.pre_page').click(function() {
         $('.list_user').show();
         $('.list_user_1').css("display","none");
       })
@@ -1214,7 +1288,7 @@
                 </table>
           </div>
             <div class="page_user d-flex align-items-center justify-content-center">
-              <div class="rounded-circle bg-white text-center mx-1 pre_page" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></div>
+              <div class="rounded-circle bg-white text-center pre_page mx-next" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></div>
               <div class="rounded-circle text-center bg-white mx-1 select_page select page_1" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;">1</div>
               <div class="rounded-circle bg-white text-center mx-1 select_page page_2" style="width: 30px;height: 30px;line-height: 30px;cursor: pointer;">2</div>
               <div class="rounded-circle bg-white text-center mx-1 next_page" style="width: 30px;height: 30px;line-height: 30px; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></div>
